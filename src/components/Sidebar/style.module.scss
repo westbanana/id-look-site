@@ -10,17 +10,37 @@
   position: relative;
   transition: 0.3s;
   .logoContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
     margin-top: 38px;
+    &:hover .logo{
+      transform: scale(110%);
+    }
+    .logo{
+      transition: 0.3s;
+    }
   }
   .menuContainer{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .profileContainer{
+      .profile{
+
+      }
+    }
   }
   .swiperContainer{
     margin-bottom: 38px;
     position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover{
+      transform: rotate(360deg);
+    }
   }
   .arrowContainer{
     user-select: none;
@@ -40,7 +60,26 @@
       transform: rotate(180deg);
     }
   }
+  .marksContainer{
+    .marks{
+
+    }
+  }
 }
+
+.marksContainer,
+.profileContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  span{
+    margin-left: 15px;
+    font-weight: 500;
+  }
+}
+
 
 .mainOpen{
   width: 200px;
