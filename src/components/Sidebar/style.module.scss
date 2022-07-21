@@ -1,0 +1,51 @@
+.main{
+  background-color: #1A2932;
+  height: 100%;
+  width: 100px;
+  color: #436E85;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  transition: 0.3s;
+  .logoContainer{
+    margin-top: 38px;
+  }
+  .menuContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .swiperContainer{
+    margin-bottom: 38px;
+    position: relative;
+  }
+  .arrowContainer{
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background-color: #1A2932;
+    height: 25px;
+    width: 25px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    left: 50%;
+    img{
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.mainOpen{
+  width: 200px;
+}
+
+.arrowRotate{
+  transform: rotate(180deg);
+}

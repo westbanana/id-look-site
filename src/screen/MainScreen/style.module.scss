@@ -1,0 +1,93 @@
+.main{
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: #16222A;
+  background: radial-gradient(circle, rgba(22,28,42,1) 0%, rgba(58,96,115,1) 100%);
+  .headerContainer{
+    display: flex;
+    flex-direction: column;
+    .logInContainer{
+    }
+    .searchContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input{
+        border: none;
+        outline: none;
+        color: #436E85;
+        padding: 8px 0 8px 20px;
+        max-width: 300px;
+        background: #1A2932;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        &::placeholder{
+          opacity: 0;
+        }
+      }
+    }
+    .navContainer{
+      display: flex;
+      flex-direction: row;
+      .navMenu{
+
+      }
+    }
+    .sortContainer{
+
+    }
+  }
+  .moviesContainer{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+    transition: 0.3s;
+    .movieContainer{
+      margin: 60px 0;
+      height: 305px;
+      width: 210px;
+      background: #1A2932;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      .moviePoster{
+        min-height: 100%;
+        width: 100%;
+      }
+      .movieInfoContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.42);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 10px 0;
+        .movieTitle{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 11px;
+          text-align: center;
+          color: #436E85;
+          text-overflow: ellipsis;
+        }
+        .rateContainer{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .movieRate{
+            font-style: normal;
+            font-weight: 500;
+            font-size: 9px;
+            line-height: 11px;
+            text-align: center;
+            color: #436E85;
+          }
+          .starIco{
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+}
