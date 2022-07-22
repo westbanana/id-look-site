@@ -2,9 +2,17 @@ import React from 'react';
 
 import s from './style.module.scss';
 
-const SortButton = ({ arr }) => (
+const SortButton = ({ arr, setSelectedSort }) => (
   <div className={s.sortList}>
-    {arr.map(e => <span className={s.sortTitle}>{e}</span>)}
+    {arr.map(element => (
+      <input
+        readOnly
+        className={s.sortTitle}
+        value={element}
+        onClick={e => setSelectedSort(e.target.value)}
+      />
+    ))}
   </div>
 );
+
 export default SortButton;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useClickAway } from 'react-use';
 
 import s from './style.module.scss';
 
@@ -14,8 +15,9 @@ const MainScreen = () => {
     'за рейтингом',
     'за переглядами',
   ]);
-  const [selectedSort] = useState(sortList[2]);
+  const [selectedSort, setSelectedSort] = useState(sortList[0]);
   const refSortArrow = useRef(null);
+  const refSortModal = useRef(null);
 
   const getMovieList = () => {
     fetch('https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk')
@@ -31,15 +33,21 @@ const MainScreen = () => {
 
   const openSortModal = () => {
     if (refSortArrow.current.classList.contains(`${s.open}`)) {
+      setExpand(false);
       refSortArrow.current.classList.remove(`${s.open}`);
       refSortArrow.current.classList.add(`${s.sortArrow}`);
-      setExpand(!expand);
     } else {
       refSortArrow.current.classList.add(`${s.open}`);
       refSortArrow.current.classList.remove(`${s.sortArrow}`);
-      setExpand(!expand);
+      setExpand(true);
     }
   };
+
+  useClickAway(refSortModal, () => {
+    setExpand(false);
+    refSortArrow.current.classList.remove(`${s.open}`);
+    refSortArrow.current.classList.add(`${s.sortArrow}`);
+  });
 
   return (
     <div className={s.main}>
@@ -57,13 +65,13 @@ const MainScreen = () => {
             <span>Серіали</span>
             <span>Мультфільми</span>
           </div>
-          <div className={s.sortContainer}>
-            <span className={s.sortTitle}>
+          <div className={s.sortContainer} ref={refSortModal}>
+            <span role="presentation" className={s.sortTitle} onClick={openSortModal}>
               {selectedSort}
             </span>
             <SortArrow role="presentation" className={s.sortArrow} ref={refSortArrow} onClick={openSortModal} />
             {expand ? (
-              <SortButton arr={sortList} />
+              <SortButton arr={sortList} setExpand={setExpand} setSelectedSort={setSelectedSort} />
             )
               : ''}
           </div>

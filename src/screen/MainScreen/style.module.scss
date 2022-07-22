@@ -85,6 +85,7 @@
       position: relative;
       justify-content: center;
       width: 150px;
+      user-select: none;
       .sortTitle{
         font-style: normal;
         font-weight: 600;
@@ -92,6 +93,7 @@
         line-height: 20px;
         color: #4d7f9a;
         margin-right: 15px;
+        cursor: pointer;
       }
       .sortArrow{
         transition: 0.3s;
@@ -110,7 +112,7 @@
   .moviesContainer{
     display: grid;
     justify-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     transition: 0.3s;
     .movieContainer{
       transition: 0.3s;
