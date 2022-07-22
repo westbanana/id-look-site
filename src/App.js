@@ -5,6 +5,7 @@ import MainScreen from './screen/MainScreen';
 import Sidebar from './components/Sidebar';
 
 import s from './App.module.scss';
+import Profile from './screen/ProfileScreen';
 
 const App = () => {
   const [movieList, setMovieList] = useState([]);
@@ -28,6 +29,7 @@ const App = () => {
       <Sidebar />
       <Routes>
         <Route path="/" element={<MainScreen />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

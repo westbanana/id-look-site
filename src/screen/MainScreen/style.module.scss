@@ -2,8 +2,21 @@
   height: 100%;
   width: 100%;
   overflow: auto;
-  background: #16222A;
-  background: radial-gradient(circle, rgba(22,28,42,1) 0%, rgba(58,96,115,1) 100%);
+  background: #17222A;
+  background: -webkit-radial-gradient(center, #17222A, #3A6073);
+  background: -moz-radial-gradient(center, #17222A, #3A6073);
+  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  &::-webkit-scrollbar{
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #17222A;
+    border-radius: 10px;
+    margin: 0 2px;
+  }
   .headerContainer{
     display: flex;
     flex-direction: column;
@@ -16,8 +29,10 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 20px;
-        color: #1A2932;
+        color: #4d7f9a;
         margin-right: 20px;
+        text-decoration: underline;
+        margin-top: 10px;
       }
     }
     .searchContainer{
@@ -52,7 +67,7 @@
           font-weight: 600;
           font-size: 16px;
           line-height: 20px;
-          color: #1A2932;
+          color: #4d7f9a;
           margin: 0 26px;
           cursor: pointer;
           transition: 0.3s;
@@ -64,12 +79,31 @@
       }
     }
     .sortContainer{
-      span{
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      position: relative;
+      justify-content: center;
+      width: 150px;
+      .sortTitle{
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
         line-height: 20px;
-        color: #1A2932;
+        color: #4d7f9a;
+        margin-right: 15px;
+      }
+      .sortArrow{
+        transition: 0.3s;
+        cursor: pointer;
+        fill: #4d7f9a;
+        transform: rotate(-90deg);
+      }
+      .open{
+        transition: 0.3s;
+        cursor: pointer;
+        fill: #4d7f9a;
+        transform: rotate(90deg);
       }
     }
   }
@@ -90,6 +124,7 @@
       justify-content: space-between;
       text-align: center;
       .moviePoster{
+        transition: 0.3s;
         min-height: 100%;
         width: 100%;
       }
@@ -135,4 +170,8 @@
       }
     }
   }
+}
+
+a{
+  text-decoration: none;
 }

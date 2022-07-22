@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
 
@@ -26,17 +27,21 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={s.main} ref={refSidebar}>
+    <div role="presentation" className={s.main} ref={refSidebar}>
       <div className={s.logoContainer}>
-        <img className={s.logo} alt="logo" src={logo} />
+        <Link to="/">
+          <img className={s.logo} alt="logo" src={logo} />
+        </Link>
       </div>
       <div className={s.menuContainer}>
-        <div className={s.profileContainer}>
-          <img className={s.profile} alt="profileIco" src={profile} />
-          {isSideBar && (
-            <span>Profile</span>
-          )}
-        </div>
+        <Link to="/profile">
+          <div className={s.profileContainer}>
+            <img className={s.profile} alt="profileIco" src={profile} />
+            {isSideBar && (
+              <span>Profile</span>
+            )}
+          </div>
+        </Link>
         <div ref={refArrow} role="presentation" className={s.arrowContainer} onClick={openSidebar}>
           <img src={arrow} alt="arrow" />
         </div>

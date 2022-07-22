@@ -1,11 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import s from './style.module.scss';
 
 import star from '../../assests/star.svg';
+import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
+import SortButton from '../../components/SortButton';
 
 const MainScreen = () => {
   const [movieList, setMovieList] = useState();
+  const [expand, setExpand] = useState(false);
+  const [sortList] = useState([
+    'за датою',
+    'за рейтингом',
+    'за переглядами',
+  ]);
+  const [selectedSort] = useState(sortList[2]);
+  const refSortArrow = useRef(null);
 
   const getMovieList = () => {
     fetch('https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk')
@@ -18,6 +28,18 @@ const MainScreen = () => {
   useEffect(() => {
     getMovieList();
   }, []);
+
+  const openSortModal = () => {
+    if (refSortArrow.current.classList.contains(`${s.open}`)) {
+      refSortArrow.current.classList.remove(`${s.open}`);
+      refSortArrow.current.classList.add(`${s.sortArrow}`);
+      setExpand(!expand);
+    } else {
+      refSortArrow.current.classList.add(`${s.open}`);
+      refSortArrow.current.classList.remove(`${s.sortArrow}`);
+      setExpand(!expand);
+    }
+  };
 
   return (
     <div className={s.main}>
@@ -36,9 +58,14 @@ const MainScreen = () => {
             <span>Мультфільми</span>
           </div>
           <div className={s.sortContainer}>
-            <span>
-              за датою
+            <span className={s.sortTitle}>
+              {selectedSort}
             </span>
+            <SortArrow role="presentation" className={s.sortArrow} ref={refSortArrow} onClick={openSortModal} />
+            {expand ? (
+              <SortButton arr={sortList} />
+            )
+              : ''}
           </div>
         </div>
       </div>
@@ -53,7 +80,7 @@ const MainScreen = () => {
                 </span>
                 <div className={s.rateContainer}>
                   <span className={s.movieRate}>
-                    7.3
+                    {movie.vote_average}
                   </span>
                   <img className={s.starIco} alt="star" src={star} />
                 </div>
