@@ -38,7 +38,7 @@ const Sidebar = () => {
           <div className={s.profileContainer}>
             <img className={s.profile} alt="profileIco" src={profile} />
             {isSideBar && (
-              <span>Profile</span>
+              <span>Профіль</span>
             )}
           </div>
         </Link>
@@ -48,7 +48,7 @@ const Sidebar = () => {
         <div className={s.marksContainer}>
           <img className={s.marks} alt="marksIco" src={marks} />
           {isSideBar && (
-            <span>Marks</span>
+            <span>Відмітки</span>
           )}
         </div>
       </div>

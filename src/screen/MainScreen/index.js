@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import { useClickAway } from 'react-use';
 
 import s from './style.module.scss';
@@ -16,11 +17,13 @@ const MainScreen = () => {
     'за переглядами',
   ]);
   const [selectedSort, setSelectedSort] = useState(sortList[0]);
+  const [currentPage, setCurrentPage] = useState(1);
   const refSortArrow = useRef(null);
   const refSortModal = useRef(null);
+  const refMoviesContainer = useRef(null);
 
   const getMovieList = () => {
-    fetch('https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk')
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
       .then(response => response.json())
       .then((response) => {
         setMovieList(response.results);
@@ -48,6 +51,20 @@ const MainScreen = () => {
     refSortArrow.current.classList.remove(`${s.open}`);
     refSortArrow.current.classList.add(`${s.sortArrow}`);
   });
+
+  const onPageChange = (e) => {
+    setCurrentPage(e.selected += 1);
+    getMovieList();
+  };
+
+  useEffect(() => {
+    getMovieList();
+    refMoviesContainer.current.classList.remove(`${s.showContainer}`);
+    refMoviesContainer.current.classList.add(`${s.showContainer}`);
+    setTimeout(() => {
+      refMoviesContainer.current.classList.remove(`${s.showContainer}`);
+    }, 300);
+  }, [currentPage]);
 
   return (
     <div className={s.main}>
@@ -77,10 +94,10 @@ const MainScreen = () => {
           </div>
         </div>
       </div>
-      <div className={s.moviesContainer}>
+      <div className={s.moviesContainer} ref={refMoviesContainer}>
         {movieList && (
           movieList.map(movie => (
-            <div className={s.movieContainer}>
+            <div role="presentation" className={s.movieContainer} onClick={() => console.log(movie)}>
               <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
               <div className={s.movieInfoContainer}>
                 <span className={s.movieTitle}>
@@ -96,6 +113,28 @@ const MainScreen = () => {
             </div>
           ))
         )}
+      </div>
+      <div className={s.paginateContainer}>
+        <ReactPaginate
+          onPageChange={onPageChange}
+          pageCount={500}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          breakClassName={s.pageItem}
+          breakLinkClassName={s.pageLink}
+          containerClassName={s.pagination}
+          pageClassName={s.pageItem}
+          pageLinkClassName={s.pageLink}
+          previousClassName={s.pageItem}
+          previousLinkClassName={s.pageLink}
+          nextClassName={s.pageItem}
+          nextLinkClassName={s.pageLink}
+          activeClassName={s.active}
+          disabledClassName={s.disabled}
+          renderOnZeroPageCount={null}
+          nextLabel="наступна"
+          previousLabel="попередня"
+        />
       </div>
     </div>
   );

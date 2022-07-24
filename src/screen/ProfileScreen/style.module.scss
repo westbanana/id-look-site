@@ -1,0 +1,158 @@
+.mainContainer{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #17222A;
+  background: -webkit-radial-gradient(center, #17222A, #3A6073);
+  background: -moz-radial-gradient(center, #17222A, #3A6073);
+  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  .userInfo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .avatarContainer{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      width: 100px;
+      background-color: #223743;
+      border-radius: 50px;
+      overflow: hidden;
+      img{
+        animation: avatar-scaling 10s linear infinite;
+      }
+      &:hover .swapImageContainer{
+        opacity: 1;
+      }
+      span{
+        font-style: normal;
+        font-weight: 700;
+        font-size: 39px;
+        line-height: 48px;
+        text-align: center;
+        color:  #325364;
+      }
+    }
+    .userName{
+      transition: 0.3s;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 33px;
+      line-height: 40px;
+      text-align: center;
+      color: #325364;
+      margin-top: 25px;
+      &:hover{
+        box-shadow: rgba(0, 0, 0, 0.18) 0 15px 5px -5px;
+      }
+    }
+  }
+  .inputsContainer{
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    .inputContainer{
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      margin-top: 54px;
+      &:hover input{
+        border: 5px solid #2b4857;
+        color: #3e677c;
+      }
+      &:hover span{
+        padding-left: 10%;
+      }
+      input{
+        background-color: transparent;
+        outline: none;
+        border: 0.5px solid #325364;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        font-style: normal;
+        font-weight: 400;
+        font-size: 23px;
+        line-height: 28px;
+        height: 50px;
+        padding-left: 10px;
+        color: #325364;
+        transition: 0.3s;
+        &::placeholder{
+          transition: 0.3s;
+          color: #325364;
+        }
+      }
+      span{
+        font-style: normal;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+        color: #325364;
+        transition: 0.3s;
+      }
+    }
+  }
+  .submitButton{
+    transition: 0.3s;
+    min-width: 30%;
+    background-color: transparent;
+    border: 0.5px solid #325364;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    font-style: normal;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 28px;
+    height: 50px;
+    color: #426e85;
+    margin-top: 65px;
+    cursor: pointer;
+    &:hover{
+      box-shadow: rgba(0, 0, 0, 0.32) 0 15px 5px -5px;
+    }
+  }
+}
+
+
+.swapImageContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.49);
+  position: absolute;
+  z-index: 999;
+  transition: 0.3s;
+  opacity: 0;
+  animation: spin 1.5s linear infinite;
+  cursor: pointer;
+  .spinnerIcon{
+    stroke: white;
+  }
+}
+
+@keyframes spin {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes avatar-scaling {
+  0%{
+    transform: scale(100%);
+  }
+  50%{
+    transform: scale(120%);
+  }
+  100%{
+    transform: scale(100%);
+  }
+}

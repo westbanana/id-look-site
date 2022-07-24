@@ -88,3 +88,9 @@
 .arrowRotate{
   transform: rotate(180deg);
 }
+
+@media (max-width: 500px) {
+  .main{
+    display: none;
+  }
+}
