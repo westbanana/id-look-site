@@ -1,0 +1,20 @@
+<div className={s.moviesContainer} ref={refMoviesContainer}>
+        {movieList && (
+          movieList.map(movie => (
+            <div role="presentation" className={s.movieContainer} onClick={() => console.log(movie)}>
+              <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+              <div className={s.movieInfoContainer}>
+                <span className={s.movieTitle}>
+                  {movie.title}
+                </span>
+                <div className={s.rateContainer}>
+                  <span className={s.movieRate}>
+                    {movie.vote_average}
+                  </span>
+                  <img className={s.starIco} alt="star" src={star} />
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>

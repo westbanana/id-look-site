@@ -44,11 +44,79 @@
         outline: none;
         color: #436E85;
         padding: 5px 0 5px 20px;
-        width: 554px;
+        width: 550px;
         background: #1A2932;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        position: relative;
         &::placeholder{
           color: #436E85;
+        }
+      }
+      .searchListModal{
+        transition: 0.3s;
+        animation: showModal 0.1s linear forwards;
+        position: absolute;
+        top: 65px;
+        background: #1A2932;
+        width: 550px;
+        z-index: 999;
+        overflow: auto;
+        &::-webkit-scrollbar{
+          width: 10px;
+        }
+        &::-webkit-scrollbar-track{
+          background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: #000000;
+          border-radius: 10px;
+          margin: 0 2px;
+        }
+        .modalMovieContainer{
+          :first-of-type{
+            margin-top: 30px;
+          }
+          cursor: pointer;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          background: transparent;
+          transition: 0.3s;
+          margin-bottom: 30px;
+          overflow: hidden;
+          justify-content: flex-start;
+          &:hover{
+            background: white;
+          }
+          .modalMovieImageContainer{
+            margin-left: 30px;
+            min-width: 30%;
+            .modalMovieImage{
+              height: 200px;
+              width: 140px;
+            }
+          }
+          .modalMovieInfoContainer{
+            min-width: 70%;
+            display: flex;
+            flex-direction: column;
+            color: #50829d;
+            font-size: 20px;
+            font-weight: bold;
+            max-width: 250px;
+            text-align: center;
+            .originalTitle{
+              color: rgba(67, 110, 133, 0.4);
+            }
+            .modalMovieRate{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              img{
+                height: 15px;
+              }
+            }
+          }
         }
       }
     }
@@ -229,7 +297,6 @@ a{
   text-decoration: none;
 }
 
-
 .showContainer{
   animation: showingMovies 0.3s linear forwards;
 }
@@ -250,5 +317,14 @@ a{
   }
   to{
     opacity: 1;
+  }
+}
+
+@keyframes showModal {
+  from{
+    height: 0;
+  }
+  to{
+    height: 300px;
   }
 }

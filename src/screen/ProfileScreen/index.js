@@ -59,7 +59,10 @@ const Profile = () => {
       <div className={s.inputsContainer}>
         <div className={s.inputContainer}>
           <span>Ім&apos;я</span>
-          <input placeholder={testUser.firstName} />
+          <input
+            placeholder={testUser.firstName}
+            value={testUser.firstName}
+          />
         </div>
         <div className={s.inputContainer}>
           <span>Прізвище</span>

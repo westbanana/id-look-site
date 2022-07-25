@@ -18,10 +18,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100px;
-      width: 100px;
+      max-height: 200px;
+      max-width: 200px;
       background-color: #223743;
-      border-radius: 50px;
+      border-radius: 100%;
       overflow: hidden;
       img{
         animation: avatar-scaling 10s linear infinite;
