@@ -1,20 +1,185 @@
-<div className={s.moviesContainer} ref={refMoviesContainer}>
-        {movieList && (
-          movieList.map(movie => (
-            <div role="presentation" className={s.movieContainer} onClick={() => console.log(movie)}>
-              <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-              <div className={s.movieInfoContainer}>
-                <span className={s.movieTitle}>
-                  {movie.title}
-                </span>
-                <div className={s.rateContainer}>
-                  <span className={s.movieRate}>
-                    {movie.vote_average}
-                  </span>
-                  <img className={s.starIco} alt="star" src={star} />
+.mainContainer{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #17222A;
+  background: -webkit-radial-gradient(center, #17222A, #3A6073);
+  background: -moz-radial-gradient(center, #17222A, #3A6073);
+  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  .movieContainer{
+    background: #1A2932;
+    border-radius: 28px;
+    width: 80%;
+    padding: 80px;
+    &::-webkit-scrollbar{
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track{
+      background: transparent;
+      margin: 30px 0;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #436E85;
+      border-radius: 10px;
+      margin: 0 2px;
+    }
+    .header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      .titleContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .title{
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 29px;
+          text-align: center;
+          text-decoration-line: underline;
+          color: #FFFFFF;
+        }
+        .originalTitle{
+          margin-top: 10px;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          text-align: center;
+          color: rgba(255, 255, 255, 0.27);
+        }
+      }
+      .favorites{
+        .heartIcon{
+
+        }
+      }
+    }
+    .body{
+      .image_info_container{
+        color: white;
+        display: flex;
+        .posterContainer{
+          .poster{
+            height: 400px;
+          }
+        }
+        .infoContainer{
+          display: flex;
+          flex-direction: row;
+          margin-left: 50px;
+          .nameField{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            span{
+              width: 150px;
+            }
+          }
+          .descriptionField{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            .genresContainer{
+            }
+            .castContainer{
+              width: 400px;
+              height: 25px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+      .aboutContainer{
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        .about{
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 203%;
+          color: #F3F8FA;
+        }
+        .overview{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 203%;
+          color: #F3F8FA;
+        }
+      }
+      s.trailerContainer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .rateContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        span{
+          font-style: normal;
+          font-weight: 700;
+          font-size: 29px;
+          line-height: 203%;
+          color: #436E85;
+          margin-top: 25px;
+        }
+        .starsContainer{
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          .star{
+            height: 60px;
+            width: 60px;
+            margin-top: 25px;
+          }
+        }
+      }
+    }
+  }
+}
+
+iframe{
+  border-radius: 10px;
+  border: 3px solid #436E85;
+}
+
+
+
+<div className={s.nameField}>
+                  <span>Рейтинг :</span>
+                  <span>Слоган :</span>
+                  <span>Дата виходу :</span>
+                  <span>Країна :</span>
+                  <span>Режисер :</span>
+                  <span>Жанр :</span>
+                  <span>Час :</span>
+                  <span>У ролях :</span>
                 </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+                <div className={s.descriptionField}>
+                  <span>{movieDetails[0].vote_average}</span>
+                  {movieDetails[0].tagline.length === 0 ? 'Відсутній' : <span>{movieDetails[0].tagline}</span>}
+                  <span>{movieDetails[0].release_date}</span>
+                  <div>
+                    {movieDetails[0].production_countries.map(i => <span>{i.name}</span>)}
+                  </div>
+                  {movieCrew ? <span>{movieCrew.name}</span> : ''}
+                  <div className={s.genresContainer}>
+                    {movieDetails[0].genres.map(i => <span>{`${i.name} `}</span>)}
+                  </div>
+                  <span>{`${movieDetails[0].runtime}хв.`}</span>
+                  <div className={s.castContainer}>
+                    {movieCast && (movieCast.map(i => <span>{`${i.name}, `}</span>))}
+                  </div>
+                </div>

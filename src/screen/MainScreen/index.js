@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useClickAway } from 'react-use';
+import { throttle } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
 
@@ -8,13 +10,10 @@ import star from '../../assests/star.svg';
 import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import SortButton from '../../components/SortButton';
-import { throttle } from 'lodash';
-
-// <img className={s.modalMovieImage} alt="moviePoster" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
 
 // TODO: меньше кнопки пагинации, заменить (наступна, попередня)
 
-const MainScreen = () => {
+const MainScreen = ({ getMovie }) => {
   const [movieList, setMovieList] = useState([]);
   const [expand, setExpand] = useState(false);
   const [sortList] = useState([
@@ -22,13 +21,12 @@ const MainScreen = () => {
     'за рейтингом',
     'за переглядами',
   ]);
-  const [selectedSort, setSelectedSort] = useState(sortList[0]);
+  const [selectedSort, setSelectedSort] = useState('сортувати');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchedMovie, setSearchedMovie] = useState([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const refSortArrow = useRef(null);
   const refSortModal = useRef(null);
-  const refMoviesContainer = useRef(null);
   const refSearchListModal = useRef(null);
 
   const getMovieList = () => {
@@ -44,7 +42,7 @@ const MainScreen = () => {
   }, []);
 
   const openSortModal = () => {
-    if (refSortArrow.current.classList.contains(`${s.open}`)) {
+    if (expand) {
       setExpand(false);
       refSortArrow.current.classList.remove(`${s.open}`);
       refSortArrow.current.classList.add(`${s.sortArrow}`);
@@ -72,11 +70,6 @@ const MainScreen = () => {
 
   useEffect(() => {
     getMovieList();
-    refMoviesContainer.current.classList.remove(`${s.showContainer}`);
-    refMoviesContainer.current.classList.add(`${s.showContainer}`);
-    setTimeout(() => {
-      refMoviesContainer.current.classList.remove(`${s.showContainer}`);
-    }, 300);
   }, [currentPage]);
 
   const onSearchChange = throttle((e) => {
@@ -91,6 +84,19 @@ const MainScreen = () => {
     }
   }, 1000, { leading: false });
 
+  const sortMovieList = (sort) => {
+    if (sort === 'за датою') {
+      const result = movieList.sort((a, b) => a.id - b.id);
+      setMovieList(result);
+    } else if (sort === 'за рейтингом') {
+      const result = movieList.sort((a, b) => a.vote_average - b.vote_average);
+      setMovieList(result.reverse());
+    } else {
+      const result = movieList.sort((a, b) => a.vote_count - b.vote_count);
+      setMovieList(result.reverse());
+    }
+  };
+
   return (
     <div className={s.main}>
       <div className={s.headerContainer}>
@@ -100,41 +106,42 @@ const MainScreen = () => {
         <div className={s.searchContainer} ref={refSearchListModal}>
           <input
             placeholder="пошук"
-            // onChange={e => setSearchValue(e.target.value)}
             onChange={onSearchChange}
             onFocus={() => setIsDropDownOpen(true)}
           />
           {isDropDownOpen && !!searchedMovie.length && (
             <div className={s.searchListModal}>
               {searchedMovie.map(movie => (
-                <div role="presentation" className={s.modalMovieContainer} onClick={() => console.log(movie)}>
-                  <div className={s.modalMovieImageContainer}>
-                    <img
-                      className={s.modalMovieImage}
-                      alt="moviePoster"
-                      src={
-                        movie.poster_path
-                          ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                          : unknownImage
-                      }
-                    />
-                  </div>
-                  <div className={s.modalMovieInfoContainer}>
-                    <span className={s.originalTitle}>{`(${movie.original_title})`}</span>
-                    <span>{movie.title}</span>
-                    <div className={s.modalMovieRate}>
-                      <span>{movie.vote_average}</span>
-                      <img alt="star" src={star} />
+                <Link key={movie.id} to={`/movie/${movie.id}`} className={s.testLink}>
+                  <div role="presentation" className={s.modalMovieContainer}>
+                    <div className={s.modalMovieImageContainer}>
+                      <img
+                        className={s.modalMovieImage}
+                        alt="moviePoster"
+                        src={
+                          movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                            : unknownImage
+                        }
+                      />
+                    </div>
+                    <div className={s.modalMovieInfoContainer}>
+                      <span className={s.originalTitle}>{`(${movie.original_title})`}</span>
+                      <span>{movie.title}</span>
+                      <div className={s.modalMovieRate}>
+                        <span>{movie.vote_average}</span>
+                        <img alt="star" src={star} />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
         </div>
         <div className={s.navContainer}>
           <div className={s.navMenu}>
-            <span>Новини</span>
+            <span role="presentation">Новини</span>
             <span>Кіно</span>
             <span>Серіали</span>
             <span>Мультфільми</span>
@@ -145,33 +152,41 @@ const MainScreen = () => {
             </span>
             <SortArrow role="presentation" className={s.sortArrow} ref={refSortArrow} onClick={openSortModal} />
             {expand ? (
-              <SortButton arr={sortList} setExpand={setExpand} setSelectedSort={setSelectedSort} />
+              <SortButton arr={sortList} setExpand={setExpand} setSelectedSort={setSelectedSort} sort={sortMovieList} />
             )
               : ''}
           </div>
         </div>
       </div>
-      <div className={s.moviesContainer} ref={refMoviesContainer}>
+      <div className={s.moviesContainer}>
         {movieList && movieList.map(movie => (
-          <div role="presentation" className={s.movieContainer}>
-            <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-            <div className={s.movieInfoContainer}>
-              <span className={s.movieTitle}>
-                {movie.title}
-              </span>
-              <div className={s.rateContainer}>
-                <span className={s.movieRate}>
+          <Link key={movie.id} to={`/movie/${movie.id}`} className={s.testLink}>
+            <div
+              role="presentation"
+              className={s.movieContainer}
+              onClick={() => {
+                getMovie(movie.id);
+              }}
+            >
+              <div className={s.testRate}>
+                <span>
                   {movie.vote_average}
                 </span>
-                <img className={s.starIco} alt="star" src={star} />
+              </div>
+              <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+              <div className={s.movieInfoContainer}>
+                <span className={s.movieTitle}>
+                  {movie.title}
+                </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className={s.paginateContainer}>
         <ReactPaginate
           onPageChange={onPageChange}
+          onClick={() => window.scrollTo(0, 0)}
           pageCount={500}
           pageRangeDisplayed={3}
           marginPagesDisplayed={1}

@@ -68,32 +68,25 @@
           background: transparent;
         }
         &::-webkit-scrollbar-thumb {
-          background-color: #000000;
+          background-color: #4d7f9a;
           border-radius: 10px;
           margin: 0 2px;
         }
         .modalMovieContainer{
-          :first-of-type{
-            margin-top: 30px;
-          }
           cursor: pointer;
           display: flex;
           width: 100%;
           align-items: center;
           background: transparent;
           transition: 0.3s;
-          margin-bottom: 30px;
           overflow: hidden;
           justify-content: flex-start;
+          padding: 40px;
           &:hover{
-            background: white;
+            background-color: #253b48;
           }
           .modalMovieImageContainer{
-            margin-left: 30px;
-            min-width: 30%;
             .modalMovieImage{
-              height: 200px;
-              width: 140px;
             }
           }
           .modalMovieInfoContainer{
@@ -107,6 +100,9 @@
             text-align: center;
             .originalTitle{
               color: rgba(67, 110, 133, 0.4);
+            }
+            span{
+              margin: 15px 0;
             }
             .modalMovieRate{
               display: flex;
@@ -218,7 +214,7 @@
         .movieTitle{
           font-style: normal;
           font-weight: 500;
-          font-size: 11px;
+          font-size: 12px;
           text-align: center;
           color: #436E85;
           text-overflow: ellipsis;
@@ -297,10 +293,6 @@ a{
   text-decoration: none;
 }
 
-.showContainer{
-  animation: showingMovies 0.3s linear forwards;
-}
-
 @keyframes hideDisabled {
   from{
     transform: scale(100%);
@@ -311,14 +303,7 @@ a{
   }
 }
 
-@keyframes showingMovies {
-  from{
-    opacity: 0;
-  }
-  to{
-    opacity: 1;
-  }
-}
+
 
 @keyframes showModal {
   from{
@@ -326,5 +311,30 @@ a{
   }
   to{
     height: 300px;
+  }
+}
+
+.movieContainer{
+  position: relative;
+  &:hover .testRate{
+    border-radius: 10px;
+    top: 0;
+  }
+}
+
+.testRate{
+  position: absolute;
+  right: 0;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border-radius: 50px;
+  background-color: #4d7f9a;
+  height: 30px;
+  width: 30px;
+  span{
+    color: white;
   }
 }
