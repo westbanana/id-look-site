@@ -28,6 +28,7 @@ const MainScreen = ({ getMovie }) => {
   const refSortArrow = useRef(null);
   const refSortModal = useRef(null);
   const refSearchListModal = useRef(null);
+  const [random, setRandom] = useState();
 
   const getMovieList = () => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
@@ -74,7 +75,7 @@ const MainScreen = ({ getMovie }) => {
 
   const onSearchChange = throttle((e) => {
     if (e.target.value) {
-      fetch(`https://api.themoviedb.org/3/search/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&query=${e.target.value}&page=1&include_adult=false&year=2021`)
+      fetch(`https://api.themoviedb.org/3/search/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&query=${e.target.value}&page=1&include_adult=false`)
         .then(response => response.json())
         .then((response) => {
           setSearchedMovie(response.results);
@@ -95,6 +96,18 @@ const MainScreen = ({ getMovie }) => {
       const result = movieList.sort((a, b) => a.vote_count - b.vote_count);
       setMovieList(result.reverse());
     }
+  };
+
+  const getRandomMovie = () => {
+    const page = Math.floor(Math.random() * 500);
+    const id = Math.floor(Math.random() * 20);
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${page}`)
+      .then(response => response.json())
+      .then((response) => {
+        setRandom(response.results[id]);
+      });
+    console.log(id);
+    console.log(random);
   };
 
   return (
@@ -144,7 +157,7 @@ const MainScreen = ({ getMovie }) => {
             <span role="presentation">Новини</span>
             <span>Кіно</span>
             <span>Серіали</span>
-            <span>Мультфільми</span>
+            <span role="presentation" onClick={getRandomMovie}>Мультфільми</span>
           </div>
           <div className={s.sortContainer} ref={refSortModal}>
             <span role="presentation" className={s.sortTitle} onClick={openSortModal}>
@@ -202,8 +215,8 @@ const MainScreen = ({ getMovie }) => {
           activeClassName={s.active}
           disabledClassName={s.disabled}
           renderOnZeroPageCount={null}
-          nextLabel="наступна"
-          previousLabel="попередня"
+          nextLabel={<SortArrow className={s.nextLabel} />}
+          previousLabel={<SortArrow />}
         />
       </div>
     </div>
