@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  z-index: 999;
   transition: 0.3s;
   .logoContainer{
     width: 100%;
@@ -30,6 +31,12 @@
     .profileContainer{
       color: #436E85;
       .profile{
+      }
+    }
+    .randomMovieContainer{
+      cursor: pointer;
+      .randomMovie{
+
       }
     }
   }
@@ -55,6 +62,7 @@
     cursor: pointer;
     transition: 0.3s;
     position: relative;
+    z-index: 999;
     left: 50%;
     img{
       transform: rotate(180deg);

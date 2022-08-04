@@ -28,7 +28,6 @@ const MainScreen = ({ getMovie }) => {
   const refSortArrow = useRef(null);
   const refSortModal = useRef(null);
   const refSearchListModal = useRef(null);
-  const [random, setRandom] = useState();
 
   const getMovieList = () => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
@@ -98,18 +97,6 @@ const MainScreen = ({ getMovie }) => {
     }
   };
 
-  const getRandomMovie = () => {
-    const page = Math.floor(Math.random() * 500);
-    const id = Math.floor(Math.random() * 20);
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${page}`)
-      .then(response => response.json())
-      .then((response) => {
-        setRandom(response.results[id]);
-      });
-    console.log(id);
-    console.log(random);
-  };
-
   return (
     <div className={s.main}>
       <div className={s.headerContainer}>
@@ -157,7 +144,7 @@ const MainScreen = ({ getMovie }) => {
             <span role="presentation">Новини</span>
             <span>Кіно</span>
             <span>Серіали</span>
-            <span role="presentation" onClick={getRandomMovie}>Мультфільми</span>
+            <span>Мультфільми</span>
           </div>
           <div className={s.sortContainer} ref={refSortModal}>
             <span role="presentation" className={s.sortTitle} onClick={openSortModal}>

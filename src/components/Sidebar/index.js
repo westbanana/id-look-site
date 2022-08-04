@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
+import { ReactComponent as QuestionIcon } from '../../assests/randomMovieIcon.svg';
 
 import arrow from '../../assests/arrow.svg';
 import logo from '../../assests/logo.svg';
@@ -42,6 +43,11 @@ const Sidebar = () => {
             )}
           </div>
         </Link>
+        <div className={s.randomMovieContainer}>
+          <Link to="/random-movie">
+            <QuestionIcon className={s.randomMovie} />
+          </Link>
+        </div>
         <div ref={refArrow} role="presentation" className={s.arrowContainer} onClick={openSidebar}>
           <img src={arrow} alt="arrow" />
         </div>

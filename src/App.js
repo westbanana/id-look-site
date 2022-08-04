@@ -7,6 +7,7 @@ import s from './App.module.scss';
 import Profile from './screen/ProfileScreen';
 import ErrorScreen from './screen/ErrorScreen';
 import MovieScreen from './screen/MovieScreen';
+import RandomMovieScreen from './screen/RandomMovieScreen';
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/error" element={<ErrorScreen />} />
+        <Route path="/random-movie" element={<RandomMovieScreen />} />
         <Route path="/movie/:id" element={<MovieScreen selectedMovie={selectedMovie} />} />
       </Routes>
     </div>
