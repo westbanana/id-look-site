@@ -14,7 +14,7 @@ const MovieScreen = () => {
   const [movieCast, setMovieCast] = useState();
   const [movieCrew, setMovieCrew] = useState();
   const { id } = useParams();
-
+  console.log(movieDetails);
   const getMovieDetails = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())

@@ -10,8 +10,7 @@ import star from '../../assests/star.svg';
 import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import SortButton from '../../components/SortButton';
-
-// TODO: меньше кнопки пагинации, заменить (наступна, попередня)
+import Authorisation from '../../components/Authorisation';
 
 const MainScreen = ({ getMovie }) => {
   const [movieList, setMovieList] = useState([]);
@@ -25,6 +24,7 @@ const MainScreen = ({ getMovie }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchedMovie, setSearchedMovie] = useState([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [islogInModalOpen, setIslogInModalOpen] = useState(false);
   const refSortArrow = useRef(null);
   const refSortModal = useRef(null);
   const refSearchListModal = useRef(null);
@@ -86,21 +86,31 @@ const MainScreen = ({ getMovie }) => {
 
   const sortMovieList = (sort) => {
     if (sort === 'за датою') {
-      const result = movieList.sort((a, b) => a.id - b.id);
-      setMovieList(result);
+      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&sort_by=release_date.desc&include_adult=false&include_video=false&page=${currentPage}&with_watch_monetization_types=flatrate`)
+        .then(response => response.json())
+        .then(response => setMovieList(response.results));
     } else if (sort === 'за рейтингом') {
-      const result = movieList.sort((a, b) => a.vote_average - b.vote_average);
-      setMovieList(result.reverse());
+      fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
+        .then(response => response.json())
+        .then(response => setMovieList(response.results));
     } else {
-      const result = movieList.sort((a, b) => a.vote_count - b.vote_count);
-      setMovieList(result.reverse());
+      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&sort_by=vote_count.desc&include_adult=false&include_video=false&page=${currentPage}&with_watch_monetization_types=flatrate`)
+        .then(response => response.json())
+        .then(response => setMovieList(response.results));
     }
+  };
+
+  const logIn = () => {
+    setIslogInModalOpen(true);
   };
 
   return (
     <div className={s.main}>
+      {islogInModalOpen && (
+        <Authorisation setIsLogIn={setIslogInModalOpen} />
+      )}
       <div className={s.headerContainer}>
-        <div className={s.logInContainer}>
+        <div role="presentation" className={s.logInContainer} onClick={logIn}>
           <span>Увійти</span>
         </div>
         <div className={s.searchContainer} ref={refSearchListModal}>
@@ -141,10 +151,9 @@ const MainScreen = ({ getMovie }) => {
         </div>
         <div className={s.navContainer}>
           <div className={s.navMenu}>
-            <span role="presentation">Новини</span>
-            <span>Кіно</span>
-            <span>Серіали</span>
-            <span>Мультфільми</span>
+            <span className={s.navMenu__item}>Незабаром</span>
+            <span className={s.navMenu__item}>Зараз дивляться</span>
+            <span className={s.navMenu__item}>Популярні</span>
           </div>
           <div className={s.sortContainer} ref={refSortModal}>
             <span role="presentation" className={s.sortTitle} onClick={openSortModal}>
@@ -170,7 +179,7 @@ const MainScreen = ({ getMovie }) => {
             >
               <div className={s.testRate}>
                 <span>
-                  {movie.vote_average}
+                  {`IMDb: ${movie.vote_average}`}
                 </span>
               </div>
               <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />

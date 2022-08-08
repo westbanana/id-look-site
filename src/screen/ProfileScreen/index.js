@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { ReactComponent as Spinner } from '../../assests/spinner.svg';
-
 import s from './style.module.scss';
+
+import { ReactComponent as Spinner } from '../../assests/spinner.svg';
 
 const Profile = () => {
   const [imageId, setImageId] = useState('');
@@ -36,39 +36,40 @@ const Profile = () => {
       makeId(100),
     );
   };
-
   return (
     <div className={s.mainContainer}>
       <div className={s.userInfo}>
-        <div className={s.avatarContainer}>
-          <div className={s.swapImageContainer}>
-            <Spinner className={s.spinnerIcon} onClick={swapImage} />
+        {testUser.image ? (
+          <div className={s.avatarContainer}>
+            <div className={s.swapImageContainer}>
+              <Spinner className={s.spinnerIcon} onClick={swapImage} />
+            </div>
+            {testUser.image ? <img alt="avatar" src={`${testUser.image}`} /> : (
+              <span>
+                {testUser.firstName[0]}
+                {' '}
+                {testUser.secondName[0]}
+              </span>
+            )}
           </div>
-          {testUser.image ? <img alt="avatar" src={`${testUser.image}`} /> : (
-            <span>
-              {testUser.firstName[0]}
-              {' '}
-              {testUser.secondName[0]}
-            </span>
-          )}
-        </div>
+        ) : ''}
         <div className={s.userName}>
           <span>{`${testUser.firstName} ${testUser.secondName}`}</span>
         </div>
       </div>
       <div className={s.inputsContainer}>
-        <div className={s.inputContainer}>
+        <div className={`${s.inputContainer} ${s.first}`}>
           <span>Ім&apos;я</span>
           <input
             placeholder={testUser.firstName}
             value={testUser.firstName}
           />
         </div>
-        <div className={s.inputContainer}>
+        <div className={`${s.inputContainer} ${s.second}`}>
           <span>Прізвище</span>
           <input placeholder={testUser.secondName} />
         </div>
-        <div className={s.inputContainer}>
+        <div className={`${s.inputContainer} ${s.third}`}>
           <span>Пошта</span>
           <input placeholder={testUser.email} />
         </div>

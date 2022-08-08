@@ -1,0 +1,98 @@
+.mainContainer{
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.63);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  input{
+    background-color: transparent;
+    outline: none;
+    border: #325364 1px solid;
+    color: #3A6073;
+    font-size: 20px;
+    padding: 5px;
+  }
+  .authorisationContainer{
+    animation: show 0.2s linear forwards;
+    background-color: #16222A;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 100px 50px 100px;
+    border-radius: 25px;
+    transform: scale(0);
+    .authorisation{
+      font-weight: 700;
+      font-size: 30px;
+      color: #325364;
+      margin-top: 20px;
+    }
+    .inputsBlock{
+      width: 286px;
+      .login{
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+        &:hover span{
+          margin-left: 80%;
+        }
+        span{
+          transition: 0.3s;
+          font-weight: 700;
+          font-size: 15px;
+          color: #325364;
+        }
+      }
+      .password{
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        &:hover span{
+          margin-left: 80%;
+        }
+        span{
+          transition: 0.3s;
+          font-weight: 700;
+          font-size: 15px;
+          color: #325364;
+        }
+      }
+    }
+    .buttonsContainer{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      button{
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        font-weight: 700;
+        font-size: 15px;
+        color: #325364;
+        transition: 0.3s;
+        padding: 5px;
+        &:hover{
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+@keyframes show {
+  from{
+    transform: scale(0)
+  }
+  to{
+  transform: scale(100%);
+  }
+}

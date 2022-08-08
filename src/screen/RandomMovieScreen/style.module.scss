@@ -136,13 +136,19 @@
     opacity: 1;
     left: 0;
   }
-  33%{
+  25%{
     left: 100%;
     filter: blur(100px);
     opacity: 0;
   }
-  66%{
+  50%{
     left: -100%;
+    filter: blur(100px);
+    opacity: 1;
+  }
+  75%{
+    left: 100%;
+    filter: blur(100px);
     opacity:  0;
   }
   100%{

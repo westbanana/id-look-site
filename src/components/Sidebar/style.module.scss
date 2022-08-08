@@ -2,14 +2,13 @@
   background-color: #1A2932;
   height: 100%;
   width: 100px;
-  color: #436E85;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  z-index: 999;
+  left: 0;
   transition: 0.3s;
+  position: relative;
   .logoContainer{
     width: 100%;
     display: flex;
@@ -28,21 +27,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    .profileContainer{
-      color: #436E85;
-      .profile{
-      }
-    }
-    .randomMovieContainer{
+    gap: 40px;
+    .menuItem{
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      transition: 0.3s;
       cursor: pointer;
-      .randomMovie{
-
+      &:hover{
+        filter: brightness(10);
+      }
+      .description{
+        width: 100px;
+        text-decoration: none;
+        color: #436E85;
+        font-weight: 500;
+        text-align: start;
+        font-size: 15px;
       }
     }
   }
   .swiperContainer{
     margin-bottom: 38px;
-    position: relative;
     cursor: pointer;
     transition: 0.5s;
     &:hover{
@@ -58,12 +64,15 @@
     background-color: #1A2932;
     height: 25px;
     width: 25px;
-    margin: 10px 0;
     cursor: pointer;
     transition: 0.3s;
-    position: relative;
+    position: absolute;
     z-index: 999;
-    left: 50%;
+    top: 50%;
+    right: -10px;
+    &:hover{
+      background-color: #fff;
+    }
     img{
       transform: rotate(180deg);
     }
@@ -75,30 +84,213 @@
   }
 }
 
-.marksContainer,
-.profileContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  cursor: pointer;
-  span{
-    margin-left: 15px;
-    font-weight: 500;
-  }
-}
-
-
 .mainOpen{
-  width: 200px;
+  width: 300px;
 }
 
 .arrowRotate{
   transform: rotate(180deg);
 }
 
+.burgerContainer{
+  display: none;
+}
+
 @media (max-width: 500px) {
   .main{
-    display: none;
+    height: 100px;
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    .logoContainer{
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0;
+      &:hover .logo{
+      }
+      .logo{
+      }
+    }
+    .menuContainer{
+      display: none;
+      .menuItem{
+        &:hover{
+        }
+        .description{
+        }
+      }
+    }
+    .swiperContainer{
+      margin: 0;
+      cursor: pointer;
+      transition: 0.5s;
+      order: -1;
+      .swiper{
+        height: 30px;
+        width: 30px;
+      }
+      &:hover{
+      }
+    }
+    .burgerContainer{
+      order: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      .burgerModal{
+        animation: showBurgerModal 0.3s linear forwards;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        background-color: #1A2932;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 89px;
+        z-index: 999;
+        transition: 0.3s;
+        .burgerButtonsContainer{
+            border: 1px solid #436E85;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            padding: 20px;
+            width: 80%;
+            margin: 20px auto;
+            cursor: pointer;
+          .burgerButton{
+            color: #436E85;
+          }
+        }
+      }
+      .stroke{
+        background-color: #4d7f9a;
+        height: 4px;
+        width: 40px;
+        border-radius: 20px;
+        margin: 2px;
+      }
+      .first{
+        animation: firstRotate 0.3s linear forwards;
+      }
+      .second{
+        animation: secondRotate 0.3s linear forwards;
+      }
+      .third{
+        animation: thirdRotate 0.3s linear forwards;
+      }
+      .firstRerotate{
+        animation: firstRerotate 0.3s linear forwards;
+      }
+
+      .secondRerotate{
+        animation: secondRerotate 0.3s linear forwards;
+      }
+
+      .thirdRerotate{
+        animation: thirdRerotate 0.3s linear forwards;
+      }
+      .burger{
+        cursor: pointer;
+      }
+    }
+    .arrowContainer{
+
+      &:hover{
+      }
+      img{
+      }
+    }
+    .marksContainer{
+      .marks{
+
+      }
+    }
+  }
+
+  .mainOpen{
+  }
+
+  .arrowRotate{
+  }
+}
+
+@keyframes showBurgerModal {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+@keyframes firstRotate {
+  from {
+    transform: rotate(0deg) translateX(0) translateY(0);
+  }
+  to {
+    transform: rotate(0) translateY(200%) translateX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes secondRotate {
+  from{
+    transform: rotate(0deg) translateX(0) translateY(0);
+  }
+  to{
+    transform: rotate(0deg) translateX(0) translateY(0);
+    height: 24px;
+    box-shadow: #436E85 0 0 15px;
+    border-radius: 0;
+  }
+}
+@keyframes thirdRotate {
+  from{
+    transform: rotate(0deg) translateX(0) translateY(0);
+  }
+  to{
+    transform: rotate(0) translateY(-200%) translateX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes firstRerotate {
+  from {
+    transform: rotate(0) translateY(200%) translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0deg) translateX(0) translateY(0);
+  }
+}
+
+@keyframes secondRerotate {
+  from{
+    transform: rotate(0deg) translateX(0) translateY(0);
+    height: 24px;
+    box-shadow: #436E85 0 0 15px;
+    border-radius: 0;
+  }
+  to{
+    transform: rotate(0deg) translateX(0) translateY(0);
+  }
+}
+@keyframes thirdRerotate {
+  from{
+    transform: rotate(0) translateY(-200%) translateX(0);
+    opacity: 0;
+  }
+  to{
+    transform: rotate(0deg) translateX(0) translateY(0);
   }
 }
