@@ -9,6 +9,10 @@ const Authorisation = ({ setIsLogIn }) => {
     setIsLogIn(false);
   });
 
+  const test = () => {
+    console.log(Math.floor(Math.random() * 20));
+  };
+
   return (
     <div className={s.mainContainer}>
       <div className={s.authorisationContainer} ref={refIsLogInModal}>
@@ -25,7 +29,7 @@ const Authorisation = ({ setIsLogIn }) => {
             <input type="password" />
           </div>
           <div className={s.buttonsContainer}>
-            <button type="submit">Увійти</button>
+            <button type="submit" onClick={test}>Увійти</button>
             <button type="button">Зареєструватись</button>
           </div>
         </div>

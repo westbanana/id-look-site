@@ -34,8 +34,6 @@ const Sidebar = () => {
     setIsBurgerOpen(false);
   });
 
-  console.log(isBurgerOpen);
-
   return (
     <div role="presentation" className={s.main} ref={refSidebar}>
       <div role="presentation" className={s.burgerContainer} onClick={() => setIsBurgerOpen(true)}>

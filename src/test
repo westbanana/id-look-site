@@ -1,54 +1,53 @@
-<div className={`${s.movieContainer} ${animation ? s.changeMovie : ''}`}>
-        <div className={s.moviePosterContainer}>
-          <img
-            className={s.poster}
-            alt="movie-poster"
-            src={
-              randomMovie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${randomMovie.poster_path}`
-                : unknownImage
-            }
-          />
-        </div>
-        <div className={s.movieInfoContainer}>
-          <div className={s.titleContainer}>
-            <span className={s.title}>
-              {randomMovie.title}
-            </span>
-            <span className={s.originalTitle}>
-              {`(${randomMovie.original_title})`}
-            </span>
-          </div>
-          <div className={s.genresContainer}>
-            {randomMovie.genres && (
-              randomMovie.genres.map(i => (
-                <span>{i.name}</span>
-              ))
-            )}
-          </div>
-          <div className={s.release_dateContainer}>
-            <span>
-              {randomMovie.release_date}
-            </span>
-          </div>
-          <div className={s.runtimeContainer}>
-            <span>
-              {`${randomMovie.runtime}хв`}
-            </span>
-          </div>
-          <div className={s.budgetContainer}>
-            <span>
-              {`${randomMovie.budget}$`}
-            </span>
-          </div>
-        </div>
-      </div>
-      {!animation && (
+<div className={s.mainContainerGradient}>
+        {randomMovie && (
+          <Link to={`/movie/${movieId}`} className={s.test}>
+            <div className={s.movieContainer}>
+              <div className={s.moviePosterContainer}>
+                <img
+                  className={s.poster}
+                  alt="movie-poster"
+                  src={
+                    randomMovie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500/${randomMovie.poster_path}`
+                      : unknownImage
+                  }
+                />
+              </div>
+              <div className={s.movieInfoContainer}>
+                <div className={s.titleContainer}>
+                  <span className={s.title}>
+                    {randomMovie.title}
+                  </span>
+                  <span className={s.originalTitle}>
+                    {`(${randomMovie.original_title})`}
+                  </span>
+                </div>
+                <div className={s.genresContainer}>
+                  {randomMovie.genres && (
+                    randomMovie.genres.map(i => (
+                      <span>{i.name}</span>
+                    ))
+                  )}
+                </div>
+                <div className={s.release_dateContainer}>
+                  <span>
+                    {randomMovie.release_date}
+                  </span>
+                </div>
+                <div className={s.runtimeContainer}>
+                  <span>
+                    {`${randomMovie.runtime}хв`}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )}
         <button
           type="button"
-          onClick={getRandomMovie}
+          onClick={() => getRandomMovie()}
           className={s.getMovieButton}
         >
           Отримати випадковий фільм
         </button>
-      )}
+      </div>
