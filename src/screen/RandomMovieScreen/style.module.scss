@@ -57,12 +57,14 @@
             font-size: 30px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.6);
+            color: #5c97b7;
             //color: transparent;
             //text-stroke: 1px black;
             //-webkit-text-stroke: 1px black;
           }
           .originalTitle{
             color: rgba(255, 255, 255, 0.29);
+            color: rgba(67, 110, 133, 0.65);
           }
         }
         .genresContainer{
@@ -70,31 +72,37 @@
           flex-wrap: wrap;
           justify-content: center;
           border: 1px rgba(255, 255, 255, 0.29) solid;
+          border: 1px rgba(67, 110, 133, 0.65) solid;
           border-radius: 15px;
           padding: 10px;
           span{
             color: #fff;
+            color: #5c97b7;
             font-size: 20px;
             margin-right: 10px;
           }
         }
         .release_dateContainer{
           border: 1px rgba(255, 255, 255, 0.29) solid;
+          border: 1px rgba(67, 110, 133, 0.65) solid;
           border-radius: 15px;
           padding: 10px;
           text-align: center;
           span{
             color: #fff;
+            color: #5c97b7;
             font-size: 20px;
           }
         }
         .runtimeContainer{
           border: 1px rgba(255, 255, 255, 0.29) solid;
+          border: 1px rgba(67, 110, 133, 0.65) solid;
           border-radius: 15px;
           padding: 10px;
           text-align: center;
           span{
             color: #fff;
+            color: #5c97b7;
             font-size: 20px;
           }
         }
@@ -110,7 +118,9 @@
       position: absolute;
       bottom: 20px;
       border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px rgba(67, 110, 133, 0.65) solid;
       color: rgba(255, 255, 255, 0.53);
+      color: #5c97b7;
       padding: 20px 15px;
       background-color: transparent;
       font-size: 20px;
@@ -119,6 +129,7 @@
       transition: 0.3s;
       &:hover {
         background-color: rgba(255, 255, 255, 0.21);
+        background-color: rgba(26, 41, 50, 0.71);
         box-shadow: inset rgba(255, 255, 255, 0.2) 0 0 20px 5px;
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
@@ -174,7 +185,7 @@
   justify-content: center;
   gap: 50px;
   min-height: 60%;
-  background-color: rgba(255, 255, 255, 0.21);
+  background-color: rgba(26, 41, 50, 0.71);
   box-shadow: inset rgba(255, 255, 255, 0.2) 0 0 20px 5px;
   border-radius: 25px;
   backdrop-filter: blur(4px);
