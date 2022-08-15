@@ -1,0 +1,25 @@
+.main{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.swiper{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -50px;
+  z-index: 0;
+}
+
+.swiper-slide-active{
+  filter: none !important;
+  cursor: pointer !important;
+}
+
+.swiper-slide{
+  user-select: none;
+  transition: filter 1s;
+  filter: blur(2px) brightness(0.8);
+  cursor: text;
+}
