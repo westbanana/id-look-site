@@ -13,10 +13,8 @@ import unknownImage from '../../assests/unknownImage.svg';
 
 const RandomMovieTest = () => {
   const [movieList, setMovieList] = useState();
-  const [delaySpin, setDelaySpin] = useState(1);
-  const [isSpinning, setIsSpinning] = useState(false);
   const [speedSpin, setSpeedSpin] = useState(1);
-  const [firstSwiper, setFirstSwiper] = useState(null);
+  const [swiper, setSwiper] = useState(null);
   const [movieId, setMovieId] = useState();
   const getRandomMovieList = () => {
     const randomPage = Math.floor((Math.random() * 500) + 1);
@@ -27,74 +25,111 @@ const RandomMovieTest = () => {
       });
   };
 
+  console.log(movieList);
+
   useEffect(() => {
     getRandomMovieList();
   }, []);
 
   const test = () => {
-    setDelaySpin(prevCount => (prevCount * 0));
-    setSpeedSpin(prevCount => prevCount * 1.4);
+    // setSpeedSpin(prevCount => (prevCount >= 400 ? prevCount * 1.38 : prevCount * 1.8));
+    setSpeedSpin(prevCount => prevCount * 1.38);
   };
 
   const spin = () => {
-    setIsSpinning(true);
-    firstSwiper.autoplay.start();
+    swiper.autoplay.start();
     const interval = setInterval(test, 250);
     setTimeout(() => {
-      firstSwiper.autoplay.stop();
+      swiper.autoplay.stop();
       clearInterval(interval);
-      setIsSpinning(false);
-      setDelaySpin(0);
       setSpeedSpin(1);
-      setMovieId(firstSwiper.realIndex);
+      setMovieId(swiper.realIndex);
     }, 5000);
   };
 
   useEffect(() => {
-    if (firstSwiper) {
+    if (swiper) {
       spin();
     }
-  }, [firstSwiper]);
+  }, [swiper]);
 
   return (
     <div
       className={s.main}
       style={{
-        backgroundImage: `${movieId !== undefined ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : unknownImage}`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        background: `${movieId !== undefined && !swiper?.autoplay?.running && movieList[movieId]?.backdrop_path ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : '#17222A'}`,
         backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
       }}
     >
+      {movieId && !swiper?.autoplay?.running && (
+        <div className={s.movieInfo}>
+          <div className={s.infoContainer}>
+            <span className={s.title}>
+              {movieList[movieId]?.title}
+            </span>
+            <span className={s.original_title}>
+              {`(${movieList[movieId]?.original_title})`}
+            </span>
+            <div>
+              <span>IMDB: </span>
+              <span
+                className={s.rate}
+                style={{ color: `${movieList[movieId].vote_average <= 5 ? '#ff2f2f' : movieList[movieId].vote_average > 5 && movieList[movieId].vote_average <= 7 ? '#eeee41' : '#29f729'}` }}
+              >
+                {movieList[movieId]?.vote_average}
+              </span>
+            </div>
+          </div>
+          <Link className={s.movieLink} to={`/movie/${movieList[movieId].id}`}>
+            <div>Перейти до фільму</div>
+          </Link>
+        </div>
+      )}
       <Swiper
-        onSwiper={setFirstSwiper}
+        onSwiper={setSwiper}
         slidesPerView={5}
+        breakpoints={{
+          960: {
+            slidesPerView: 4,
+          },
+          720: {
+            slidesPerView: 3,
+          },
+          540: {
+            slidesPerView: 3,
+          },
+          320: {
+            slidesPerView: 3,
+          },
+        }}
         speed={speedSpin}
         allowTouchMove={false}
         centeredSlides
-        autoplay={{
-          delay: delaySpin,
-        }}
+        autoplay={{ delay: 0 }}
         loop
         modules={[Autoplay]}
+        style={{ marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}` }}
       >
         {movieList && (
           movieList.map(movie => (
-            <SwiperSlide key={movie.id} className={s.swiperSlide}>
-              <Link to={`/movie/${movie.id}`}>
-                <img
-                  className={s.posterPath}
-                  alt="movie"
-                  src={movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                    : unknownImage}
-                />
-              </Link>
+            <SwiperSlide
+              key={movie.id}
+              className={s.swiperSlide}
+            >
+              <img
+                className={s.posterPath}
+                alt="movie"
+                src={movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  : unknownImage}
+              />
             </SwiperSlide>
           ))
         )}
       </Swiper>
-      {!isSpinning && (<div role="presentation" onClick={spin} className={s.randomIconContainer}><RandomIcon className={s.randomIcon} /></div>) }
+      { !swiper?.autoplay?.running && (<div role="presentation" onClick={spin} className={s.randomIconContainer}><RandomIcon className={s.randomIcon} /></div>) }
     </div>
   );
 };
