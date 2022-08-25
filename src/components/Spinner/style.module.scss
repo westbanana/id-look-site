@@ -1,0 +1,23 @@
+.spinnerContainer{
+  width: 200px;
+  height: 300px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 100px);
+  .spinner{
+    animation: rotate 1s linear infinite;
+    height: 100%;
+    width: 100%;
+    stroke: #436E85;
+  }
+}
+
+
+@keyframes rotate {
+  from{
+    transform: rotate(0);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}

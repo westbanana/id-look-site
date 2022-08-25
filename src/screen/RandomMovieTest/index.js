@@ -10,6 +10,7 @@ import 'swiper/scss';
 import './style.scss';
 
 import unknownImage from '../../assests/unknownImage.svg';
+import Spinner from '../../components/Spinner';
 
 const RandomMovieTest = () => {
   const [movieList, setMovieList] = useState();
@@ -24,8 +25,6 @@ const RandomMovieTest = () => {
         setMovieList(response.results);
       });
   };
-
-  console.log(movieList);
 
   useEffect(() => {
     getRandomMovieList();
@@ -47,11 +46,11 @@ const RandomMovieTest = () => {
     }, 5000);
   };
 
-  useEffect(() => {
-    if (swiper) {
-      spin();
-    }
-  }, [swiper]);
+  // useEffect(() => {
+  //   if (swiper) {
+  //     spin();
+  //   }
+  // }, []);
 
   return (
     <div
@@ -63,7 +62,7 @@ const RandomMovieTest = () => {
         backgroundSize: 'cover',
       }}
     >
-      {movieId && !swiper?.autoplay?.running && (
+      {movieId && !swiper?.autoplay?.running ? (
         <div className={s.movieInfo}>
           <div className={s.infoContainer}>
             <span className={s.title}>
@@ -86,7 +85,7 @@ const RandomMovieTest = () => {
             <div>Перейти до фільму</div>
           </Link>
         </div>
-      )}
+      ) : <Spinner />}
       <Swiper
         onSwiper={setSwiper}
         slidesPerView={5}

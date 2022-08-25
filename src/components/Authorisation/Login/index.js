@@ -1,0 +1,173 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { useClickAway } from 'react-use';
+
+import s from './style.module.scss';
+
+const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
+  const [userLogin, setUserLogin] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userSurName, setUserSurName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [passwordIsShowing, setPasswordIsShowing] = useState(false);
+  const [userToken, setUserToken] = useState('');
+  const [isSignIn, setIsSignIn] = useState(false);
+  // const [userData, setUserData] = useState();
+  const refIsLogInModal = useRef(null);
+  useClickAway(refIsLogInModal, () => {
+    setIsLogIn(false);
+  });
+
+  const showPassword = () => {
+    setPasswordIsShowing(!passwordIsShowing);
+  };
+
+  const openSignInModal = () => {
+    setIsSignIn(true);
+    setUserToken('');
+  };
+
+  useEffect(() => {
+    const getUser = new Headers();
+    getUser.append(
+      'Authorization',
+      `Bearer ${userToken}`,
+    );
+
+    const requestOptionsGetUser = {
+      method: 'GET',
+      headers: getUser,
+      redirect: 'follow',
+    };
+
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
+      .then(response => response.json())
+      .then((result) => {
+        setUserProfileData(result.data);
+        if (result.error) {
+          setIsLogIn(true);
+        } else {
+          setIsLogIn(false);
+        }
+      })
+      .catch(error => console.log('error', error));
+
+    if (userToken) {
+      getUserToken(userToken);
+    }
+  }, [userToken]);
+
+  const logIn = () => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      login: `${userLogin}`,
+      password: `${userPassword}`,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/log-in', requestOptions)
+      .then(response => response.json())
+      .then((result) => {
+        setUserToken(result.token);
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  const signIn = () => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      name: userName,
+      surname: userSurName,
+      login: userLogin,
+      password: userPassword,
+      email: userEmail,
+      avatar: `https://robohash.org/${Math.floor(Math.random() * 1000000) + 1}`,
+      watchListId: 1,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/sign-in', requestOptions)
+      .then(response => response.json())
+      .then((result) => {
+        setUserToken(result.token);
+      })
+      .catch(error => console.log('error', error));
+    setIsSignIn(false);
+  };
+
+  return (
+    <div className={s.mainContainer}>
+      {!isSignIn ? (
+        <div className={s.authorisationContainer} ref={refIsLogInModal}>
+          <div className={s.authorisation}>
+            <span>Авторизація</span>
+          </div>
+          <div className={s.inputsBlock}>
+            <div className={s.login}>
+              <span>Логін</span>
+              <input type="name" onChange={e => setUserLogin(e.target.value)} />
+            </div>
+            <div className={s.password}>
+              <span>Пароль</span>
+              <input type={passwordIsShowing ? 'name' : 'password'} onChange={e => setUserPassword(e.target.value)} />
+              <button type="button" onClick={showPassword}>show</button>
+            </div>
+            <div className={s.buttonsContainer}>
+              <button type="submit" onClick={logIn}>Увійти</button>
+              <button type="button" onClick={openSignInModal}>Зареєструватись</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={s.authorisationContainer} ref={refIsLogInModal}>
+          <div className={s.authorisation}>
+            <span>Реєстрація</span>
+          </div>
+          <div className={s.inputsBlock}>
+            <div className={s.login}>
+              <span>Ім&apos;я</span>
+              <input type="name" onChange={e => setUserName(e.target.value)} />
+            </div>
+            <div className={s.password}>
+              <span>Прізвище</span>
+              <input type="name" onChange={e => setUserSurName(e.target.value)} />
+            </div>
+            <div className={s.password}>
+              <span>Логін</span>
+              <input type="name" onChange={e => setUserLogin(e.target.value)} />
+            </div>
+            <div className={s.password}>
+              <span>Пароль</span>
+              <input type={passwordIsShowing ? 'name' : 'password'} onChange={e => setUserPassword(e.target.value)} />
+            </div>
+            <div className={s.password}>
+              <span>Пошта</span>
+              <input type="name" onChange={e => setUserEmail(e.target.value)} />
+            </div>
+            <div className={s.buttonsContainerSignIn}>
+              <button type="button" onClick={signIn}>Зареєструватись</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Login;

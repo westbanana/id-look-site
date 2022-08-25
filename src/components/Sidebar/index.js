@@ -53,7 +53,7 @@ const Sidebar = () => {
             </div>
             <div className={s.burgerButtonsContainer}>
               <Link
-                to="/random-movie"
+                to="/random-movie-test"
                 className={s.burgerButton}
                 onClick={() => setIsBurgerOpen(false)}
               >
@@ -91,7 +91,7 @@ const Sidebar = () => {
             )}
           </div>
         </Link>
-        <Link to="/random-movie">
+        <Link to="/random-movie-test">
           <div className={s.menuItem}>
             <QuestionIcon className={s.randomMovie} />
             {isSideBar && (

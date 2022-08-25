@@ -10,9 +10,11 @@ import star from '../../assests/star.svg';
 import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import SortButton from '../../components/SortButton';
-import Authorisation from '../../components/Authorisation';
+import Login from '../../components/Authorisation/Login';
 
-const MainScreen = ({ getMovie }) => {
+const MainScreen = ({
+  getMovie, setUserData, userData, getUserToken,
+}) => {
   const [movieList, setMovieList] = useState([]);
   const [expand, setExpand] = useState(false);
   const [sortList] = useState([
@@ -107,12 +109,18 @@ const MainScreen = ({ getMovie }) => {
   return (
     <div className={s.main}>
       {islogInModalOpen && (
-        <Authorisation setIsLogIn={setIslogInModalOpen} />
+        <Login setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
       )}
       <div className={s.headerContainer}>
-        <div role="presentation" className={s.logInContainer} onClick={logIn}>
-          <span>Увійти</span>
-        </div>
+        {userData.name && userData.surname ? (
+          <Link to="/profile" className={s.logInContainer}>
+            <span>{userData.name && userData.surname ? `${userData.name} ${userData.surname}` : 'Увійти'}</span>
+          </Link>
+        ) : (
+          <div role="presentation" className={s.logInContainer} onClick={logIn}>
+            <span>{userData.name && userData.surname ? `${userData.name} ${userData.surname}` : 'Увійти'}</span>
+          </div>
+        )}
         <div className={s.searchContainer} ref={refSearchListModal}>
           <input
             placeholder="пошук"
@@ -153,7 +161,7 @@ const MainScreen = ({ getMovie }) => {
           <div className={s.navMenu}>
             <span className={s.navMenu__item}>Незабаром</span>
             <span className={s.navMenu__item}>Зараз дивляться</span>
-            <span className={s.navMenu__item}>Популярні</span>
+            <span className={s.navMenu__item}>Найкращі</span>
           </div>
           <div className={s.sortContainer} ref={refSortModal}>
             <span role="presentation" className={s.sortTitle} onClick={openSortModal}>
@@ -182,7 +190,7 @@ const MainScreen = ({ getMovie }) => {
                   {`IMDb: ${movie.vote_average}`}
                 </span>
               </div>
-              <img className={s.moviePoster} alt="movie" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+              <img className={s.moviePoster} alt="movie" src={`${movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage}`} />
               <div className={s.movieInfoContainer}>
                 <span className={s.movieTitle}>
                   {movie.title}

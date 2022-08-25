@@ -12,13 +12,14 @@ import RandomMovieTest from './screen/RandomMovieTest';
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
-
+  const [userData, setUserData] = useState([]);
+  const [userToken, setUserToken] = useState('');
   return (
     <div className={s.App}>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<MainScreen getMovie={setSelectedMovie} />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
+        <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} />} />
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="/random-movie" element={<RandomMovieScreen />} />
         <Route path="/random-movie-test" element={<RandomMovieTest />} />
