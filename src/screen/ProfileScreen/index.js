@@ -10,12 +10,12 @@ const Profile = ({ userData, userToken, setUserData }) => {
   const [userSurname, setUserSurname] = useState(userData.surname);
   const [userEmail, setUserEmail] = useState(userData.email);
   const [userAvatar, setUserAvatar] = useState(userData.avatar);
-
+  console.log(userToken);
   const updateUser = () => {
     setUserData({
-      name: userName,
-      surname: userSurname,
-      email: userEmail,
+      name: userName || userData.name,
+      surname: userSurname || userData.surname,
+      email: userEmail || userData.email,
       avatar: `https://robohash.org/${userAvatar}`,
     });
 
@@ -24,9 +24,9 @@ const Profile = ({ userData, userToken, setUserData }) => {
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      name: userName,
-      surname: userSurname,
-      email: userEmail,
+      name: userName || userData.name,
+      surname: userSurname || userData.surname,
+      email: userEmail || userData.email,
       avatar: `https://robohash.org/${userAvatar}`,
     });
 
@@ -45,21 +45,14 @@ const Profile = ({ userData, userToken, setUserData }) => {
 
   const swapImage = () => {
     setUserAvatar(Math.floor(Math.random() * 1000000) + 1);
-    setUserData({
-      name: userData.name,
-      surname: userData.surname,
-      email: userData.email,
-      avatar: `https://robohash.org/${userAvatar}`,
-    });
-
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${userToken}`);
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      name: userName,
-      surname: userSurname,
-      email: userEmail,
+      name: userData.name,
+      surname: userData.surname,
+      email: userData.email,
       avatar: `https://robohash.org/${userAvatar}`,
     });
 
@@ -78,7 +71,7 @@ const Profile = ({ userData, userToken, setUserData }) => {
 
   return (
     <div className={s.mainContainer}>
-      <div>
+      <div className={s.userInfoContainer}>
         <div className={s.userInfo}>
           <div className={s.avatarContainer}>
             <div className={s.swapImageContainer}>
@@ -86,7 +79,6 @@ const Profile = ({ userData, userToken, setUserData }) => {
                 className={s.spinnerIcon}
                 onClick={swapImage}
               />
-              { /* <Spinner className={s.spinnerIcon} /> */ }
             </div>
             {userData ? <img alt="avatar" src={userData.avatar} /> : (
               <span>
@@ -119,9 +111,7 @@ const Profile = ({ userData, userToken, setUserData }) => {
           <button
             type="button"
             className={s.submitButton}
-            onClick={() => {
-              updateUser();
-            }}
+            onClick={updateUser}
           >
             Зберегти
           </button>

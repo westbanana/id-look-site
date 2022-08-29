@@ -25,9 +25,6 @@
         display: flex;
         flex-direction: column;
         height: 300px;
-        //.firstNameInfo{
-        //  border-top: 1px solid #4d7f9a;
-        //}
         .info{
           display: flex;
           align-items: center;
@@ -46,11 +43,39 @@
       }
     }
     .actorMovieList{
-      display: grid;
-      justify-items: center;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      transition: 0.3s;
-      grid-gap: 150px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      .searchContainer{
+        display: flex;
+        justify-content: center;
+        &:hover{
+          .searchInput{
+            box-shadow: 0 4px 45px #436E85;
+          }
+        }
+        .searchInput{
+          border: none;
+          outline: none;
+          color: #436E85;
+          padding: 5px 0 5px 20px;
+          min-width: 50%;
+          background: #1A2932;
+          position: relative;
+          transition: 0.3s ease;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+          &::placeholder{
+            color: #436E85;
+          }
+        }
+      }
+      .moviesContainer{
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        transition: 0.3s;
+        grid-gap: 150px 50px;
+      }
     }
   }
 }

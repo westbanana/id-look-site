@@ -9,9 +9,6 @@ const ActorsScreen = () => {
   const [actorDetails, setActorDetails] = useState({});
   const [actorMovieList, setActorMovieList] = useState([]);
   const { actorId } = useParams();
-
-  console.log(actorDetails);
-
   const getActorDetails = () => {
     fetch(`https://api.themoviedb.org/3/person/${actorId}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
@@ -26,6 +23,15 @@ const ActorsScreen = () => {
     getActorDetails();
     getActorMovieCredits();
   }, []);
+
+  const searchMovie = (value) => {
+    const result = actorMovieList.filter(movie => movie.title.toLowerCase().includes(value.toLowerCase()));
+    setActorMovieList(value ? result : actorMovieList);
+    if (!value.length) {
+      getActorMovieCredits();
+    }
+  };
+
   return (
     <div className={s.main}>
       <div className={s.actorContainer}>
@@ -53,16 +59,21 @@ const ActorsScreen = () => {
           </div>
         </div>
         <div className={s.actorMovieList}>
-          {actorMovieList.map(movie => (
-            <Link to={`/movie/${movie.id}`} className={s.movie}>
-              <div className={s.movieContainer}>
-                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage} alt={movie.title} />
-                <div className={s.movieTitle}>
-                  <span>{movie.title}</span>
+          <div className={s.searchContainer}>
+            <input className={s.searchInput} placeholder="пошук" onChange={e => searchMovie(e.target.value)} />
+          </div>
+          <div className={s.moviesContainer}>
+            {actorMovieList.map(movie => (
+              <Link to={`/movie/${movie.id}`} className={s.movie}>
+                <div className={s.movieContainer}>
+                  <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage} alt={movie.title} />
+                  <div className={s.movieTitle}>
+                    <span>{movie.title}</span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

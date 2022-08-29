@@ -11,7 +11,7 @@ import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
 import arrow from '../../assests/arrow.svg';
 
-const Sidebar = () => {
+const Sidebar = ({ watchListId }) => {
   const [isSideBar, setIsSideBar] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const refSidebar = useRef(null);
@@ -102,12 +102,12 @@ const Sidebar = () => {
         <div ref={refArrow} role="presentation" className={s.arrowContainer} onClick={openSidebar}>
           <img src={arrow} alt="arrow" />
         </div>
-        <div className={s.menuItem}>
+        <Link to={`/liked-movies/${watchListId}`} className={s.menuItem}>
           <MarksIcon className={s.marks} alt="marksIco" />
           {isSideBar && (
             <span className={s.description}>Відмітки</span>
           )}
-        </div>
+        </Link>
       </div>
       <div className={s.swiperContainer}>
         <Swiper className={s.swiper} />

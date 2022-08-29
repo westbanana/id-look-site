@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import s from './App.module.scss';
 import MainScreen from './screen/MainScreen';
 import Sidebar from './components/Sidebar';
-import s from './App.module.scss';
 import Profile from './screen/ProfileScreen';
 import ErrorScreen from './screen/ErrorScreen';
 import MovieScreen from './screen/MovieScreen';
 import RandomMovieScreen from './screen/RandomMovieScreen';
 import RandomMovieTest from './screen/RandomMovieTest';
 import ActorScreen from './screen/ActorScreen';
+import LikedMovies from './screen/LikedMovies';
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
   useEffect(() => {
+    setUserToken(localStorage.getItem('token'));
     const getUser = new Headers();
     getUser.append(
       'Authorization',
@@ -37,10 +39,11 @@ const App = () => {
   }, []);
   return (
     <div className={s.App}>
-      <Sidebar />
+      <Sidebar watchListId={userData.watchListId} />
       <Routes>
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} />} />
+        <Route path="/liked-movies/:watch-list" element={<LikedMovies />} />
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="/actor/:actorId" element={<ActorScreen />} />
         <Route path="/random-movie" element={<RandomMovieScreen />} />

@@ -160,6 +160,13 @@
   }
 }
 
+.userInfoContainer{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .first{
   transition: 0.3s;
   animation: fromLeft 0.3s linear forwards;
