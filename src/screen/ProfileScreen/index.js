@@ -6,42 +6,17 @@ import s from './style.module.scss';
 import { ReactComponent as Spinner } from '../../assests/spinner.svg';
 
 const Profile = ({ userData, userToken, setUserData }) => {
-  // const [dataUser, setDataUser] = useState(userData);
   const [userName, setUserName] = useState(userData.name);
   const [userSurname, setUserSurname] = useState(userData.surname);
   const [userEmail, setUserEmail] = useState(userData.email);
-  const [imageId, setImageId] = useState('');
-  // const makeId = (length) => {
-  //   let result = '';
-  //   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   const charactersLength = characters.length;
-  //   // eslint-disable-next-line no-plusplus
-  //   for (let i = 0; i < length; i++) {
-  //     result += characters.charAt(Math.floor(Math.random()
-  //       * charactersLength));
-  //   }
-  //   return result;
-  // };
-  //
-  // useEffect(() => {
-  //   setImageId(
-  //     makeId(100),
-  //   );
-  // }, []);
-  //
-  // const swapImage = () => {
-  //   setImageId(
-  //     makeId(100),
-  //   );
-
-  console.log(userData);
+  const [userAvatar, setUserAvatar] = useState(userData.avatar);
 
   const updateUser = () => {
     setUserData({
       name: userName,
       surname: userSurname,
       email: userEmail,
-      avatar: `https://robohash.org/${imageId}`,
+      avatar: `https://robohash.org/${userAvatar}`,
     });
 
     const myHeaders = new Headers();
@@ -52,7 +27,7 @@ const Profile = ({ userData, userToken, setUserData }) => {
       name: userName,
       surname: userSurname,
       email: userEmail,
-      avatar: `https://robohash.org/${imageId}`,
+      avatar: `https://robohash.org/${userAvatar}`,
     });
 
     const requestOptions = {
@@ -68,7 +43,38 @@ const Profile = ({ userData, userToken, setUserData }) => {
       .catch(error => console.log('error', error));
   };
 
-  console.log(Math.floor(Math.random() * 1000000) + 1);
+  const swapImage = () => {
+    setUserAvatar(Math.floor(Math.random() * 1000000) + 1);
+    setUserData({
+      name: userData.name,
+      surname: userData.surname,
+      email: userData.email,
+      avatar: `https://robohash.org/${userAvatar}`,
+    });
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${userToken}`);
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      name: userName,
+      surname: userSurname,
+      email: userEmail,
+      avatar: `https://robohash.org/${userAvatar}`,
+    });
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptions)
+      .then(response => response.json())
+      .then(result => setUserData(result.data))
+      .catch(error => console.log('error', error));
+  };
 
   return (
     <div className={s.mainContainer}>
@@ -78,10 +84,7 @@ const Profile = ({ userData, userToken, setUserData }) => {
             <div className={s.swapImageContainer}>
               <Spinner
                 className={s.spinnerIcon}
-                onClick={() => {
-                  setImageId(Math.floor(Math.random() * 1000000) + 1);
-                  updateUser();
-                }}
+                onClick={swapImage}
               />
               { /* <Spinner className={s.spinnerIcon} /> */ }
             </div>

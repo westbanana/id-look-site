@@ -159,7 +159,7 @@ const MainScreen = ({
         </div>
         <div className={s.navContainer}>
           <div className={s.navMenu}>
-            <span className={s.navMenu__item}>Незабаром</span>
+            <span role="presentation" className={s.navMenu__item}>Незабаром</span>
             <span className={s.navMenu__item}>Зараз дивляться</span>
             <span className={s.navMenu__item}>Найкращі</span>
           </div>

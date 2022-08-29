@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import s from './style.module.scss';
 
 import { ReactComponent as Heart } from '../../assests/heart.svg';
+import { ReactComponent as FullHeart } from '../../assests/fullHeart.svg';
 import { ReactComponent as Star } from '../../assests/star.svg';
-
-// TODO: movie/(пусто) - возвращать на главный экран, movie/(undefined id) - страница not found
 
 const MovieScreen = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState();
   const [movieCast, setMovieCast] = useState();
   const [movieCrew, setMovieCrew] = useState();
+  const [liked, setLiked] = useState(false);
+  // const [selectedActorId, setSelectedActorId] = useState();
   const { id } = useParams();
   const getMovieDetails = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
@@ -60,8 +61,12 @@ const MovieScreen = () => {
               <span className={s.title}>{movie.title}</span>
               <span className={s.originalTitle}>{`(${movie.original_title})`}</span>
             </div>
-            <div className={s.favorites}>
-              <Heart className={s.heartIcon} />
+            <div
+              role="presentation"
+              className={s.favorites}
+              onClick={() => setLiked(!liked)}
+            >
+              {liked ? <FullHeart className={s.heartIcon} /> : <Heart className={s.heartIcon} />}
             </div>
           </div>
           <div className={s.body}>
@@ -131,7 +136,7 @@ const MovieScreen = () => {
                     <span>У ролях:</span>
                   </div>
                   <div className={s.descriptionField}>
-                    {movieCast && (movieCast.map(i => <span>{`${i.name}, `}</span>))}
+                    {movieCast && (movieCast.map(i => <Link to={`/actor/${i.id}`} key={i.id}>{`${i.name}, `}</Link>))}
                   </div>
                 </div>
               </div>

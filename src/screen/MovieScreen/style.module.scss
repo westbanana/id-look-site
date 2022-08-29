@@ -51,7 +51,9 @@
       }
       .favorites{
         .heartIcon{
-
+          cursor: pointer;
+          user-select: none;
+          animation: born .3s linear forwards;
         }
       }
     }
@@ -174,4 +176,17 @@ iframe{
     transform: scale(100%);
     opacity: 1;
   }
+}
+@keyframes born {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+a{
+  text-decoration: none;
+  color: white;
 }

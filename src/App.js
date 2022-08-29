@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import MainScreen from './screen/MainScreen';
@@ -9,11 +9,32 @@ import ErrorScreen from './screen/ErrorScreen';
 import MovieScreen from './screen/MovieScreen';
 import RandomMovieScreen from './screen/RandomMovieScreen';
 import RandomMovieTest from './screen/RandomMovieTest';
+import ActorScreen from './screen/ActorScreen';
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
+  useEffect(() => {
+    const getUser = new Headers();
+    getUser.append(
+      'Authorization',
+      `Bearer ${localStorage.getItem('token')}`,
+    );
+
+    const requestOptionsGetUser = {
+      method: 'GET',
+      headers: getUser,
+      redirect: 'follow',
+    };
+
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
+      .then(response => response.json())
+      .then((result) => {
+        setUserData(result.data);
+      })
+      .catch(error => console.log('error', error));
+  }, []);
   return (
     <div className={s.App}>
       <Sidebar />
@@ -21,6 +42,7 @@ const App = () => {
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} />} />
         <Route path="/error" element={<ErrorScreen />} />
+        <Route path="/actor/:actorId" element={<ActorScreen />} />
         <Route path="/random-movie" element={<RandomMovieScreen />} />
         <Route path="/random-movie-test" element={<RandomMovieTest />} />
         <Route path="/movie/:id" element={<MovieScreen selectedMovie={selectedMovie} />} />

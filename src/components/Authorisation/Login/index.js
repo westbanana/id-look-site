@@ -28,6 +28,7 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
   };
 
   useEffect(() => {
+    localStorage.setItem('token', userToken);
     const getUser = new Headers();
     getUser.append(
       'Authorization',
@@ -92,7 +93,7 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
       password: userPassword,
       email: userEmail,
       avatar: `https://robohash.org/${Math.floor(Math.random() * 1000000) + 1}`,
-      watchListId: 1,
+      watchListId: Math.floor(Math.random() * 1000000) + 1,
     });
 
     const requestOptions = {

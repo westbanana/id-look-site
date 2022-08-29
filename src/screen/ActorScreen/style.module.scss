@@ -1,0 +1,96 @@
+.main{
+  height: 100%;
+  width: 100%;
+  background: #17222A;
+  background: -webkit-radial-gradient(center, #17222A, #3A6073);
+  background: -moz-radial-gradient(center, #17222A, #3A6073);
+  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  background-size: cover;
+  overflow: auto;
+  .actorContainer{
+    padding: 20px;
+    margin: 50px 0;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .actorInfoContainer{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 100px;
+      .actorPhotoContainer{
+
+      }
+      .infoDescription{
+        display: flex;
+        flex-direction: column;
+        height: 300px;
+        //.firstNameInfo{
+        //  border-top: 1px solid #4d7f9a;
+        //}
+        .info{
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 50px;
+          border-bottom: 1px solid #4d7f9a;
+          font-size: 20px;
+          color: #fff;
+          font-weight: 500;
+          height: 100%;
+          .nameInfo{
+            margin-left: 20px;
+            min-width: 200px;
+          }
+        }
+      }
+    }
+    .actorMovieList{
+      display: grid;
+      justify-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      transition: 0.3s;
+      grid-gap: 150px 50px;
+    }
+  }
+}
+
+.movieContainer{
+  cursor: pointer;
+  transition: 0.3s;
+  height: 305px;
+  width: 210px;
+  background: #1A2932;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  img{
+    transition: 0.3s;
+    min-height: 100%;
+    width: 100%;
+    z-index: 2;
+  }
+  .movieTitle{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.42);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 0;
+    transition: 0.3s;
+    background-color: #1A2932;
+    span{
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      text-align: center;
+      color: #436E85;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 10px;
+    }
+  }
+}
