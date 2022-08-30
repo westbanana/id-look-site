@@ -17,7 +17,7 @@
     border: #325364 1px solid;
     color: #3A6073;
     font-size: 20px;
-    padding: 5px;
+    padding: 5px 40px 5px 5px;
   }
   .authorisationContainer{
     animation: show 0.2s linear forwards;
@@ -35,6 +35,13 @@
       font-size: 30px;
       color: #325364;
       margin-top: 20px;
+      position: relative;
+      .backArrow{
+        position: absolute;
+        bottom: 13px;
+        left: -30px;
+        cursor: pointer;
+      }
     }
     .inputsBlock{
       width: 286px;
@@ -53,6 +60,7 @@
         margin: 20px 0;
         display: flex;
         flex-direction: column;
+        position: relative;
         span{
           transition: 0.3s;
           font-weight: 700;
@@ -104,12 +112,25 @@
     }
   }
 }
+.eyeContainer{
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  top: calc(40%);
+  padding: 10px 0;
+  .eye{
+    animation: show .1s linear forwards;
+    height: 14px;
+  }
+}
 
 @keyframes show {
   from{
     transform: scale(0)
   }
   to{
-  transform: scale(100%);
+    transform: scale(1);
   }
 }

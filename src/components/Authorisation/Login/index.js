@@ -3,6 +3,10 @@ import { useClickAway } from 'react-use';
 
 import s from './style.module.scss';
 
+import { ReactComponent as OpenEye } from '../../../assests/marks.svg';
+import { ReactComponent as ClosedEye } from '../../../assests/closedEye.svg';
+import { ReactComponent as Arrow } from '../../../assests/arrow.svg';
+
 const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
   const [userLogin, setUserLogin] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -18,10 +22,6 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
     setIsLogIn(false);
   });
 
-  const showPassword = () => {
-    setPasswordIsShowing(!passwordIsShowing);
-  };
-
   const openSignInModal = () => {
     setIsSignIn(true);
     setUserToken('');
@@ -29,29 +29,31 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
 
   useEffect(() => {
     localStorage.setItem('token', userToken);
-    const getUser = new Headers();
-    getUser.append(
-      'Authorization',
-      `Bearer ${userToken}`,
-    );
+    if (userToken) {
+      const getUser = new Headers();
+      getUser.append(
+        'Authorization',
+        `Bearer ${userToken}`,
+      );
 
-    const requestOptionsGetUser = {
-      method: 'GET',
-      headers: getUser,
-      redirect: 'follow',
-    };
+      const requestOptionsGetUser = {
+        method: 'GET',
+        headers: getUser,
+        redirect: 'follow',
+      };
 
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
-      .then(response => response.json())
-      .then((result) => {
-        setUserProfileData(result.data);
-        if (result.error) {
-          setIsLogIn(true);
-        } else {
-          setIsLogIn(false);
-        }
-      })
-      .catch(error => console.log('error', error));
+      fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
+        .then(response => response.json())
+        .then((result) => {
+          setUserProfileData(result.data);
+          if (result.error) {
+            setIsLogIn(true);
+          } else {
+            setIsLogIn(false);
+          }
+        })
+        .catch(error => console.log('error', error));
+    }
 
     if (userToken) {
       getUserToken(userToken);
@@ -59,6 +61,7 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
   }, [userToken]);
 
   const logIn = () => {
+    setPasswordIsShowing(false);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -73,16 +76,24 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
       body: raw,
       redirect: 'follow',
     };
-
     fetch('https://evening-basin-02735.herokuapp.com/api/v1/log-in', requestOptions)
-      .then(response => response.json())
+      .then((response) => {
+        console.log(response.status);
+        console.log(response.json());
+        response.json();
+      })
       .then((result) => {
-        setUserToken(result.token);
+        if (result.error) {
+          console.log(result);
+        } else {
+          setUserToken(result.token);
+        }
       })
       .catch(error => console.log('error', error));
   };
 
   const signIn = () => {
+    setPasswordIsShowing(false);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -127,7 +138,23 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
             <div className={s.password}>
               <span>Пароль</span>
               <input type={passwordIsShowing ? 'name' : 'password'} onChange={e => setUserPassword(e.target.value)} />
-              <button type="button" onClick={showPassword}>show</button>
+              {passwordIsShowing
+                ? (
+                  <div className={s.eyeContainer}>
+                    <OpenEye
+                      className={s.eye}
+                      onClick={() => setPasswordIsShowing(false)}
+                    />
+                  </div>
+                )
+                : (
+                  <div className={s.eyeContainer}>
+                    <ClosedEye
+                      className={s.eye}
+                      onClick={() => setPasswordIsShowing(true)}
+                    />
+                  </div>
+                ) }
             </div>
             <div className={s.buttonsContainer}>
               <button type="submit" onClick={logIn}>Увійти</button>
@@ -138,6 +165,10 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
       ) : (
         <div className={s.authorisationContainer} ref={refIsLogInModal}>
           <div className={s.authorisation}>
+            <Arrow
+              className={s.backArrow}
+              onClick={() => setIsSignIn(false)}
+            />
             <span>Реєстрація</span>
           </div>
           <div className={s.inputsBlock}>
@@ -156,6 +187,23 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
             <div className={s.password}>
               <span>Пароль</span>
               <input type={passwordIsShowing ? 'name' : 'password'} onChange={e => setUserPassword(e.target.value)} />
+              {passwordIsShowing
+                ? (
+                  <div className={s.eyeContainer}>
+                    <OpenEye
+                      className={s.eye}
+                      onClick={() => setPasswordIsShowing(false)}
+                    />
+                  </div>
+                )
+                : (
+                  <div className={s.eyeContainer}>
+                    <ClosedEye
+                      className={s.eye}
+                      onClick={() => setPasswordIsShowing(true)}
+                    />
+                  </div>
+                ) }
             </div>
             <div className={s.password}>
               <span>Пошта</span>

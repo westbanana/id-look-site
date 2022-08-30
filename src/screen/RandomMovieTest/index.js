@@ -17,6 +17,7 @@ const RandomMovieTest = () => {
   const [speedSpin, setSpeedSpin] = useState(1);
   const [swiper, setSwiper] = useState(null);
   const [movieId, setMovieId] = useState();
+  const [opacity, setOpacity] = useState('0');
   const getRandomMovieList = () => {
     const randomPage = Math.floor((Math.random() * 500) + 1);
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${randomPage}`)
@@ -26,16 +27,12 @@ const RandomMovieTest = () => {
       });
   };
 
-  useEffect(() => {
-    getRandomMovieList();
-  }, []);
-
   const test = () => {
-    // setSpeedSpin(prevCount => (prevCount >= 400 ? prevCount * 1.38 : prevCount * 1.8));
     setSpeedSpin(prevCount => prevCount * 1.38);
   };
 
   const spin = () => {
+    setOpacity('1');
     swiper.autoplay.start();
     const interval = setInterval(test, 250);
     setTimeout(() => {
@@ -43,14 +40,13 @@ const RandomMovieTest = () => {
       clearInterval(interval);
       setSpeedSpin(1);
       setMovieId(swiper.realIndex);
+      setOpacity('0');
     }, 5000);
   };
 
-  // useEffect(() => {
-  //   if (swiper) {
-  //     spin();
-  //   }
-  // }, []);
+  useEffect(() => {
+    getRandomMovieList();
+  }, []);
 
   return (
     <div
@@ -109,7 +105,7 @@ const RandomMovieTest = () => {
         autoplay={{ delay: 0 }}
         loop
         modules={[Autoplay]}
-        style={{ marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}` }}
+        style={{ marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}`, opacity: `${opacity}` }}
       >
         {movieList && (
           movieList.map(movie => (

@@ -18,31 +18,33 @@ const App = () => {
   const [userToken, setUserToken] = useState('');
   useEffect(() => {
     setUserToken(localStorage.getItem('token'));
-    const getUser = new Headers();
-    getUser.append(
-      'Authorization',
-      `Bearer ${localStorage.getItem('token')}`,
-    );
+    if (userToken) {
+      const getUser = new Headers();
+      getUser.append(
+        'Authorization',
+        `Bearer ${localStorage.getItem('token')}`,
+      );
 
-    const requestOptionsGetUser = {
-      method: 'GET',
-      headers: getUser,
-      redirect: 'follow',
-    };
+      const requestOptionsGetUser = {
+        method: 'GET',
+        headers: getUser,
+        redirect: 'follow',
+      };
 
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
-      .then(response => response.json())
-      .then((result) => {
-        setUserData(result.data);
-      })
-      .catch(error => console.log('error', error));
+      fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
+        .then(response => response.json())
+        .then((result) => {
+          setUserData(result.data);
+        })
+        .catch(error => console.log('error', error));
+    }
   }, []);
   return (
     <div className={s.App}>
       <Sidebar watchListId={userData.watchListId} />
       <Routes>
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
-        <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} />} />
+        <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />} />
         <Route path="/liked-movies/:watch-list" element={<LikedMovies />} />
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="/actor/:actorId" element={<ActorScreen />} />

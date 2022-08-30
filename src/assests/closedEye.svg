@@ -1,0 +1,12 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 19" width="36" height="19">
+	<title>marks-svg</title>
+	<defs>
+		<image  width="36" height="19" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAATCAMAAADPoV+/AAAAAXNSR0IB2cksfwAAAJZQTFRFAAAAQW2CQmyFQ22EQ22EQm6EQ26FQ26FQm6FQ22EQm2FQ2yDQGqFQGyDQm2EQ26FQm6EQGiAQ26EQGCAQ22FQm6DQmyFQ26FQ26EQm6FQm2FQm2EQm6EQGqFQ22FQ2yDQmyFQm2FQGCAQm2EQm6DQm2FQGiAQGyDQ2yDQm2EQm2EQ22EQ26EQW6EQW2CQGuEQm6FQm2Ez7rNIAAAADJ0Uk5TAAgNDwsNBAIAAAAAAAAAAAAAAAAAAAD/oN/AcO8w8FB/YBCfgK8gQG+P0LDPTz9fkOC5XtJPAAAA6ElEQVR4nH2Qa3uCMAyFs6tYaIuAHm5WRSZTN7f9/z+3MC9PWYvnS5vkTXJaIksPj0/PL6+TYCrCiLySStuK1cxBwoQLKghlSjSTIuk7/mGp0DqbD3JR37WwEiLWmXKGp4HWyc3bQuupa+BsM5bnK68X/rdQmlxqSmdyhGHN/yhmRv7kuieOCMjvMUQFSqpQL+8xFQzXc9SrcWYNbPozv5weNdtbrQXedj6mK2C6a7AxqN8dZLcHDpbf5gjU68G0JW9CO2xbHTj3sf88NTzi9LUtOMxdDx0/wJL59tpkri1LA/yUx2rwd7+mXhNORPgB8gAAAABJRU5ErkJggg=="/>
+		<image  width="1" height="1" id="img2" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAAXNSR0IB2cksfwAAAANQTFRFQ2yDaF/4cgAAAAF0Uk5TATfh6PAAAAAKSURBVHicY2AAAAACAAFIr6RxAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0" />
+	<use id="Layer" href="#img2" x="15" y="13" />
+</svg>

@@ -18,6 +18,7 @@
       display: flex;
       justify-content: center;
       margin-bottom: 100px;
+      animation: actorInfoContainer 0.4s linear forwards;
       .actorPhotoContainer{
 
       }
@@ -59,11 +60,12 @@
           outline: none;
           color: #436E85;
           padding: 5px 0 5px 20px;
-          min-width: 50%;
+          min-width: 0;
           background: #1A2932;
           position: relative;
           transition: 0.3s ease;
           box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+          animation: input 0.4s linear forwards;
           &::placeholder{
             color: #436E85;
           }
@@ -83,14 +85,15 @@
 .movieContainer{
   cursor: pointer;
   transition: 0.3s;
+  background: #1A2932;
   height: 305px;
   width: 210px;
-  background: #1A2932;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
+  animation: movieContainer 0.3s linear forwards;
   img{
     transition: 0.3s;
     min-height: 100%;
@@ -117,5 +120,32 @@
       overflow: hidden;
       padding: 0 10px;
     }
+  }
+}
+
+@keyframes input {
+  from{
+    min-width: 0;
+  }
+  to{
+    min-width: 50%;
+  }
+}
+
+@keyframes movieContainer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes actorInfoContainer {
+  from{
+    transform: translateY(-1000px);
+  }
+  to{
+    transform: translateY(0);
   }
 }

@@ -34,44 +34,47 @@ const Sidebar = ({ watchListId }) => {
     setIsBurgerOpen(false);
   });
 
+  const closeBurger = () => {
+    console.log(isBurgerOpen);
+    setIsBurgerOpen(!isBurgerOpen);
+  };
+
   return (
     <div role="presentation" className={s.main} ref={refSidebar}>
-      <div role="presentation" className={s.burgerContainer} onClick={() => setIsBurgerOpen(true)}>
+      <div role="presentation" ref={refBurger} className={s.burgerContainer} onClick={() => setIsBurgerOpen(true)}>
         <div className={`${s.stroke} ${isBurgerOpen ? s.first : s.firstRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.second : s.secondRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.third : s.thirdRerotate}`} />
         {isBurgerOpen && (
-          <div className={s.burgerModal} ref={refBurger}>
-            <div className={s.burgerButtonsContainer}>
-              <Link
-                to="/profile"
-                className={s.burgerButton}
-                onClick={() => setIsBurgerOpen(false)}
-              >
-                Профіль
-              </Link>
-            </div>
-            <div className={s.burgerButtonsContainer}>
-              <Link
-                to="/random-movie-test"
-                className={s.burgerButton}
-                onClick={() => setIsBurgerOpen(false)}
-              >
-                Випадоквий фільм
-              </Link>
-            </div>
-            <div className={s.burgerButtonsContainer}>
-              <Link
-                to="/"
-                className={s.burgerButton}
-                onClick={() => setIsBurgerOpen(false)}
-              >
-                Відмітки
-              </Link>
-            </div>
-            <div className={s.burgerButtonsContainer}>
+          <div className={s.burgerModal}>
+            <Link
+              to="/profile"
+              className={s.burgerButtonsContainer}
+              onClick={closeBurger}
+            >
+              Профіль
+            </Link>
+            <Link
+              to="/random-movie-test"
+              className={s.burgerButtonsContainer}
+              onClick={closeBurger}
+            >
+              Випадковий фільм
+            </Link>
+            <Link
+              to="/"
+              className={s.burgerButtonsContainer}
+              onClick={closeBurger}
+            >
+              Відмітки
+            </Link>
+            <div
+              role="presentation"
+              className={s.burgerButtonsContainer}
+              onClick={closeBurger}
+            >
               <div className={s.burgerButton}>
-                Увійти
+                {localStorage.getItem('token') ? 'Профіль' : 'Увійти'}
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@
   position: relative;
   display: flex;
   align-items: flex-end;
+  transition: 0.4s;
   }
 .movieInfo{
   display: flex;
@@ -14,13 +15,14 @@
   border: rgba(67, 110, 133, 0.22) 1px solid;
   position: absolute;
   background: rgba(26, 41, 50, 0.56);
-  top: 10%;
+  top: calc(50% - 100px);
   backdrop-filter: blur(5px);
   left: calc(50% - 250px);
   height: 200px;
   width: 500px;
   max-width: 500px;
   border-radius: 15px;
+  animation: movieInfo 0.4s linear forwards;
   .infoContainer{
     display: flex;
     flex-direction: column;
@@ -70,18 +72,11 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  //max-height: 50px;
-  //max-width: 166px;
-  //min-height: 50px;
-  //min-width: 80px;
-  //border-radius: 15px;
-  //bottom: 20px;
-  //height: 50px;
   bottom: 0;
   height: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 9;
   cursor: pointer;
   transition: all 0.2s;
   animation: show 0.2s linear forwards;
@@ -102,17 +97,124 @@
 
 @keyframes show {
   from{
-    //transform: scale(0);
     height: 0;
   }
   to{
-    //transform: scale(1);
     height: 50px;
+  }
+}
+
+@keyframes movieInfo {
+  0%{
+    transform: scale(0) translateX(1000px);
+    filter: blur(50px);
+  }
+  50%{
+    transform: scale(0.5) translateX(500px);
+    filter: blur(10px);
+  }
+  100%{
+    transform: scale(1) translateX(0);
+    filter: blur(0);
   }
 }
 
 @media (max-width: 750px) {
   .movieInfo{
     top: calc(50% - 200px);
+  }
+}
+
+@media (max-width: 740px) {
+  .main{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    transition: 0.4s;
+  }
+  .movieInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: rgba(67, 110, 133, 0.22) 1px solid;
+    position: absolute;
+    background: rgba(26, 41, 50, 0.56);
+    top: calc(50% - 100px);
+    backdrop-filter: blur(5px);
+    left: calc(50% - 175px);
+    height: 200px;
+    width: 350px;
+    max-width: 500px;
+    border-radius: 15px;
+    animation: movieInfo 0.4s linear forwards;
+    .infoContainer{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+      max-width: 100%;
+      font-size: 20px;
+      width: 100%;
+      color: white;
+      .title{
+        font-size: 35px;
+        max-height: 52px;
+        overflow: hidden;
+      }
+      .original_title{
+        font-size: 15px;
+        font-style: italic;
+        opacity: 0.3;
+        margin: 5px 0 20px 0;
+        line-height: 0;
+        max-height: 10px;
+      }
+      .rate{
+      }
+    }
+    .movieLink{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 50%;
+      border-radius: 15px;
+      border: #436E85 1px solid;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        background: #436E85;
+      }
+    }
+  }
+  .randomIconContainer{
+    background-color: #1A2932;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    height: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    cursor: pointer;
+    transition: all 0.2s;
+    animation: show 0.2s linear forwards;
+    &:hover {
+      background-color: #436E85;
+      .randomIcon{
+        stroke: #fff;
+      }
+    }
+    .randomIcon{
+    }
   }
 }
