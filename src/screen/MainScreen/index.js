@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-// import { useClickAway } from 'react-use';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
 
@@ -12,16 +11,17 @@ import unknownImage from '../../assests/unknownImage.svg';
 import Login from '../../components/Authorisation/Login';
 
 const MainScreen = ({
-  getMovie, setUserData, userData, getUserToken,
+  getMovie, setUserData, userData, getUserToken, setSortNameList,
 }) => {
   const [movieList, setMovieList] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [searchedMovie, setSearchedMovie] = useState([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [islogInModalOpen, setIslogInModalOpen] = useState(false);
+  const [nameList, setNameList] = useState('Нові');
   const refSearchListModal = useRef(null);
   const refSearchInput = useRef(null);
+  const refSortList = useRef(null);
 
   const getMovieList = () => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
@@ -30,22 +30,54 @@ const MainScreen = ({
         setMovieList(response.results);
       });
   };
-
   useEffect(() => {
     getMovieList();
   }, []);
 
-  // useClickAway(refSearchListModal, () => {
-  //   setIsDropDownOpen(false);
-  // });
+  const getNowPlaying = () => {
+    setNameList('Зараз дивляться');
+    fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
+      .then(response => response.json())
+      .then(response => setMovieList(response.results));
+  };
+  const getTopRated = () => {
+    setNameList('Найкращі');
+    fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
+      .then(response => response.json())
+      .then(response => setMovieList(response.results));
+  };
+  const getUpcoming = () => {
+    setNameList('Незабаром');
+    fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
+      .then(response => response.json())
+      .then(response => setMovieList(response.results));
+  };
 
   const onPageChange = (e) => {
     setCurrentPage(e.selected += 1);
-    getMovieList();
   };
 
   useEffect(() => {
-    getMovieList();
+    setSortNameList(nameList);
+  }, [nameList]);
+
+  useEffect(() => {
+    switch (nameList) {
+      case 'Нові':
+        getMovieList();
+        break;
+      case 'Зараз дивляться':
+        getNowPlaying();
+        break;
+      case 'Незабаром':
+        getUpcoming();
+        break;
+      case 'Найкращі':
+        getTopRated();
+        break;
+      default:
+        getMovieList();
+    }
   }, [currentPage]);
 
   const onSearchChange = throttle((e) => {
@@ -127,10 +159,38 @@ const MainScreen = ({
           )}
         </div>
         <div className={s.navContainer}>
-          <div className={s.navMenu}>
-            <span role="presentation" className={s.navMenu__item}>Незабаром</span>
-            <span className={s.navMenu__item}>Зараз дивляться</span>
-            <span className={s.navMenu__item}>Найкращі</span>
+          <div className={s.navMenu} ref={refSortList}>
+            <span
+              role="presentation"
+              className={`${s.navMenu__item} ${nameList === 'Незабаром' ? `${s.activeSort}` : ''}`}
+              onClick={getUpcoming}
+            >
+              Незабаром
+            </span>
+            <span
+              role="presentation"
+              className={`${s.navMenu__item} ${nameList === 'Зараз дивляться' ? `${s.activeSort}` : ''}`}
+              onClick={getNowPlaying}
+            >
+              Зараз дивляться
+            </span>
+            <span
+              role="presentation"
+              className={`${s.navMenu__item} ${nameList === 'Найкращі' ? `${s.activeSort}` : ''}`}
+              onClick={getTopRated}
+            >
+              Найкращі
+            </span>
+            <span
+              role="presentation"
+              className={`${s.navMenu__item} ${nameList === 'Нові' ? `${s.activeSort}` : ''}`}
+              onClick={() => {
+                setNameList('Нові');
+                getMovieList();
+              }}
+            >
+              Нові
+            </span>
           </div>
         </div>
       </div>

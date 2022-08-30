@@ -16,6 +16,8 @@ const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
+  const [sortNameList, setSortNameList] = useState('');
+  console.log(sortNameList);
   useEffect(() => {
     setUserToken(localStorage.getItem('token'));
     if (userToken) {
@@ -41,9 +43,9 @@ const App = () => {
   }, []);
   return (
     <div className={s.App}>
-      <Sidebar watchListId={userData.watchListId} />
+      <Sidebar watchListId={userData.watchListId} sortNameList={sortNameList} />
       <Routes>
-        <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
+        <Route path="/" element={<MainScreen setSortNameList={setSortNameList} getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />} />
         <Route path="/liked-movies/:watch-list" element={<LikedMovies />} />
         <Route path="/error" element={<ErrorScreen />} />
