@@ -11,7 +11,7 @@ import unknownImage from '../../assests/unknownImage.svg';
 import Login from '../../components/Authorisation/Login';
 
 const MainScreen = ({
-  getMovie, setUserData, userData, getUserToken, setSortNameList,
+  getMovie, setUserData, userData, getUserToken,
 }) => {
   const [movieList, setMovieList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,10 +56,6 @@ const MainScreen = ({
   const onPageChange = (e) => {
     setCurrentPage(e.selected += 1);
   };
-
-  useEffect(() => {
-    setSortNameList(nameList);
-  }, [nameList]);
 
   useEffect(() => {
     switch (nameList) {

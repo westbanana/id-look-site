@@ -11,7 +11,7 @@ import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
 import arrow from '../../assests/arrow.svg';
 
-const Sidebar = ({ watchListId, sortNameList }) => {
+const Sidebar = ({ watchListId }) => {
   const [isSideBar, setIsSideBar] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const refSidebar = useRef(null);
@@ -81,7 +81,7 @@ const Sidebar = ({ watchListId, sortNameList }) => {
         )}
       </div>
       <div className={s.logoContainer}>
-        <Link to={`/${sortNameList}`}>
+        <Link to="/">
           <Logo className={s.logo} />
         </Link>
       </div>
