@@ -24,7 +24,7 @@
     align-items: center;
     position: relative;
     .logInContainer{
-      width: 100px;
+      min-width: 100px;
       display: flex;
       justify-content: flex-end;
       position: absolute;
@@ -282,45 +282,6 @@
     }
     a{
       position: relative;
-      &:hover{
-        .movieInfoHover{
-          opacity: 1;
-        }
-      }
-    }
-    .movieInfoHover{
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      z-index: 11;
-      width: 210px;
-      height: 305px;
-      background: #111111;
-      overflow: auto;
-      opacity: 0;
-      transition: 0.4s;
-      &::-webkit-scrollbar{
-        width: 10px;
-      }
-      &::-webkit-scrollbar-track{
-        background: transparent;
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: #4d7f9a;
-        border-radius: 10px;
-        margin: 0 2px;
-      }
-      .infoBlock{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 1px solid #4d7f9a;
-        padding: 10px;
-        text-align: center;
-        font-size: 13px;
-      }
-      .overviewInfo{
-      }
     }
   }
   .paginateContainer{

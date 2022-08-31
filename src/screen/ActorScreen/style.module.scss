@@ -20,7 +20,9 @@
       margin-bottom: 100px;
       animation: actorInfoContainer 0.4s linear forwards;
       .actorPhotoContainer{
-
+        img{
+          width: 200px;
+        }
       }
       .infoDescription{
         display: flex;

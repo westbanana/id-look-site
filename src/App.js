@@ -16,9 +16,8 @@ const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
-  const [likedMovieList, setLikedMovieList] = useState([]);
-
-  console.log('APP', likedMovieList);
+  // const [errorAuthorisation, setErrorAuthorisation] = useState('');
+  // console.log(errorAuthorisation);
   useEffect(() => {
     setUserToken(localStorage.getItem('token'));
     if (userToken) {
@@ -44,16 +43,16 @@ const App = () => {
   }, []);
   return (
     <div className={s.App}>
-      <Sidebar watchListId={userData.watchListId} />
+      <Sidebar />
       <Routes>
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />} />
-        <Route path="/liked-movies" element={<LikedMovies likedMovieList={likedMovieList} />} />
+        <Route path="/liked-movies" element={<LikedMovies />} />
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="/actor/:actorId" element={<ActorScreen />} />
         <Route path="/random-movie" element={<RandomMovieScreen />} />
         <Route path="/random-movie-test" element={<RandomMovieTest />} />
-        <Route path="/movie/:id" element={<MovieScreen setLikeMovieList={setLikedMovieList} selectedMovie={selectedMovie} />} />
+        <Route path="/movie/:id" element={<MovieScreen selectedMovie={selectedMovie} />} />
       </Routes>
     </div>
   );

@@ -7,7 +7,7 @@ import { ReactComponent as Heart } from '../../assests/heart.svg';
 import { ReactComponent as FullHeart } from '../../assests/fullHeart.svg';
 import { ReactComponent as Star } from '../../assests/star.svg';
 
-const MovieScreen = ({ setLikeMovieList }) => {
+const MovieScreen = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState();
   const [movieCast, setMovieCast] = useState();
@@ -66,7 +66,6 @@ const MovieScreen = ({ setLikeMovieList }) => {
               className={s.favorites}
               onClick={() => {
                 setLiked(!liked);
-                setLikeMovieList(movieDetails.push());
               }}
             >
               {liked ? <FullHeart className={s.heartIcon} /> : <Heart className={s.heartIcon} />}

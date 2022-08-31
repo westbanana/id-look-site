@@ -37,7 +37,7 @@ const ActorsScreen = () => {
       <div className={s.actorContainer}>
         <div className={s.actorInfoContainer}>
           <div className={s.actorPhotoContainer}>
-            <img src={`https://image.tmdb.org/t/p/w200/${actorDetails.profile_path}`} alt={actorDetails.name} />
+            <img src={`https://image.tmdb.org/t/p/w500/${actorDetails.profile_path}`} alt={actorDetails.name} />
           </div>
           <div className={s.infoDescription}>
             <div className={`${s.info} ${s.firstNameInfo}`}>

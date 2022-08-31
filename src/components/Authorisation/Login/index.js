@@ -7,7 +7,9 @@ import { ReactComponent as OpenEye } from '../../../assests/marks.svg';
 import { ReactComponent as ClosedEye } from '../../../assests/closedEye.svg';
 import { ReactComponent as Arrow } from '../../../assests/arrow.svg';
 
-const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
+const Login = ({
+  setIsLogIn, setUserProfileData, getUserToken, getError,
+}) => {
   const [userLogin, setUserLogin] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -16,17 +18,14 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
   const [passwordIsShowing, setPasswordIsShowing] = useState(false);
   const [userToken, setUserToken] = useState('');
   const [isSignIn, setIsSignIn] = useState(false);
-  // const [userData, setUserData] = useState();
   const refIsLogInModal = useRef(null);
   useClickAway(refIsLogInModal, () => {
     setIsLogIn(false);
   });
-
   const openSignInModal = () => {
     setIsSignIn(true);
     setUserToken('');
   };
-
   useEffect(() => {
     localStorage.setItem('token', userToken);
     if (userToken) {
@@ -77,14 +76,13 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
       redirect: 'follow',
     };
     fetch('https://evening-basin-02735.herokuapp.com/api/v1/log-in', requestOptions)
-      .then((response) => {
-        console.log(response.status);
-        console.log(response.json());
-        response.json();
-      })
+      .then(response => response.json())
       .then((result) => {
         if (result.error) {
-          console.log(result);
+          getError(result.data.message);
+          setTimeout(() => {
+            getError('');
+          }, 2950);
         } else {
           setUserToken(result.token);
         }
@@ -117,10 +115,19 @@ const Login = ({ setIsLogIn, setUserProfileData, getUserToken }) => {
     fetch('https://evening-basin-02735.herokuapp.com/api/v1/sign-in', requestOptions)
       .then(response => response.json())
       .then((result) => {
-        setUserToken(result.token);
+        if (result.error) {
+          getError(result.data.message);
+          setTimeout(() => {
+            getError('');
+          }, 2950);
+        } else {
+          setUserToken(result.token);
+        }
+        if (!result.error) {
+          setIsSignIn(false);
+        }
       })
       .catch(error => console.log('error', error));
-    setIsSignIn(false);
   };
 
   return (

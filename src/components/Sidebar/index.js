@@ -11,13 +11,14 @@ import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
 import arrow from '../../assests/arrow.svg';
 
-const Sidebar = ({ watchListId }) => {
+const Sidebar = () => {
   const [isSideBar, setIsSideBar] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  const watchList = [];
   const refSidebar = useRef(null);
   const refArrow = useRef(null);
   const refBurger = useRef(null);
-
+  console.log(watchList);
   const openSidebar = () => {
     if (refSidebar.current.classList.contains(`${s.mainOpen}`)) {
       refSidebar.current.classList.remove(`${s.mainOpen}`);
@@ -62,7 +63,7 @@ const Sidebar = ({ watchListId }) => {
               Випадковий фільм
             </Link>
             <Link
-              to="/"
+              to="/liked-movies"
               className={s.burgerButtonsContainer}
               onClick={closeBurger}
             >
@@ -105,7 +106,7 @@ const Sidebar = ({ watchListId }) => {
         <div ref={refArrow} role="presentation" className={s.arrowContainer} onClick={openSidebar}>
           <img src={arrow} alt="arrow" />
         </div>
-        <Link to={`/liked-movies/${watchListId}`} className={s.menuItem}>
+        <Link to="/liked-movies" className={s.menuItem}>
           <MarksIcon className={s.marks} alt="marksIco" />
           {isSideBar && (
             <span className={s.description}>Відмітки</span>

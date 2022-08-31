@@ -6,6 +6,7 @@ import s from './style.module.scss';
 import { ReactComponent as Spinner } from '../../assests/spinner.svg';
 import { ReactComponent as ProfileIcon } from '../../assests/profile.svg';
 import Login from '../../components/Authorisation/Login';
+import Error from '../../components/Error';
 
 const Profile = ({
   userData, userToken, setUserData, getUserToken,
@@ -15,6 +16,7 @@ const Profile = ({
   const [userEmail, setUserEmail] = useState(userData.email);
   const [userAvatar, setUserAvatar] = useState(userData.avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorFetch, setErrorFetch] = useState('');
   const updateUser = () => {
     setUserData({
       name: userName || userData.name,
@@ -74,6 +76,7 @@ const Profile = ({
   };
   return (
     <div className={s.mainContainer}>
+      {errorFetch && (<Error error={errorFetch} />)}
       {userData.name !== undefined ? (
         <div className={s.userInfoContainer}>
           <div className={s.userInfo}>
@@ -139,6 +142,7 @@ const Profile = ({
                 setIsLogIn={setIsModalOpen}
                 setUserProfileData={setUserData}
                 getUserToken={getUserToken}
+                getError={setErrorFetch}
               />
             )
             : (

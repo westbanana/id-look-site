@@ -9,6 +9,7 @@ import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
 import { ReactComponent as RemoveIcon } from '../../assests/remove.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import Login from '../../components/Authorisation/Login';
+import Error from '../../components/Error';
 
 const MainScreen = ({
   getMovie, setUserData, userData, getUserToken,
@@ -18,11 +19,11 @@ const MainScreen = ({
   const [searchedMovie, setSearchedMovie] = useState([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [islogInModalOpen, setIslogInModalOpen] = useState(false);
+  const [error, setError] = useState('');
   const [nameList, setNameList] = useState('Нові');
   const refSearchListModal = useRef(null);
   const refSearchInput = useRef(null);
   const refSortList = useRef(null);
-
   const getMovieList = () => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
       .then(response => response.json())
@@ -33,7 +34,6 @@ const MainScreen = ({
   useEffect(() => {
     getMovieList();
   }, []);
-
   const getNowPlaying = () => {
     setNameList('Зараз дивляться');
     fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
@@ -92,14 +92,14 @@ const MainScreen = ({
   const logIn = () => {
     setIslogInModalOpen(true);
   };
-  console.log(movieList[1]);
   return (
     <div
       className={s.main}
       style={{ overflow: `${isDropDownOpen ? 'hidden' : 'auto'}` }}
     >
+      {error && (<Error error={error} />)}
       {islogInModalOpen && (
-        <Login setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
+        <Login getError={setError} setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
       )}
       <div className={s.headerContainer}>
         {userData.name && userData.surname ? (
@@ -194,17 +194,6 @@ const MainScreen = ({
       <div className={s.moviesContainer}>
         {movieList && movieList.map(movie => (
           <Link key={movie.id} to={`/movie/${movie.id}`}>
-            <div className={s.movieInfoHover}>
-              <div className={s.infoBlock}>
-                <span>{`Рейтинг: ${movie.vote_average}`}</span>
-              </div>
-              <div className={s.infoBlock}>
-                <span>{`Дата виходу: ${movie.release_date}`}</span>
-              </div>
-              <div className={`${s.infoBlock} ${s.overviewInfo}`}>
-                <span>{`Опис: ${movie.overview ? movie.overview : 'Відсутній'}`}</span>
-              </div>
-            </div>
             <div
               role="presentation"
               className={s.movieContainer}
