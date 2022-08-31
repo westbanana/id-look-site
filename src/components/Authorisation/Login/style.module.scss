@@ -19,6 +19,10 @@
     font-size: 20px;
     padding: 5px 40px 5px 5px;
   }
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
   .authorisationContainer{
     animation: show 0.2s linear forwards;
     background-color: #16222A;

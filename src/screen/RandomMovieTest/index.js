@@ -105,7 +105,12 @@ const RandomMovieTest = () => {
         autoplay={{ delay: 0 }}
         loop
         modules={[Autoplay]}
-        style={{ marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}`, opacity: `${opacity}` }}
+        style={{
+          position: 'relative',
+          marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}`,
+          opacity: `${opacity}`,
+          bottom: `${swiper?.autoplay?.running ? '-20px' : '-500px'}`,
+        }}
       >
         {movieList && (
           movieList.map(movie => (

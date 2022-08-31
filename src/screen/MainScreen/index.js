@@ -92,6 +92,7 @@ const MainScreen = ({
   const logIn = () => {
     setIslogInModalOpen(true);
   };
+  console.log(movieList[1]);
   return (
     <div
       className={s.main}
@@ -192,7 +193,18 @@ const MainScreen = ({
       </div>
       <div className={s.moviesContainer}>
         {movieList && movieList.map(movie => (
-          <Link key={movie.id} to={`/movie/${movie.id}`} className={s.testLink}>
+          <Link key={movie.id} to={`/movie/${movie.id}`}>
+            <div className={s.movieInfoHover}>
+              <div className={s.infoBlock}>
+                <span>{`Рейтинг: ${movie.vote_average}`}</span>
+              </div>
+              <div className={s.infoBlock}>
+                <span>{`Дата виходу: ${movie.release_date}`}</span>
+              </div>
+              <div className={`${s.infoBlock} ${s.overviewInfo}`}>
+                <span>{`Опис: ${movie.overview ? movie.overview : 'Відсутній'}`}</span>
+              </div>
+            </div>
             <div
               role="presentation"
               className={s.movieContainer}
@@ -200,11 +212,6 @@ const MainScreen = ({
                 getMovie(movie.id);
               }}
             >
-              <div className={s.testRate}>
-                <span>
-                  {`IMDb: ${movie.vote_average}`}
-                </span>
-              </div>
               <img className={s.moviePoster} alt="movie" src={`${movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage}`} />
               <div className={s.movieInfoContainer}>
                 <span className={s.movieTitle}>

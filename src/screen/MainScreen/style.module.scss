@@ -239,11 +239,6 @@
       &:hover{
         transform: scale(105%);
       }
-      &:hover{
-        .moviePoster{
-          border-radius: 0 200px 0 0;
-        }
-      }
       &:hover .movieInfoContainer{
         background-color: #ffffff;
       }
@@ -283,6 +278,48 @@
             margin-bottom: 2px;
           }
         }
+      }
+    }
+    a{
+      position: relative;
+      &:hover{
+        .movieInfoHover{
+          opacity: 1;
+        }
+      }
+    }
+    .movieInfoHover{
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      z-index: 11;
+      width: 210px;
+      height: 305px;
+      background: #111111;
+      overflow: auto;
+      opacity: 0;
+      transition: 0.4s;
+      &::-webkit-scrollbar{
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #4d7f9a;
+        border-radius: 10px;
+        margin: 0 2px;
+      }
+      .infoBlock{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #4d7f9a;
+        padding: 10px;
+        text-align: center;
+        font-size: 13px;
+      }
+      .overviewInfo{
       }
     }
   }
@@ -393,29 +430,6 @@ a{
   }
 }
 
-.movieContainer{
-  position: relative;
-  &:hover .testRate{
-    opacity: 1;
-    transition: 0.1s;
-    margin: 0;
-  }
-}
-
-.testRate{
-  position: absolute;
-  text-align: end;
-  transition: 0.5s;
-  padding: 10px;
-  font-size: 15px;
-  color: #4d7f9a;
-  font-weight: 500;
-  top: 15px;
-  right: 0;
-  animation: moving 3s linear infinite;
-  span{
-  }
-}
 
 @keyframes moving {
   0%{
