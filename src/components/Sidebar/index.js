@@ -20,6 +20,7 @@ const Sidebar = () => {
   const refBurger = useRef(null);
   console.log(watchList);
   const openSidebar = () => {
+    console.log(refSidebar);
     if (refSidebar.current.classList.contains(`${s.mainOpen}`)) {
       refSidebar.current.classList.remove(`${s.mainOpen}`);
       refArrow.current.classList.remove(`${s.arrowRotate}`);
@@ -33,6 +34,12 @@ const Sidebar = () => {
 
   useClickAway(refBurger, () => {
     setIsBurgerOpen(false);
+  });
+
+  useClickAway(refBurger || refArrow, () => {
+    refSidebar.current.classList.remove(`${s.mainOpen}`);
+    refArrow.current.classList.remove(`${s.arrowRotate}`);
+    setIsSideBar(false);
   });
 
   const closeBurger = () => {

@@ -3,11 +3,12 @@
   height: 100px;
   width: 250px;
   position: absolute;
-  left: 0;
+  left: -200px;
   bottom: 20px;
   z-index: 99999;
   overflow: hidden;
   border-radius: 10px;
+  animation: main 0.4s linear forwards;
   .string{
     height: 5px;
     width: 100%;
@@ -43,5 +44,14 @@
   }
   to{
     transform: translateX(-300px);
+  }
+}
+
+@keyframes main {
+  from{
+    left: -200px;
+  }
+  to{
+    left: 0;
   }
 }

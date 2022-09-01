@@ -78,67 +78,51 @@ const MovieScreen = () => {
               </div>
               <div className={s.infoContainer}>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Рейтинг</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Рейтинг</span>
+                  <div className={s.blockDecription}>
                     <span>{movieDetails[0].vote_average}</span>
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Слоган</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieDetails[0].tagline.length === 0 ? 'Відсутній' : <span>{movieDetails[0].tagline}</span>}
+                  <span className={s.nameField}>Слоган</span>
+                  <div className={s.blockDecription}>
+                    {movieDetails[0].tagline.length === 0 ? <span>Відсутній</span> : <span>{movieDetails[0].tagline}</span>}
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Дата виходу</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Дата виходу</span>
+                  <div className={s.blockDecription}>
                     <span>{movieDetails[0].release_date}</span>
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Країна</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Країна</span>
+                  <div className={s.blockDecription}>
                     {movieDetails[0].production_countries.map(i => <span>{i.name}</span>)}
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Режисер</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Режисер</span>
+                  <div className={s.blockDecription}>
                     {movieCrew ? <span>{movieCrew.name}</span> : ''}
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Жанр</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Жанр</span>
+                  <div className={s.genres}>
                     {movieDetails[0].genres.map(i => <span>{`${i.name} `}</span>)}
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Час</span>
-                  </div>
-                  <div className={s.descriptionField}>
+                  <span className={s.nameField}>Час</span>
+                  <div className={s.blockDecription}>
                     <span>{`${movieDetails[0].runtime}хв.`}</span>
                   </div>
                 </div>
                 <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>У ролях:</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieCast && (movieCast.map(i => <Link to={`/actor/${i.id}`} key={i.id}>{`${i.name}, `}</Link>))}
+                  <span className={s.nameField}>У ролях:</span>
+                  <div className={s.blockDecription}>
+                    {movieCast && (movieCast.map(i => <Link to={`/actor/${i.id}`} key={i.id}>{`${i.name},  `}</Link>))}
                   </div>
                 </div>
               </div>
@@ -153,8 +137,6 @@ const MovieScreen = () => {
               <div className={s.trailerContainer}>
                 <iframe
                   title="trailer"
-                  width="800"
-                  height="500"
                   src={`https://www.youtube.com/embed/${movieTrailer}?showinfo=0`}
                   allowFullScreen
                 />
