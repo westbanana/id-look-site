@@ -11,14 +11,12 @@ import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
 import arrow from '../../assests/arrow.svg';
 
-const Sidebar = () => {
+const Sidebar = ({ setTheme, theme }) => {
   const [isSideBar, setIsSideBar] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-  const watchList = [];
   const refSidebar = useRef(null);
   const refArrow = useRef(null);
   const refBurger = useRef(null);
-  console.log(watchList);
   const openSidebar = () => {
     console.log(refSidebar);
     if (refSidebar.current.classList.contains(`${s.mainOpen}`)) {
@@ -43,10 +41,18 @@ const Sidebar = () => {
   });
 
   const closeBurger = () => {
-    console.log(isBurgerOpen);
     setIsBurgerOpen(!isBurgerOpen);
   };
-
+  const swapTheme = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+      localStorage.setItem('theme', theme);
+    }
+    if (theme === 'light') {
+      setTheme('dark');
+      localStorage.setItem('theme', theme);
+    }
+  };
   return (
     <div role="presentation" className={s.main} ref={refSidebar}>
       <div role="presentation" ref={refBurger} className={s.burgerContainer} onClick={() => setIsBurgerOpen(true)}>
@@ -120,8 +126,14 @@ const Sidebar = () => {
           )}
         </Link>
       </div>
-      <div className={s.swiperContainer}>
-        <Swiper className={s.swiper} />
+      <div
+        role="presentation"
+        className={s.swiperContainer}
+      >
+        <Swiper
+          className={s.swiper}
+          onClick={swapTheme}
+        />
       </div>
     </div>
   );

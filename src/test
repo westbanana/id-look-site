@@ -64,3 +64,21 @@
                   </div>
                 </div>
               </div>
+
+
+
+
+
+
+
+              <div className={s.starsContainer}>
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                              <Star className={s.star} />
+                            </div>

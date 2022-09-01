@@ -124,7 +124,7 @@ const Profile = ({
             </button>
             <button
               type="button"
-              className={s.submitButton}
+              className={`${s.submitButton} ${s.logOut}`}
               onClick={() => {
                 localStorage.removeItem('token');
                 setUserData({});
@@ -135,7 +135,7 @@ const Profile = ({
           </div>
         </div>
       ) : (
-        <div>
+        <div className={s.notAuth}>
           {isModalOpen
             ? (
               <Login

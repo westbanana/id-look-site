@@ -1,10 +1,12 @@
+@import '../../assests/styles/style';
+
 .main{
   height: 100%;
   width: 100%;
-  background: #17222A;
-  background: -webkit-radial-gradient(center, #17222A, #3A6073);
-  background: -moz-radial-gradient(center, #17222A, #3A6073);
-  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  background: var(--first);
+  background: -webkit-radial-gradient(center, var(--first), var(--second)Bg);
+  background: -moz-radial-gradient(center, var(--first), var(--second)Bg);
+  background: radial-gradient(ellipse at center, var(--first), var(--second)Bg);
   background-size: cover;
   overflow: auto;
   .actorContainer{
@@ -33,9 +35,9 @@
           align-items: center;
           justify-content: flex-start;
           gap: 50px;
-          border-bottom: 1px solid #4d7f9a;
+          border-bottom: 1px solid var(--third);
           font-size: 20px;
-          color: #fff;
+          color: var(--white);
           font-weight: 500;
           height: 100%;
           .nameInfo{
@@ -54,22 +56,22 @@
         justify-content: center;
         &:hover{
           .searchInput{
-            box-shadow: 0 4px 45px #436E85;
+            box-shadow: 0 4px 45px var(--third);
           }
         }
         .searchInput{
           border: none;
           outline: none;
-          color: #436E85;
+          color: var(--third);
           padding: 5px 0 5px 20px;
           min-width: 0;
-          background: #1A2932;
+          background: var(--first);
           position: relative;
           transition: 0.3s ease;
           box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
           animation: input 0.4s linear forwards;
           &::placeholder{
-            color: #436E85;
+            color: var(--second);
           }
         }
       }
@@ -87,7 +89,7 @@
 .movieContainer{
   cursor: pointer;
   transition: 0.3s;
-  background: #1A2932;
+  background: var(--first);
   height: 305px;
   width: 210px;
   display: flex;
@@ -110,13 +112,13 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     padding: 10px 0;
     transition: 0.3s;
-    background-color: #1A2932;
+    background-color: var(--first);
     span{
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
       text-align: center;
-      color: #436E85;
+      color: var(--third);
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;

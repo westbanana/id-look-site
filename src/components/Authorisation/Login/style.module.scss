@@ -1,3 +1,4 @@
+@import '../../../assests/styles/style';
 .mainContainer{
   height: 100vh;
   width: 100vw;
@@ -14,8 +15,8 @@
   input{
     background-color: transparent;
     outline: none;
-    border: #325364 1px solid;
-    color: #3A6073;
+    border: var(--second) 1px solid;
+    color: var(--third);
     font-size: 20px;
     padding: 5px 40px 5px 5px;
   }
@@ -25,7 +26,7 @@
   }
   .authorisationContainer{
     animation: show 0.2s linear forwards;
-    background-color: #16222A;
+    background-color: var(--first);
     color: white;
     display: flex;
     flex-direction: column;
@@ -41,6 +42,7 @@
       margin-top: 20px;
       position: relative;
       .backArrow{
+        fill: var(--second);
         position: absolute;
         bottom: 13px;
         left: -30px;
@@ -57,7 +59,7 @@
           transition: 0.3s;
           font-weight: 700;
           font-size: 15px;
-          color: #325364;
+          color: var(--second);
         }
       }
       .password{
@@ -69,7 +71,7 @@
           transition: 0.3s;
           font-weight: 700;
           font-size: 15px;
-          color: #325364;
+          color: var(--second);
         }
       }
     }
@@ -85,11 +87,11 @@
         border: none;
         font-weight: 700;
         font-size: 15px;
-        color: #325364;
+        color: var(--second);
         transition: 0.3s;
         padding: 5px;
         &:hover{
-          color: #fff;
+          color: var(--white);
         }
       }
     }
@@ -108,11 +110,11 @@
     border: none;
     font-weight: 700;
     font-size: 15px;
-    color: #325364;
+    color: var(--second);
     transition: 0.3s;
     padding: 5px;
     &:hover{
-      color: #fff;
+      color: var(--white);
     }
   }
 }
@@ -129,7 +131,15 @@
     height: 14px;
   }
 }
-
+.closeModalIcon{
+  position: absolute;
+  top: calc(50% - 10px);
+  right: -50px;
+  cursor: pointer;
+  path{
+    stroke: var(--second);
+  }
+}
 @keyframes show {
   from{
     transform: scale(0)
@@ -137,4 +147,158 @@
   to{
     transform: scale(1);
   }
+}
+.modalName{
+  color: var(--third);
+}
+@media (max-width: 550px) {
+  .mainContainer{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.63);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    input{
+      background-color: transparent;
+      outline: none;
+      border: var(--second) 1px solid;
+      color: var(--third);
+      font-size: 20px;
+      padding: 5px 40px 5px 5px;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus {
+      transition: background-color 600000s 0s, color 600000s 0s;
+    }
+    .authorisationContainer{
+      animation: show 0.2s linear forwards;
+      height: 100%;
+      background-color: var(--first);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 100px 50px 100px;
+      border-radius: 10px;
+      transform: scale(0);
+      .authorisation{
+        font-weight: 700;
+        font-size: 30px;
+        color: #325364;
+        margin-top: 20px;
+        position: relative;
+        .backArrow{
+          position: absolute;
+          bottom: 13px;
+          left: -30px;
+          cursor: pointer;
+        }
+      }
+      .inputsBlock{
+        width: 286px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .login{
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+          span{
+            transition: 0.3s;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--second);
+          }
+        }
+        .password{
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          margin: 0;
+          span{
+            transition: 0.3s;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--second);
+          }
+        }
+      }
+      .buttonsContainer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        button{
+          border-radius: 5px;
+          cursor: pointer;
+          background-color: transparent;
+          border: none;
+          font-weight: 700;
+          font-size: 15px;
+          color: var(--second);
+          transition: 0.3s;
+          padding: 5px;
+          &:hover{
+            color: var(--white);
+          }
+        }
+      }
+    }
+  }
+
+  .buttonsContainerSignIn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    button{
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--second);
+      transition: 0.3s;
+      padding: 5px;
+      &:hover{
+        color: var(--white);
+      }
+    }
+  }
+  .eyeContainer{
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    top: calc(40%);
+    padding: 10px 0;
+    .eye{
+      animation: show .1s linear forwards;
+      height: 14px;
+    }
+  }
+  .closeModalIcon{
+    position: absolute;
+    top: calc(50% - 10px);
+    right: -50px;
+  }
+  @keyframes show {
+    from{
+      transform: scale(0)
+    }
+    to{
+      transform: scale(1);
+    }
+  }
+
 }

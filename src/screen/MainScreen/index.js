@@ -10,6 +10,7 @@ import { ReactComponent as RemoveIcon } from '../../assests/remove.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import Login from '../../components/Authorisation/Login';
 import Error from '../../components/Error';
+import { useClickAway } from 'react-use';
 
 const MainScreen = ({
   getMovie, setUserData, userData, getUserToken,
@@ -92,6 +93,9 @@ const MainScreen = ({
   const logIn = () => {
     setIslogInModalOpen(true);
   };
+  useClickAway(refSearchListModal, () => {
+    setIsDropDownOpen(false);
+  });
   return (
     <div
       className={s.main}

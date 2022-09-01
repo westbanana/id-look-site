@@ -1,3 +1,4 @@
+@import '../../assests/styles/style';
 .mainContainer{
   height: 100%;
   width: 100%;
@@ -5,10 +6,10 @@
   flex-direction: column;
   align-items: center;
   overflow: auto;
-  background: #17222A;
-  background: -webkit-radial-gradient(center, #17222A, #3A6073);
-  background: -moz-radial-gradient(center, #17222A, #3A6073);
-  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  background: var(--first);
+  background: -webkit-radial-gradient(center, var(--first), var(--second));
+  background: -moz-radial-gradient(center, var(--first), var(--second));
+  background: radial-gradient(ellipse at center, var(--first), var(--second)Bg);
 
   .userInfo{
     display: flex;
@@ -21,7 +22,7 @@
       justify-content: center;
       max-height: 200px;
       max-width: 200px;
-      background-color: #436E85;
+      background-color: var(--third);
       border-radius: 100%;
       overflow: hidden;
       position: relative;
@@ -46,7 +47,7 @@
       font-size: 33px;
       line-height: 40px;
       text-align: center;
-      color: #4d7f9a;
+      color: var(--third);
       margin-top: 25px;
       text-transform: uppercase;
       &:hover{
@@ -65,7 +66,7 @@
       margin-top: 54px;
       position: relative;
       &:hover input{
-        color: #4d7f9a;
+        color: var(--white);
       }
       &:hover span{
         padding-left: 5%;
@@ -73,7 +74,7 @@
       input{
         background-color: transparent;
         outline: none;
-        border: 0.5px solid #4d7f9a;
+        border: 0.5px solid var(--third);
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         font-style: normal;
         font-weight: 400;
@@ -81,11 +82,11 @@
         line-height: 28px;
         height: 50px;
         padding-left: 10px;
-        color: #4d7f9a;
+        color: var(--third);
         transition: 0.3s;
         &::placeholder{
           transition: 0.3s;
-          color: #4d7f9a;
+          color: var(--second);
         }
       }
       span{
@@ -93,7 +94,7 @@
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
-        color: #4d7f9a;
+        color: var(--second);
         transition: 0.3s;
       }
     }
@@ -102,21 +103,21 @@
     transition: 0.3s;
     min-width: 30%;
     background-color: transparent;
-    border: 0.5px solid #4d7f9a;
+    border: 0.5px solid var(--third);
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     font-style: normal;
     font-weight: 600;
     font-size: 23px;
     line-height: 28px;
     height: 50px;
-    color: #4d7f9a;
+    color: var(--third);
     margin-top: 65px;
     cursor: pointer;
     text-transform: uppercase;
     border-radius: 5px;
     &:hover{
-      background: #fff;
-      color: #111;
+      background: var(--white);
+      color: var(--black);
       box-shadow: rgba(0, 0, 0, 0.32) 0 15px 5px -5px;
     }
   }
@@ -202,12 +203,13 @@
     width: 500px;
     transition: 0.3s;
     animation: showIcon 0.3s linear forwards;
+    fill: var(--third);
   }
   .loginButton{
     transition: 0.3s;
     min-width: 30%;
     background-color: transparent;
-    border: 0.5px solid #4d7f9a;
+    border: 0.5px solid var(--third);
     border-radius: 5px;
     padding: 10px 130px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -216,13 +218,13 @@
     font-size: 30px;
     line-height: 28px;
     height: 50px;
-    color: #4d7f9a;
+    color: var(--third);
     cursor: pointer;
     text-transform: uppercase;
     animation: showButton 0.3s linear forwards;
     &:hover{
-      background: #fff;
-      color: #111;
+      background: var(--white);
+      color: var(--black);
       box-shadow: rgba(0, 0, 0, 0.32) 0 15px 5px -5px;
     }
   }
@@ -264,5 +266,27 @@
   to{
     position: static;
     right: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .userInfoContainer{
+    padding: 20px 0;
+    justify-content: space-between;
+    .inputsContainer{
+      padding-bottom: 50px;
+    }
+  }
+  .notAuth{
+    .profileIcon{
+      height: 200px;
+      width: 200px;
+    }
+    .loginButton{
+      font-size: 20px;
+    }
+    display: flex;
+    max-width: 100px;
+    min-width: 100px;
   }
 }

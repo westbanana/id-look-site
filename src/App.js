@@ -11,13 +11,13 @@ import RandomMovieScreen from './screen/RandomMovieScreen';
 import RandomMovieTest from './screen/RandomMovieTest';
 import ActorScreen from './screen/ActorScreen';
 import LikedMovies from './screen/LikedMovies';
+import useTheme from './components/Hooks/useTheme';
 
 const App = () => {
+  const { theme, setTheme } = useTheme('dark');
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
-  // const [errorAuthorisation, setErrorAuthorisation] = useState('');
-  // console.log(errorAuthorisation);
   useEffect(() => {
     setUserToken(localStorage.getItem('token'));
     if (userToken) {
@@ -43,7 +43,7 @@ const App = () => {
   }, []);
   return (
     <div className={s.App}>
-      <Sidebar />
+      <Sidebar setTheme={setTheme} theme={theme} />
       <Routes>
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />} />

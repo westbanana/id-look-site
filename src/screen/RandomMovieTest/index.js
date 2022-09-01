@@ -52,7 +52,7 @@ const RandomMovieTest = () => {
     <div
       className={s.main}
       style={{
-        background: `${movieId !== undefined && !swiper?.autoplay?.running && movieList[movieId]?.backdrop_path ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : '#17222A'}`,
+        background: `${movieId !== undefined && !swiper?.autoplay?.running && movieList[movieId]?.backdrop_path ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : ''}`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',

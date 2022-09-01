@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import s from './style.module.scss';
@@ -13,8 +13,12 @@ const MovieScreen = () => {
   const [movieCast, setMovieCast] = useState();
   const [movieCrew, setMovieCrew] = useState();
   const [liked, setLiked] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
+  const refFrame = useRef(null);
   // const [selectedActorId, setSelectedActorId] = useState();
   const { id } = useParams();
+  const rateArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const getMovieDetails = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
@@ -68,7 +72,7 @@ const MovieScreen = () => {
                 setLiked(!liked);
               }}
             >
-              {liked ? <FullHeart className={s.heartIcon} /> : <Heart className={s.heartIcon} />}
+              {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
             </div>
           </div>
           <div className={s.body}>
@@ -136,6 +140,7 @@ const MovieScreen = () => {
             {movieTrailer && (
               <div className={s.trailerContainer}>
                 <iframe
+                  ref={refFrame}
                   title="trailer"
                   src={`https://www.youtube.com/embed/${movieTrailer}?showinfo=0`}
                   allowFullScreen
@@ -143,16 +148,26 @@ const MovieScreen = () => {
               </div>
             )}
             <div className={s.rateContainer}>
-              <div className={s.starsContainer}>
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
-                <Star className={s.star} />
+              <div>
+                {rateArr.map((labelKey, index) => {
+                  const ratingValue = index + 1;
+                  return (
+                    <label key={labelKey}>
+                      <input
+                        type="radio"
+                        name="ratind"
+                        value={ratingValue}
+                        onClick={() => setRating(ratingValue)}
+                      />
+                      <Star
+                        className={s.star}
+                        style={{ fill: `${ratingValue <= (hover || rating) ? '#ffc107' : ''}` }}
+                        onMouseOver={() => setHover(ratingValue)}
+                        onMouseOut={() => setHover(null)}
+                      />
+                    </label>
+                  );
+                })}
               </div>
             </div>
           </div>

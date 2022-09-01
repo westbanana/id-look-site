@@ -1,11 +1,14 @@
+@import '../../assests/styles/style';
+$first: var(--first);
+$secondBg: var(--secondBg);
 .main{
   height: 100%;
   width: 100%;
   overflow: auto;
-  background: #17222A;
-  background: -webkit-radial-gradient(center, #17222A, #3A6073);
-  background: -moz-radial-gradient(center, #17222A, #3A6073);
-  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  background: var(--first);
+  background: -webkit-radial-gradient(center, $first, $secondBg);
+  background: -moz-radial-gradient(center, $first, $secondBg);
+  background: radial-gradient(ellipse at center, $first, $secondBg);
   background-size: cover;
   &::-webkit-scrollbar{
     width: 10px;
@@ -14,7 +17,7 @@
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #17222A;
+    background-color: var(--first);
     border-radius: 10px;
     margin: 0 2px;
   }
@@ -34,7 +37,7 @@
       span{
         font-weight: 600;
         font-size: 16px;
-        color: #4d7f9a;
+        color: var(--third);
         text-decoration: underline;
         cursor: pointer;
       }
@@ -48,25 +51,27 @@
       top: 0px;
       &:hover{
         input{
-          box-shadow: 0 4px 45px #436E85;
+            box-shadow: 0 4px 45px var(--third);
         }
       }
       input{
         border: none;
         outline: none;
-        color: #436E85;
+        color: var(--third);
         padding: 5px 0 5px 20px;
         min-width: 50%;
-        background: #1A2932;
+        background: var(--first);
         position: relative;
         transition:  0.3s ease;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         &::placeholder{
-          color: #436E85;
+          color: var(--third);
         }
       }
       .closeSearchContainerButton{
-        color: #4d7f9a;
+        path{
+          stroke: var(--third);
+        }
         font-weight: 600;
         cursor: pointer;
         position: absolute;
@@ -75,7 +80,7 @@
         transition: 0.3s;
         &:hover{
           path{
-            stroke: #fff;
+            stroke: var(--white);
           }
         }
       }
@@ -84,7 +89,7 @@
         transition: 0.3s;
         animation: showModal 0.1s linear forwards;
         position: absolute;
-        background: #1A2932;
+        background: var(--first);
         width: 100%;
         z-index: 9;
         overflow: auto;
@@ -101,14 +106,14 @@
           background: transparent;
         }
         &::-webkit-scrollbar-thumb {
-          background-color: #4d7f9a;
+          background-color: var(--third);
           border-radius: 10px;
           margin: 0 2px;
         }
         .modalMovieContainer{
           cursor: pointer;
           transition: 0.3s;
-          background: #1A2932;
+          background: var(--first);
           height: 305px;
           width: 210px;
           display: flex;
@@ -118,8 +123,8 @@
           text-align: center;
           &:hover{
             .modalMovieInfoContainer{
-              background: #fff;
-              color: #1A2932;
+              background: var(--white);
+              color: var(--first);
             }
           }
           img{
@@ -136,13 +141,13 @@
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
             padding: 10px 0;
             transition: 0.3s;
-            background-color: #1A2932;
+            background-color: var(--first);
             span{
               font-style: normal;
               font-weight: 500;
               font-size: 12px;
               text-align: center;
-              color: #436E85;
+              color: var(--third);
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
@@ -168,46 +173,16 @@
           font-size: 16px;
           cursor: pointer;
           transition: 0.3s;
-          border: #4d7f9a 1px solid;
+          border: var(--third) 1px solid;
           border-radius: 10px;
           padding: 2px 10px;
-          color: #4d7f9a;
+          color: var(--third);
           animation: navMenuItem 0.3s linear forwards;
           &:hover{
-            background-color: #4d7f9a;
-            color: #fff;
+            background-color: var(--third);
+            color: var(--white);
           }
         }
-      }
-    }
-    .sortContainer{
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      position: relative;
-      justify-content: center;
-      width: 150px;
-      user-select: none;
-      .sortTitle{
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        color: #4d7f9a;
-        margin-right: 15px;
-        cursor: pointer;
-      }
-      .sortArrow{
-        transition: 0.3s;
-        cursor: pointer;
-        fill: #4d7f9a;
-        transform: rotate(-90deg);
-      }
-      .open{
-        transition: 0.3s;
-        cursor: pointer;
-        fill: #4d7f9a;
-        transform: rotate(90deg);
       }
     }
   }
@@ -223,7 +198,7 @@
       transition: 0.3s;
       height: 305px;
       width: 210px;
-      background: #1A2932;
+      background: var(--first);
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -240,7 +215,7 @@
         transform: scale(105%);
       }
       &:hover .movieInfoContainer{
-        background-color: #ffffff;
+        background-color: var(--white);
       }
       .movieInfoContainer{
         width: 100%;
@@ -250,13 +225,13 @@
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         padding: 10px 0;
         transition: 0.3s;
-        background-color: #1A2932;
+        background-color: var(--first);
         .movieTitle{
           font-style: normal;
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: #436E85;
+          color: var(--third);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -272,7 +247,7 @@
             font-size: 9px;
             line-height: 11px;
             text-align: center;
-            color: #436E85;
+            color: var(--third);
           }
           .starIco{
             margin-bottom: 2px;
@@ -308,31 +283,26 @@
         width: 50px;
         height: 50px;
         cursor: pointer;
-        background-color: #1A2932;;
+        background-color: var(--first);
         box-sizing: border-box;
         border-radius: 4px;
         transition: 0.3s;
         margin: 0 5px;
-        color: #436E85;
+        color: var(--third);
         &:hover{
-          background: #4d7f9a;
-          color: #1A2932;
+          background: var(--third);
+          color: var(--first);
           box-shadow: rgba(0, 0, 0, 0.18) 0 15px 5px -5px;
         }
       }
       .active{
-        color: white;
+        color: var(--white);
       }
       .disabled{
         animation: hideDisabled 0.1s linear forwards;
       }
     }
   }
-}
-
-.activeSort{
-  background: #f5f5f5;
-  color: black;
 }
 
 .inputOpen{
@@ -395,15 +365,15 @@ a{
 @keyframes moving {
   0%{
     transform: rotate(-15deg);
-    color: #4d7f9a;
+    color: var(--third);
   }
   50%{
     transform: rotate(15deg);
-    color: #fff;
+    color: var(--white);
   }
   100%{
     transform: rotate(-15deg);
-    color: #4d7f9a;
+    color: var(--third);
   }
 }
 
@@ -466,43 +436,17 @@ a{
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
-            border: #4d7f9a 1px solid;
+            border: var(--third) 1px solid;
             border-radius: 10px;
-            color: #4d7f9a;
+            color: var(--third);
             max-width: 100%;
             padding: 3px;
             animation: navMenuItem 0.3s linear forwards;
             &:hover{
-              background-color: #4d7f9a;
-              color: #fff;
+              background-color: var(--third);
+              color: var(--white);
             }
           }
-        }
-      }
-      .sortContainer{
-        transition: 0.3s;
-        display: flex;
-        align-items: center;
-        position: relative;
-        justify-content: center;
-        width: 120px;
-        user-select: none;
-        .sortTitle{
-          font-style: normal;
-          font-weight: 600;
-          font-size: 16px;
-          line-height: 20px;
-          color: #4d7f9a;
-          margin-right: 15px;
-          cursor: pointer;
-        }
-        .sortArrow{
-          transition: 0.3s;
-          cursor: pointer;
-          fill: #4d7f9a;
-          transform: rotate(-90deg);
-        }
-        .open{
         }
       }
     }

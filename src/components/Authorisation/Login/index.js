@@ -6,6 +6,7 @@ import s from './style.module.scss';
 import { ReactComponent as OpenEye } from '../../../assests/marks.svg';
 import { ReactComponent as ClosedEye } from '../../../assests/closedEye.svg';
 import { ReactComponent as Arrow } from '../../../assests/arrow.svg';
+import { ReactComponent as Close } from '../../../assests/remove.svg';
 
 const Login = ({
   setIsLogIn, setUserProfileData, getUserToken, getError,
@@ -135,7 +136,11 @@ const Login = ({
       {!isSignIn ? (
         <div className={s.authorisationContainer} ref={refIsLogInModal}>
           <div className={s.authorisation}>
-            <span>Авторизація</span>
+            <Close
+              className={s.closeModalIcon}
+              onClick={() => setIsLogIn(false)}
+            />
+            <span className={s.modalName}>Авторизація</span>
           </div>
           <div className={s.inputsBlock}>
             <div className={s.login}>
@@ -176,7 +181,11 @@ const Login = ({
               className={s.backArrow}
               onClick={() => setIsSignIn(false)}
             />
-            <span>Реєстрація</span>
+            <Close
+              className={s.closeModalIcon}
+              onClick={() => setIsLogIn(false)}
+            />
+            <span className={s.modalName}>Реєстрація</span>
           </div>
           <div className={s.inputsBlock}>
             <div className={s.login}>

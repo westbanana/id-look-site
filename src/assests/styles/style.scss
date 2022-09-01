@@ -1,0 +1,18 @@
+html[data-theme='dark'] {
+  --first: #17222A;
+  --secondBg: #334f60;
+  --second: #436E85;
+  --third: #4d7f9a;
+  --white: #ffff;
+  --black: #111;
+  --randomMovieInfo: rgba(26, 41, 50, 0.56);
+}
+  html[data-theme='light'] {
+  --first: #aac4ff;
+  --secondBg: #738cc5;
+  --second: #66779f;
+  --third: #354056;
+  --white: #fff;
+  --black: #111;
+  --randomMovieInfo: rgb(107, 129, 166);
+}
