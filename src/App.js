@@ -14,7 +14,7 @@ import LikedMovies from './screen/LikedMovies';
 import useTheme from './components/Hooks/useTheme';
 
 const App = () => {
-  const { theme, setTheme } = useTheme('dark');
+  const { theme, setTheme } = useTheme();
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');

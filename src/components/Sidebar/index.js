@@ -46,11 +46,8 @@ const Sidebar = ({ setTheme, theme }) => {
   const swapTheme = () => {
     if (theme === 'dark') {
       setTheme('light');
-      localStorage.setItem('theme', theme);
-    }
-    if (theme === 'light') {
+    } else {
       setTheme('dark');
-      localStorage.setItem('theme', theme);
     }
   };
   return (
