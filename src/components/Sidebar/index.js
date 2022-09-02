@@ -43,6 +43,7 @@ const Sidebar = ({ setTheme, theme }) => {
   const closeBurger = () => {
     setIsBurgerOpen(!isBurgerOpen);
   };
+
   const swapTheme = () => {
     if (theme === 'dark') {
       setTheme('light');

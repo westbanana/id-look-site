@@ -11,9 +11,6 @@ const UseTheme = () => {
   useEffect(() => {
     setThemeModify(theme);
   }, []);
-  // useLayoutEffect(() => {
-  //   document.documentElement.setAttribute('data-theme', theme);
-  // }, [theme]);
   return { theme, setTheme: setThemeModify };
 };
 
