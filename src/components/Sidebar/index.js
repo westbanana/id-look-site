@@ -53,7 +53,7 @@ const Sidebar = ({ setTheme, theme }) => {
   };
   return (
     <div role="presentation" className={s.main} ref={refSidebar}>
-      <div role="presentation" ref={refBurger} className={s.burgerContainer} onClick={() => setIsBurgerOpen(true)}>
+      <div role="presentation" ref={refBurger} className={s.burgerContainer} onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
         <div className={`${s.stroke} ${isBurgerOpen ? s.first : s.firstRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.second : s.secondRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.third : s.thirdRerotate}`} />

@@ -1,4 +1,8 @@
 @import '../../assests/styles/style';
+$first: var(--first);
+$second: var(--second);
+$third: var(--third);
+$secondBg: var(--secondBg);
 .mainContainer{
   height: 100%;
   width: 100%;
@@ -7,9 +11,9 @@
   align-items: center;
   overflow: auto;
   background: var(--first);
-  background: -webkit-radial-gradient(center, var(--first), var(--second));
-  background: -moz-radial-gradient(center, var(--first), var(--second));
-  background: radial-gradient(ellipse at center, var(--first), var(--second)Bg);
+  background: -webkit-radial-gradient(center, $first, $second);
+  background: -moz-radial-gradient(center, $first, $second);
+  background: radial-gradient(ellipse at center, $first, $secondBg);
 
   .userInfo{
     display: flex;
