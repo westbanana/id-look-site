@@ -7,3 +7,94 @@
   background: radial-gradient(ellipse at center, #17222A, #3A6073);
   background-size: cover;
 }
+.moviesContainer{
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  transition: 0.3s;
+  grid-gap: 100px 20px;
+  padding: 50px 0;
+  .block{
+    position: relative;
+    &:hover .removeMovie{
+      opacity: 1;
+    }
+    .removeMovie{
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      padding: 5px 15px;
+      background: var(--first);
+      color: var(--second);
+      transition: 0.3s;
+      z-index: 20;
+      opacity: 0;
+      &:hover{
+        color: var(--white);
+      }
+    }
+    .movieContainer{
+      cursor: pointer;
+      transition: 0.3s;
+      height: 305px;
+      width: 210px;
+      background: var(--first);
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      animation: movieContainer 0.3s linear forwards;
+      .moviePoster{
+        transition: 0.3s;
+        min-height: 100%;
+        width: 100%;
+        z-index: 2;
+      }
+      &:hover .movieInfoContainer{
+        background-color: var(--white);
+      }
+      .movieInfoContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.42);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 10px 0;
+        transition: 0.3s;
+        background-color: var(--first);
+        .movieTitle{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          text-align: center;
+          color: var(--third);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          padding: 0 10px;
+        }
+        .rateContainer{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .movieRate{
+            font-style: normal;
+            font-weight: 500;
+            font-size: 9px;
+            line-height: 11px;
+            text-align: center;
+            color: var(--third);
+          }
+          .starIco{
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+  a{
+    position: relative;
+  }
+}

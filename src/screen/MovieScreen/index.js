@@ -15,9 +15,28 @@ const MovieScreen = () => {
   const [liked, setLiked] = useState(false);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [moviesIdList, setMoviesIdList] = useState([]);
   const refFrame = useRef(null);
-  // const [selectedActorId, setSelectedActorId] = useState();
   const { id } = useParams();
+  const movieID = Number(id);
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
+      .then(response => response.json())
+      .then((response) => {
+        setMoviesIdList(response.items.map(e => e.id));
+      });
+  }, []);
+
+  useEffect(() => {
+    if (moviesIdList) {
+      const result = moviesIdList.find(element => element === movieID);
+      if (result === movieID) {
+        setLiked(true);
+      } else {
+        setLiked(false);
+      }
+    }
+  }, [moviesIdList]);
   const rateArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const getMovieDetails = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
@@ -56,6 +75,48 @@ const MovieScreen = () => {
     getMovieCrew();
   }, [id]);
 
+  const addMovieToList = () => {
+    setLiked(true);
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json;charset=utf-8');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({ media_id: id }),
+      redirect: 'follow',
+    };
+
+    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}/add_item?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f`, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  };
+
+  const removeMovieFromList = () => {
+    setLiked(false);
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json;charset=utf-8');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({ media_id: id }),
+      redirect: 'follow',
+    };
+
+    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}/remove_item?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f`, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  };
+  const changeMovieStatus = () => {
+    if (!liked) {
+      addMovieToList();
+    } else {
+      removeMovieFromList();
+    }
+  };
   return (
     <div className={s.mainContainer}>
       {movieDetails.map(movie => (
@@ -68,9 +129,7 @@ const MovieScreen = () => {
             <div
               role="presentation"
               className={s.favorites}
-              onClick={() => {
-                setLiked(!liked);
-              }}
+              onClick={changeMovieStatus}
             >
               {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
             </div>

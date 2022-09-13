@@ -1,84 +1,16 @@
-<div className={s.infoContainer}>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Рейтинг</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    <span>{movieDetails[0].vote_average}</span>
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Слоган</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieDetails[0].tagline.length === 0 ? 'Відсутній' : <span>{movieDetails[0].tagline}</span>}
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Дата виходу</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    <span>{movieDetails[0].release_date}</span>
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Країна</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieDetails[0].production_countries.map(i => <span>{i.name}</span>)}
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Режисер</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieCrew ? <span>{movieCrew.name}</span> : ''}
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Жанр</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieDetails[0].genres.map(i => <span>{`${i.name} `}</span>)}
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>Час</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    <span>{`${movieDetails[0].runtime}хв.`}</span>
-                  </div>
-                </div>
-                <div className={s.infoBlock}>
-                  <div className={s.nameField}>
-                    <span>У ролях:</span>
-                  </div>
-                  <div className={s.descriptionField}>
-                    {movieCast && (movieCast.map(i => <Link to={`/actor/${i.id}`} key={i.id}>{`${i.name},  `}</Link>))}
-                  </div>
-                </div>
-              </div>
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json;charset=utf-8");
 
+var raw = "{\r\n  \"name\": \"This is my awesome test list.\",\r\n  \"description\": \"Just an awesome list dawg.\",\r\n  \"language\": \"en\"\r\n}";
 
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
 
-
-
-
-
-              <div className={s.starsContainer}>
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                              <Star className={s.star} />
-                            </div>
+fetch("https://api.themoviedb.org/3/list?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));

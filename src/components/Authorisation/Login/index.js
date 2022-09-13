@@ -16,6 +16,7 @@ const Login = ({
   const [userName, setUserName] = useState('');
   const [userSurName, setUserSurName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userList, setUserList] = useState(0);
   const [passwordIsShowing, setPasswordIsShowing] = useState(false);
   const [userToken, setUserToken] = useState('');
   const [isSignIn, setIsSignIn] = useState(false);
@@ -23,9 +24,32 @@ const Login = ({
   useClickAway(refIsLogInModal, () => {
     setIsLogIn(false);
   });
+
+  const createList = () => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json;charset=utf-8');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({
+        name: 'Тест.',
+        description: 'Тест.',
+        language: 'uk',
+      }),
+      redirect: 'follow',
+    };
+
+    fetch('https://api.themoviedb.org/3/list?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f', requestOptions)
+      .then(response => response.json())
+      .then(result => setUserList(result.list_id))
+      .catch(error => console.log('error', error));
+  };
+
   const openSignInModal = () => {
     setIsSignIn(true);
     setUserToken('');
+    createList();
   };
   useEffect(() => {
     localStorage.setItem('token', userToken);
@@ -65,15 +89,13 @@ const Login = ({
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    const raw = JSON.stringify({
-      login: `${userLogin}`,
-      password: `${userPassword}`,
-    });
-
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify({
+        login: `${userLogin}`,
+        password: `${userPassword}`,
+      }),
       redirect: 'follow',
     };
     fetch('https://evening-basin-02735.herokuapp.com/api/v1/log-in', requestOptions)
@@ -92,24 +114,23 @@ const Login = ({
   };
 
   const signIn = () => {
+    localStorage.setItem('userList', userList);
     setPasswordIsShowing(false);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    const raw = JSON.stringify({
-      name: userName,
-      surname: userSurName,
-      login: userLogin,
-      password: userPassword,
-      email: userEmail,
-      avatar: `https://robohash.org/${Math.floor(Math.random() * 1000000) + 1}`,
-      watchListId: Math.floor(Math.random() * 1000000) + 1,
-    });
-
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify({
+        name: userName,
+        surname: userSurName,
+        login: userLogin,
+        password: userPassword,
+        email: userEmail,
+        avatar: `https://robohash.org/${Math.floor(Math.random() * 1000000) + 1}`,
+        watchListId: userList,
+      }),
       redirect: 'follow',
     };
 

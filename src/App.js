@@ -19,28 +19,21 @@ const App = () => {
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
   useEffect(() => {
-    setUserToken(localStorage.getItem('token'));
-    if (userToken) {
-      const getUser = new Headers();
-      getUser.append(
-        'Authorization',
-        `Bearer ${localStorage.getItem('token')}`,
-      );
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
-      const requestOptionsGetUser = {
-        method: 'GET',
-        headers: getUser,
-        redirect: 'follow',
-      };
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
 
-      fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
-        .then(response => response.json())
-        .then((result) => {
-          setUserData(result.data);
-        })
-        .catch(error => console.log('error', error));
-    }
+    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptions)
+      .then(response => response.json())
+      .then(result => setUserData(result.data))
+      .catch(error => console.log('error', error));
   }, []);
+
   return (
     <div className={s.App}>
       <Sidebar setTheme={setTheme} theme={theme} />

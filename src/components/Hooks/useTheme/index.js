@@ -5,7 +5,6 @@ const UseTheme = () => {
   const setThemeModify = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    console.log(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
   useEffect(() => {
