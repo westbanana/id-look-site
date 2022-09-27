@@ -137,7 +137,10 @@ const MainScreen = ({
             />
           )}
           {isDropDownOpen && !!searchedMovie.length && (
-            <div className={s.searchListModal}>
+            <div
+              style={{ justifyItems: `${searchedMovie.length === 1 ? 'start' : 'center'}` }}
+              className={s.searchListModal}
+            >
               {searchedMovie.map(movie => (
                 <Link key={movie.id} to={`/movie/${movie.id}`}>
                   <div role="presentation" className={s.modalMovieContainer}>

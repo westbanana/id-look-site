@@ -19,6 +19,9 @@ const App = () => {
   const [userData, setUserData] = useState([]);
   const [userToken, setUserToken] = useState('');
   useEffect(() => {
+    if (userData.message === 'user does not exist') {
+      localStorage.removeItem('token');
+    }
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
@@ -40,7 +43,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainScreen getMovie={setSelectedMovie} setUserData={setUserData} userData={userData} getUserToken={setUserToken} />} />
         <Route path="/profile" element={<Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />} />
-        <Route path="/liked-movies" element={<LikedMovies />} />
+        <Route path="/liked-movies" element={<LikedMovies getUserToken={setUserToken} setUserData={setUserData} />} />
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="/actor/:actorId" element={<ActorScreen />} />
         <Route path="/random-movie" element={<RandomMovieScreen />} />

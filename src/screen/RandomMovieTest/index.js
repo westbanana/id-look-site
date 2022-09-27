@@ -4,6 +4,7 @@ import { Autoplay } from 'swiper';
 import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
+
 import { ReactComponent as RandomIcon } from '../../assests/randomMovieIcon.svg';
 
 import 'swiper/scss';
@@ -81,7 +82,7 @@ const RandomMovieTest = () => {
             <div>Перейти до фільму</div>
           </Link>
         </div>
-      ) : <Spinner />}
+      ) : <Spinner className={s.spinnerIcon} />}
       <Swiper
         onSwiper={setSwiper}
         slidesPerView={5}

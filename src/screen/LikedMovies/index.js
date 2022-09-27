@@ -1,12 +1,15 @@
 // import React, { useEffect, useState } from 'react';
 import React, { useEffect, useState } from 'react';
-
-import s from './style.module.scss';
-import unknownImage from '../../assests/unknownImage.svg';
 import { Link } from 'react-router-dom';
 
-const LikedMovies = () => {
+import s from './style.module.scss';
+
+import unknownImage from '../../assests/unknownImage.svg';
+import Login from '../../components/Authorisation/Login';
+
+const LikedMovies = ({ setUserData, getUserToken }) => {
   const [likedMovieList, setLikedMovieList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
@@ -35,33 +38,68 @@ const LikedMovies = () => {
       .catch(error => console.log('error', error));
   };
   return (
-    <div className={s.mainContainer}>
-      <div className={s.moviesContainer}>
-        {likedMovieList && (likedMovieList.map(movie => (
-          <div className={s.block}>
-            <Link key={movie.id} to={`/movie/${movie.id}`}>
+    <div
+      style={{
+        display: `${!localStorage.getItem('token') ? 'flex' : 'grid'}`,
+        justifyContent: `${!localStorage.getItem('token') ? 'center' : ''}`,
+      }}
+      className={s.mainContainer}
+    >
+      {localStorage.getItem('token') && likedMovieList ? (
+        <div
+          style={{ justifyItems: `${likedMovieList.length === 1 ? 'start' : 'center'}` }}
+          className={s.moviesContainer}
+        >
+          {likedMovieList.map(movie => (
+            <div className={s.block}>
+              <Link key={movie.id} to={`/movie/${movie.id}`}>
+                <div
+                  role="presentation"
+                  className={s.movieContainer}
+                >
+                  <img className={s.moviePoster} alt="movie" src={`${movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage}`} />
+                  <div className={s.movieInfoContainer}>
+                    <span className={s.movieTitle}>
+                      {movie.title}
+                    </span>
+                  </div>
+                </div>
+              </Link>
               <div
                 role="presentation"
-                className={s.movieContainer}
+                className={s.removeMovie}
+                onClick={() => removeMovie(movie.id)}
               >
-                <img className={s.moviePoster} alt="movie" src={`${movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : unknownImage}`} />
-                <div className={s.movieInfoContainer}>
-                  <span className={s.movieTitle}>
-                    {movie.title}
-                  </span>
-                </div>
+                <span>X</span>
               </div>
-            </Link>
-            <div
-              role="presentation"
-              className={s.removeMovie}
-              onClick={() => removeMovie(movie.id)}
-            >
-              <span>X</span>
             </div>
-          </div>
-        )))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          {!isModalOpen ? (
+            <div
+              className={s.loginButtonContainer}
+            >
+              <div
+                role="presentation"
+                onClick={() => setIsModalOpen(true)}
+                className={s.loginButton}
+              >
+                <span>
+                  Увійти/Зареєструватись
+                </span>
+              </div>
+            </div>
+          ) : (
+            <Login
+              getUserToken={getUserToken}
+              setUserProfileData={setUserData}
+              setIsLogIn={setIsModalOpen}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

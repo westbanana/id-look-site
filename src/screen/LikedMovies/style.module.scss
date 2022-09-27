@@ -1,11 +1,36 @@
+$first: var(--first);
+$secondBg: var(--secondBg);
 .mainContainer{
   height: 100%;
   width: 100%;
   background: #17222A;
-  background: -webkit-radial-gradient(center, #17222A, #3A6073);
-  background: -moz-radial-gradient(center, #17222A, #3A6073);
-  background: radial-gradient(ellipse at center, #17222A, #3A6073);
+  background: -webkit-radial-gradient(center, $first, $secondBg);
+  background: -moz-radial-gradient(center, $first, $secondBg);
+  background: radial-gradient(ellipse at center, $first, $secondBg);
   background-size: cover;
+  .loginButtonContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .loginButton{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-color: transparent;
+      border: 0.5px solid var(--third);
+      border-radius: 5px;
+      padding: 10px 130px;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      font-style: normal;
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 28px;
+      color: var(--third);
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+  }
 }
 .moviesContainer{
   display: grid;
@@ -14,6 +39,7 @@
   transition: 0.3s;
   grid-gap: 100px 20px;
   padding: 50px 0;
+  padding-left: 50px;
   .block{
     position: relative;
     &:hover .removeMovie{
@@ -25,14 +51,11 @@
       top: 0;
       cursor: pointer;
       padding: 5px 15px;
-      background: var(--first);
+      background: var(--third);
       color: var(--second);
       transition: 0.3s;
       z-index: 20;
       opacity: 0;
-      &:hover{
-        color: var(--white);
-      }
     }
     .movieContainer{
       cursor: pointer;
@@ -69,7 +92,7 @@
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: var(--third);
+          color: var(--second);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -94,6 +117,7 @@
       }
     }
   }
+
   a{
     position: relative;
   }

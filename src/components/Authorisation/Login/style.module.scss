@@ -126,6 +126,9 @@
   align-items: center;
   top: calc(40%);
   padding: 10px 0;
+  svg{
+    stroke: var(--third);
+  }
   .eye{
     animation: show .1s linear forwards;
     height: 14px;

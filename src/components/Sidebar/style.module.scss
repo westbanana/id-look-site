@@ -46,6 +46,7 @@
       gap: 30px;
       transition: 0.3s;
       cursor: pointer;
+      transition: all 0.3s;
       .profile{
         fill: var(--third);
       }
@@ -64,6 +65,11 @@
       &:hover{
         .profile{
           fill: var(--second);
+        }
+      }
+      &:hover{
+        .description{
+          color: var(--second);
         }
       }
       .description{
@@ -102,7 +108,13 @@
     z-index: 999;
     top: 50%;
     right: -10px;
+    svg{
+      fill: var(--third);
+    }
     &:hover{
+      svg{
+        fill: var(--first);
+      }
       background-color: var(--white);
     }
     img{

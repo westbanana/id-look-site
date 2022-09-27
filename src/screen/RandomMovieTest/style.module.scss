@@ -7,7 +7,7 @@
   display: flex;
   align-items: flex-end;
   transition: 0.4s;
-  background: var(--first);
+  background: var(--third);
   }
 .movieInfo{
   display: flex;
@@ -66,7 +66,7 @@
     position: relative;
     z-index: 9999;
     &:hover {
-      background: var(--third);
+      background: var(--randomMovieLinkHover);
     }
   }
 }
@@ -79,14 +79,16 @@
   position: absolute;
   bottom: 0;
   height: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   z-index: 9;
   cursor: pointer;
   transition: all 0.2s;
   animation: show 0.2s linear forwards;
+  .randomIcon{
+    stroke: var(--third);
+  }
   &:hover {
-    background-color: var(--third);
+    background-color: var(--second);
     .randomIcon{
      stroke: var(--white);
     }

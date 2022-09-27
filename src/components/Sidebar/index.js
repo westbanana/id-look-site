@@ -9,7 +9,7 @@ import { ReactComponent as ProfileIcon } from '../../assests/profile.svg';
 import { ReactComponent as MarksIcon } from '../../assests/marks.svg';
 import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
-import arrow from '../../assests/arrow.svg';
+import { ReactComponent as Arrow } from '../../assests/arrow.svg';
 
 const Sidebar = ({ setTheme, theme }) => {
   const [isSideBar, setIsSideBar] = useState(false);
@@ -18,7 +18,6 @@ const Sidebar = ({ setTheme, theme }) => {
   const refArrow = useRef(null);
   const refBurger = useRef(null);
   const openSidebar = () => {
-    console.log(refSidebar);
     if (refSidebar.current.classList.contains(`${s.mainOpen}`)) {
       refSidebar.current.classList.remove(`${s.mainOpen}`);
       refArrow.current.classList.remove(`${s.arrowRotate}`);
@@ -53,7 +52,7 @@ const Sidebar = ({ setTheme, theme }) => {
   };
   return (
     <div role="presentation" className={s.main} ref={refSidebar}>
-      <div role="presentation" ref={refBurger} className={s.burgerContainer} onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
+      <div role="presentation" className={s.burgerContainer} onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
         <div className={`${s.stroke} ${isBurgerOpen ? s.first : s.firstRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.second : s.secondRerotate}`} />
         <div className={`${s.stroke} ${isBurgerOpen ? s.third : s.thirdRerotate}`} />
@@ -115,7 +114,7 @@ const Sidebar = ({ setTheme, theme }) => {
           </div>
         </Link>
         <div ref={refArrow} role="presentation" className={s.arrowContainer} onClick={openSidebar}>
-          <img src={arrow} alt="arrow" />
+          <Arrow />
         </div>
         <Link to="/liked-movies" className={s.menuItem}>
           <MarksIcon className={s.marks} alt="marksIco" />

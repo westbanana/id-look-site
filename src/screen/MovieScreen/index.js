@@ -126,13 +126,15 @@ const MovieScreen = () => {
               <span className={s.title}>{movie.title}</span>
               <span className={s.originalTitle}>{`(${movie.original_title})`}</span>
             </div>
-            <div
-              role="presentation"
-              className={s.favorites}
-              onClick={changeMovieStatus}
-            >
-              {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
-            </div>
+            {localStorage.getItem('token') ? (
+              <div
+                role="presentation"
+                className={s.favorites}
+                onClick={changeMovieStatus}
+              >
+                {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
+              </div>
+            ) : ''}
           </div>
           <div className={s.body}>
             <div className={s.image_info_container}>

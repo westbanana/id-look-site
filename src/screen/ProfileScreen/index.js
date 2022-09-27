@@ -17,6 +17,7 @@ const Profile = ({
   const [userAvatar, setUserAvatar] = useState(userData.avatar);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorFetch, setErrorFetch] = useState('');
+  console.log(userName);
   const updateUser = () => {
     setUserData({
       name: userName || userData.name,

@@ -51,7 +51,7 @@ $secondBg: var(--secondBg);
       top: 0px;
       &:hover{
         input{
-            box-shadow: 0 4px 45px var(--third);
+            box-shadow: 0 4px 45px var(--input);
         }
       }
       input{
@@ -94,7 +94,7 @@ $secondBg: var(--secondBg);
         z-index: 9;
         overflow: auto;
         display: grid;
-        justify-items: center;
+        justify-items: start;
         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         transition: 0.3s;
         grid-gap: 100px 20px;
@@ -147,7 +147,7 @@ $secondBg: var(--secondBg);
               font-weight: 500;
               font-size: 12px;
               text-align: center;
-              color: var(--third);
+              color: var(--second);
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
@@ -231,7 +231,7 @@ $secondBg: var(--secondBg);
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: var(--third);
+          color: var(--second);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
