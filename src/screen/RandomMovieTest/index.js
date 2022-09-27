@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ import 'swiper/scss';
 import './style.scss';
 
 import unknownImage from '../../assests/unknownImage.svg';
-import Spinner from '../../components/Spinner';
 
 const RandomMovieTest = () => {
   const [movieList, setMovieList] = useState();
@@ -19,6 +18,7 @@ const RandomMovieTest = () => {
   const [swiper, setSwiper] = useState(null);
   const [movieId, setMovieId] = useState();
   const [opacity, setOpacity] = useState('0');
+  const refRandomIcon = useRef(null);
   const getRandomMovieList = () => {
     const randomPage = Math.floor((Math.random() * 500) + 1);
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${randomPage}`)
@@ -33,8 +33,15 @@ const RandomMovieTest = () => {
   };
 
   const spin = () => {
+    refRandomIcon.current.classList.add(`${s.hideButton}`);
+    refRandomIcon.current.classList.remove(`${s.targetButton}`);
     setOpacity('1');
-    swiper.autoplay.start();
+    setTimeout(() => {
+      swiper.autoplay.start();
+    }, 1);
+    setTimeout(() => {
+      refRandomIcon.current.classList.remove(`${s.hideButton}`);
+    }, 500);
     const interval = setInterval(test, 250);
     setTimeout(() => {
       swiper.autoplay.stop();
@@ -47,8 +54,10 @@ const RandomMovieTest = () => {
 
   useEffect(() => {
     getRandomMovieList();
+    setTimeout(() => {
+      refRandomIcon.current.classList.add(`${s.targetButton}`);
+    }, 1500);
   }, []);
-
   return (
     <div
       className={s.main}
@@ -59,7 +68,7 @@ const RandomMovieTest = () => {
         backgroundSize: 'cover',
       }}
     >
-      {movieId && !swiper?.autoplay?.running ? (
+      {movieId && !swiper?.autoplay?.running && (
         <div className={s.movieInfo}>
           <div className={s.infoContainer}>
             <span className={s.title}>
@@ -82,7 +91,7 @@ const RandomMovieTest = () => {
             <div>Перейти до фільму</div>
           </Link>
         </div>
-      ) : <Spinner className={s.spinnerIcon} />}
+      )}
       <Swiper
         onSwiper={setSwiper}
         slidesPerView={5}
@@ -107,10 +116,7 @@ const RandomMovieTest = () => {
         loop
         modules={[Autoplay]}
         style={{
-          position: 'relative',
-          marginBottom: `${swiper?.autoplay?.running ? '0px' : '40px'}`,
           opacity: `${opacity}`,
-          bottom: `${swiper?.autoplay?.running ? '-20px' : '-500px'}`,
         }}
       >
         {movieList && (
@@ -130,7 +136,34 @@ const RandomMovieTest = () => {
           ))
         )}
       </Swiper>
-      { !swiper?.autoplay?.running && (<div role="presentation" onClick={spin} className={s.randomIconContainer}><RandomIcon className={s.randomIcon} /></div>) }
+      { !swiper?.autoplay?.running && !movieId && (
+        <h1
+          className={s.pressButton}
+        >
+          <span className={s.word}>
+            Натисніть
+          </span>
+          <span className={s.word}>
+            кнопку
+          </span>
+          <span className={s.word}>
+            знизу
+          </span>
+          <span className={s.word}>
+            екрана
+          </span>
+        </h1>
+      )}
+      { !swiper?.autoplay?.running && (
+        <div
+          role="presentation"
+          ref={refRandomIcon}
+          onClick={spin}
+          className={s.randomIconContainer}
+        >
+          <RandomIcon className={s.randomIcon} />
+        </div>
+      )}
     </div>
   );
 };

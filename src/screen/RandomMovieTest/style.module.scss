@@ -5,7 +5,7 @@
   overflow: hidden;
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   transition: 0.4s;
   background: var(--third);
   }
@@ -16,6 +16,7 @@
   justify-content: space-around;
   border: rgba(67, 110, 133, 0.22) 1px solid;
   position: absolute;
+  z-index: 9999;
   background: var(--randomMovieInfo);
   top: calc(50% - 100px);
   backdrop-filter: blur(5px);
@@ -71,15 +72,15 @@
   }
 }
 .randomIconContainer{
-  box-shadow: rgba(0, 0, 0, 0.25) inset 0 0 10px;
   background-color: var(--first);
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   bottom: 0;
-  height: 0;
-  width: 100%;
+  left: calc(50% - 65px);
+  padding: 20px 50px;
+  border-radius: 10px 10px 0 0;
   z-index: 9;
   cursor: pointer;
   transition: all 0.2s;
@@ -97,17 +98,91 @@
   }
 }
 
+.targetButton{
+  animation: move 0.5s linear infinite;
+}
+.hideButton{
+  animation: hide 0.5s linear forwards;
+}
+
 .swiper-slide-active{
   opacity: 50% !important;
   cursor: pointer !important;
 }
 
+
+.pressButton{
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: calc(50% - 150px);
+  width: 300px;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  span{
+    display: inline-block;
+    opacity: 0;
+    filter: blur(4px);
+    margin-right: 15px;
+  }
+
+  span:nth-child(1) {
+    animation: fade-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  }
+
+  span:nth-child(2) {
+    animation: fade-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  }
+
+  span:nth-child(3) {
+    animation: fade-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  }
+
+  span:nth-child(4) {
+    animation: fade-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+  }
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes show {
   from{
-    height: 0;
+    bottom: -100px;
   }
   to{
-    height: 50px;
+    bottom: 0;
+  }
+}
+
+@keyframes move {
+  0%{
+    bottom: 0;
+  }
+  50%{
+    bottom: -20px;
+  }
+  100%{
+    bottom: 0;
+  }
+}
+@keyframes hide {
+  from{
+    bottom: 0;
+  }
+  to{
+    bottom: -100px;
+    display: none;
   }
 }
 
@@ -138,8 +213,6 @@
     height: 100%;
     overflow: hidden;
     position: relative;
-    display: flex;
-    align-items: flex-end;
     transition: 0.4s;
   }
   .movieInfo{
@@ -207,10 +280,6 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 0;
-    height: 0;
-    left: 0;
-    right: 0;
     z-index: 9;
     cursor: pointer;
     transition: all 0.2s;
