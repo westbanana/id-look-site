@@ -13,7 +13,7 @@ import Error from '../../components/Error';
 import { useClickAway } from 'react-use';
 
 const MainScreen = ({
-  getMovie, setUserData, userData, getUserToken,
+  getMovie, setUserData, getUserToken, userAvatar,
 }) => {
   const [movieList, setMovieList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -106,20 +106,27 @@ const MainScreen = ({
         <Login getError={setError} setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
       )}
       <div className={s.headerContainer}>
-        {userData.name && userData.surname ? (
-          <Link to="/profile" className={s.logInContainer}>
-            <span>{userData.name && userData.surname ? `${userData.name} ${userData.surname}` : 'Увійти'}</span>
-          </Link>
-        ) : (
-          <div role="presentation" className={s.logInContainer} onClick={logIn}>
-            <span>{userData.name && userData.surname ? `${userData.name} ${userData.surname}` : 'Увійти'}</span>
-          </div>
-        )}
         <div
           className={s.searchContainer}
           ref={refSearchListModal}
           style={{ margin: `${isDropDownOpen ? '0' : ''}`, width: `${isDropDownOpen ? '100%' : ''}` }}
         >
+          {localStorage.getItem('token') ? (
+            <Link
+              to="/profile"
+              className={s.avatarContainer}
+            >
+              <img
+                src={userAvatar}
+                alt="avatar"
+                className={s.userAvatar}
+              />
+            </Link>
+          ) : (
+            <div role="presentation" className={s.logInContainer} onClick={logIn}>
+              <span>Увійти</span>
+            </div>
+          )}
           <input
             ref={refSearchInput}
             placeholder="пошук"

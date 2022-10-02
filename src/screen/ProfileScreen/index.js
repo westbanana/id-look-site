@@ -1,23 +1,18 @@
 // import React, { useEffect, useState } from 'react';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
 
 import { ReactComponent as Spinner } from '../../assests/spinner.svg';
-import { ReactComponent as ProfileIcon } from '../../assests/profile.svg';
-import Login from '../../components/Authorisation/Login';
-import Error from '../../components/Error';
 
 const Profile = ({
-  userData, userToken, setUserData, getUserToken,
+  userData, userToken, setUserData,
 }) => {
   const [userName, setUserName] = useState(userData.name);
   const [userSurname, setUserSurname] = useState(userData.surname);
   const [userEmail, setUserEmail] = useState(userData.email);
   const [userAvatar, setUserAvatar] = useState(userData.avatar);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errorFetch, setErrorFetch] = useState('');
-  console.log(userName);
   const updateUser = () => {
     setUserData({
       name: userName || userData.name,
@@ -44,7 +39,7 @@ const Profile = ({
       redirect: 'follow',
     };
 
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptions)
+    fetch('https://id-look-server.herokuapp.com/api/v1/users', requestOptions)
       .then(response => response.json())
       .then(result => setUserData(result.data))
       .catch(error => console.log('error', error));
@@ -70,15 +65,14 @@ const Profile = ({
       redirect: 'follow',
     };
 
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptions)
+    fetch('https://id-look-server.herokuapp.com/api/v1/users', requestOptions)
       .then(response => response.json())
       .then(result => setUserData(result.data))
       .catch(error => console.log('error', error));
   };
   return (
     <div className={s.mainContainer}>
-      {errorFetch && (<Error error={errorFetch} />)}
-      {userData.name !== undefined ? (
+      {localStorage.getItem('token') ? (
         <div className={s.userInfoContainer}>
           <div className={s.userInfo}>
             <div className={s.avatarContainer}>
@@ -123,43 +117,24 @@ const Profile = ({
             >
               Зберегти
             </button>
-            <button
-              type="button"
+            <Link
+              to="/"
               className={`${s.submitButton} ${s.logOut}`}
-              onClick={() => {
-                localStorage.removeItem('token');
-                setUserData({});
-              }}
             >
-              Вийти
-            </button>
+              <button
+                type="button"
+                className={s.logoutButton}
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  setUserData({});
+                }}
+              >
+                Вийти
+              </button>
+            </Link>
           </div>
         </div>
-      ) : (
-        <div className={s.notAuth}>
-          {isModalOpen
-            ? (
-              <Login
-                setIsLogIn={setIsModalOpen}
-                setUserProfileData={setUserData}
-                getUserToken={getUserToken}
-                getError={setErrorFetch}
-              />
-            )
-            : (
-              <div className={s.authorization}>
-                <ProfileIcon className={s.profileIcon} />
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(true)}
-                  className={s.loginButton}
-                >
-                  увійти
-                </button>
-              </div>
-            )}
-        </div>
-      )}
+      ) : ''}
     </div>
   );
 };

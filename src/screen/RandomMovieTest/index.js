@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 
 import s from './style.module.scss';
 
-import { ReactComponent as RandomIcon } from '../../assests/randomMovieIcon.svg';
-
 import 'swiper/scss';
 import './style.scss';
 
+import { ReactComponent as RandomIcon } from '../../assests/randomMovieIcon.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 
 const RandomMovieTest = () => {
@@ -28,7 +27,7 @@ const RandomMovieTest = () => {
       });
   };
 
-  const test = () => {
+  const spinSpeed = () => {
     setSpeedSpin(prevCount => prevCount * 1.38);
   };
 
@@ -42,14 +41,14 @@ const RandomMovieTest = () => {
     setTimeout(() => {
       refRandomIcon.current.classList.remove(`${s.hideButton}`);
     }, 500);
-    const interval = setInterval(test, 250);
+    const interval = setInterval(spinSpeed, 500);
     setTimeout(() => {
       swiper.autoplay.stop();
       clearInterval(interval);
       setSpeedSpin(1);
       setMovieId(swiper.realIndex);
       setOpacity('0');
-    }, 5000);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -58,14 +57,29 @@ const RandomMovieTest = () => {
       refRandomIcon.current.classList.add(`${s.targetButton}`);
     }, 1500);
   }, []);
+  // const spin = () => {
+  //   refRandomIcon.current.classList.add(s.hideButton);
+  //   setOpacity('1');
+  //   swiper?.autoplay?.start();
+  //   const interval = setInterval(spinSpeed, 250);
+  //   setTimeout(() => {
+  //     swiper?.autoplay?.stop();
+  //     clearInterval(interval);
+  //     setSpeedSpin(1);
+  //     setMovieId(swiper.realIndex);
+  //     setOpacity('0');
+  //   }, 5000);
+  // };
+  // useEffect(() => {
+  //   getRandomMovieList();
+  //   spin();
+  // }, []);
+
   return (
     <div
       className={s.main}
       style={{
-        background: `${movieId !== undefined && !swiper?.autoplay?.running && movieList[movieId]?.backdrop_path ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : ''}`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
+        backgroundImage: `${movieId !== undefined && !swiper?.autoplay?.running && movieList[movieId]?.backdrop_path ? `url(https://image.tmdb.org/t/p/original/${movieList[movieId].backdrop_path})` : ''}`,
       }}
     >
       {movieId && !swiper?.autoplay?.running && (

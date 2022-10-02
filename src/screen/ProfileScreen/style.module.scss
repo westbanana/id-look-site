@@ -234,6 +234,17 @@ $secondBg: var(--secondBg);
   }
 }
 
+.logoutButton{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  fontWeight: 600;
+  fontSize: 23px;
+  color: var(--third);
+  cursor: pointer;
+}
+
 @keyframes showIcon {
   from{
     transform: scale(0);

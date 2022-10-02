@@ -6,7 +6,7 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.63);
-  z-index: 100;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +137,7 @@
 .closeModalIcon{
   position: absolute;
   top: calc(50% - 10px);
-  right: -50px;
+  right: 0;
   cursor: pointer;
   path{
     stroke: var(--second);

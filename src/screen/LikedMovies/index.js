@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom';
 import s from './style.module.scss';
 
 import unknownImage from '../../assests/unknownImage.svg';
-import Login from '../../components/Authorisation/Login';
 
-const LikedMovies = ({ setUserData, getUserToken }) => {
+const LikedMovies = () => {
   const [likedMovieList, setLikedMovieList] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
@@ -19,9 +17,13 @@ const LikedMovies = ({ setUserData, getUserToken }) => {
     fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
       .then(response => setLikedMovieList(response.items));
-  }, [likedMovieList]);
+  }, [likedMovieList.length]);
 
   const removeMovie = (movieId) => {
+    // fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
+    //   .then(response => response.json())
+    //   .then(response => setLikedMovieList(response.items));
+
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json;charset=utf-8');
 
@@ -45,7 +47,7 @@ const LikedMovies = ({ setUserData, getUserToken }) => {
       }}
       className={s.mainContainer}
     >
-      {localStorage.getItem('token') && likedMovieList ? (
+      {localStorage.getItem('token') && (
         <div
           style={{ justifyItems: `${likedMovieList.length === 1 ? 'start' : 'center'}` }}
           className={s.moviesContainer}
@@ -74,30 +76,6 @@ const LikedMovies = ({ setUserData, getUserToken }) => {
               </div>
             </div>
           ))}
-        </div>
-      ) : (
-        <div>
-          {!isModalOpen ? (
-            <div
-              className={s.loginButtonContainer}
-            >
-              <div
-                role="presentation"
-                onClick={() => setIsModalOpen(true)}
-                className={s.loginButton}
-              >
-                <span>
-                  Увійти/Зареєструватись
-                </span>
-              </div>
-            </div>
-          ) : (
-            <Login
-              getUserToken={getUserToken}
-              setUserProfileData={setUserData}
-              setIsLogIn={setIsModalOpen}
-            />
-          )}
         </div>
       )}
     </div>

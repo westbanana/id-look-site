@@ -66,7 +66,7 @@ const Login = ({
         redirect: 'follow',
       };
 
-      fetch('https://evening-basin-02735.herokuapp.com/api/v1/users', requestOptionsGetUser)
+      fetch('https://id-look-server.herokuapp.com/api/v1/users', requestOptionsGetUser)
         .then(response => response.json())
         .then((result) => {
           setUserProfileData(result.data);
@@ -98,7 +98,7 @@ const Login = ({
       }),
       redirect: 'follow',
     };
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/log-in', requestOptions)
+    fetch('https://id-look-server.herokuapp.com/api/v1/log-in', requestOptions)
       .then(response => response.json())
       .then((result) => {
         if (result.error) {
@@ -134,7 +134,7 @@ const Login = ({
       redirect: 'follow',
     };
 
-    fetch('https://evening-basin-02735.herokuapp.com/api/v1/sign-in', requestOptions)
+    fetch('https://id-look-server.herokuapp.com/api/v1/sign-in', requestOptions)
       .then(response => response.json())
       .then((result) => {
         if (result.error) {

@@ -6,8 +6,9 @@ import s from './style.module.scss';
 import { ReactComponent as Heart } from '../../assests/heart.svg';
 import { ReactComponent as FullHeart } from '../../assests/fullHeart.svg';
 import { ReactComponent as Star } from '../../assests/star.svg';
+import Login from '../../components/Authorisation/Login';
 
-const MovieScreen = () => {
+const MovieScreen = ({ getUserToken, setUserData }) => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState();
   const [movieCast, setMovieCast] = useState();
@@ -16,6 +17,7 @@ const MovieScreen = () => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [moviesIdList, setMoviesIdList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const refFrame = useRef(null);
   const { id } = useParams();
   const movieID = Number(id);
@@ -75,8 +77,13 @@ const MovieScreen = () => {
     getMovieCrew();
   }, [id]);
 
-  const addMovieToList = () => {
-    setLiked(true);
+  const typeAction = {
+    add: 'add_item',
+    remove: 'remove_item',
+  };
+
+  const actionMovieList = (action, isLiked) => {
+    setLiked(isLiked);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json;charset=utf-8');
 
@@ -87,38 +94,32 @@ const MovieScreen = () => {
       redirect: 'follow',
     };
 
-    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}/add_item?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f`, requestOptions)
+    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}/${action}?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
 
-  const removeMovieFromList = () => {
-    setLiked(false);
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json;charset=utf-8');
-
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify({ media_id: id }),
-      redirect: 'follow',
-    };
-
-    fetch(`https://api.themoviedb.org/3/list/${localStorage.getItem('userList')}/remove_item?api_key=0575eac7d0a89edcf83d5418ad2aebed&session_id=9577a8eeacee9f458229ff5af1c5b31b2c2dd44f`, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-  };
   const changeMovieStatus = () => {
-    if (!liked) {
-      addMovieToList();
+    if (localStorage.getItem('token')) {
+      if (!liked) {
+        actionMovieList(typeAction.add, true);
+      } else {
+        actionMovieList(typeAction.remove, false);
+      }
     } else {
-      removeMovieFromList();
+      setIsModalOpen(!isModalOpen);
     }
   };
   return (
     <div className={s.mainContainer}>
+      {isModalOpen && (
+        <Login
+          setUserProfileData={setUserData}
+          getUserToken={getUserToken}
+          setIsLogIn={setIsModalOpen}
+        />
+      )}
       {movieDetails.map(movie => (
         <div className={s.movieContainer}>
           <div className={s.header}>
@@ -126,15 +127,13 @@ const MovieScreen = () => {
               <span className={s.title}>{movie.title}</span>
               <span className={s.originalTitle}>{`(${movie.original_title})`}</span>
             </div>
-            {localStorage.getItem('token') ? (
-              <div
-                role="presentation"
-                className={s.favorites}
-                onClick={changeMovieStatus}
-              >
-                {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
-              </div>
-            ) : ''}
+            <div
+              role="presentation"
+              className={s.favorites}
+              onClick={changeMovieStatus}
+            >
+              {liked ? <FullHeart className={s.heartIconFull} /> : <Heart className={s.heartIcon} />}
+            </div>
           </div>
           <div className={s.body}>
             <div className={s.image_info_container}>
