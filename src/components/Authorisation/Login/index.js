@@ -16,7 +16,7 @@ const Login = ({
   const [userName, setUserName] = useState('');
   const [userSurName, setUserSurName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [userList, setUserList] = useState(0);
+  const [userList, setUserList] = useState();
   const [passwordIsShowing, setPasswordIsShowing] = useState(false);
   const [userToken, setUserToken] = useState('');
   const [isSignIn, setIsSignIn] = useState(false);
@@ -151,6 +151,25 @@ const Login = ({
       })
       .catch(error => console.log('error', error));
   };
+
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    fetch('https://id-look-server.herokuapp.com/api/v1/users', requestOptions)
+      .then(response => response.json())
+      .then((result) => {
+        localStorage.setItem('userList', result.data.watchListId);
+        localStorage.setItem('profileId', result.data.id);
+      })
+      .catch(error => console.log('error', error));
+  }, [userToken]);
 
   return (
     <div className={s.mainContainer}>

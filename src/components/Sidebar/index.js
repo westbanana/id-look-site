@@ -12,6 +12,7 @@ import { ReactComponent as Logo } from '../../assests/logo.svg';
 import { ReactComponent as LogoFull } from '../../assests/logoFull.svg';
 import { ReactComponent as Swiper } from '../../assests/swiper.svg';
 import { ReactComponent as Arrow } from '../../assests/arrow.svg';
+import { ReactComponent as Subscriptions } from '../../assests/friends.svg';
 
 const Sidebar = ({
   setTheme, theme, getUserToken, setUserData,
@@ -180,6 +181,30 @@ const Sidebar = ({
               <MarksIcon className={s.marks} alt="marksIco" />
               {isSideBar && (
                 <span className={s.description}>Відмітки</span>
+              )}
+            </div>
+          </div>
+        )}
+        {localStorage.getItem('token') ? (
+          <Link to="/community" className={s.menuItem}>
+            <Subscriptions className={s.subscriptions} alt="subscriptionsIcon" />
+            {isSideBar && (
+              <span className={s.description}>
+                Підписки
+              </span>
+            )}
+          </Link>
+        ) : (
+          <div
+            role="presentation"
+            onClick={isUserAuthorize}
+          >
+            <div className={s.menuItem}>
+              <Subscriptions className={s.subscriptions} alt="subscriptionsIcon" />
+              {isSideBar && (
+                <span className={s.description}>
+                  Підписки
+                </span>
               )}
             </div>
           </div>

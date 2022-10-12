@@ -1,0 +1,158 @@
+@import '../../assests/styles/style';
+$first: var(--first);
+$secondBg: var(--secondBg);
+
+.main{
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: var(--first);
+  background: -webkit-radial-gradient(center, $first, $secondBg);
+  background: -moz-radial-gradient(center, $first, $secondBg);
+  background: radial-gradient(ellipse at center, $first, $secondBg);
+  background-size: cover;
+  &::-webkit-scrollbar{
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--first);
+    border-radius: 10px;
+    margin: 0 2px;
+  }
+}
+
+.searchInput{
+  opacity: 0.1;
+}
+.subscriptions{
+}
+.usersContainer{
+  margin: 30px 0;
+  width: 100%;
+  h1{
+    color: var(--third);
+    padding-left: 50px;
+    text-align: start;
+    animation: showHeader 0.5s linear forwards;
+  }
+  .usersList{
+    border-radius: 10px 0 0 10px;
+    display: grid;
+    justify-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 100px 20px;
+    padding: 20px 0 20px 50px ;
+    .userContainer{
+      cursor: pointer;
+      height: 150px;
+      width: 400px;
+      border-radius: 20px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      background: var(--first);
+      position: relative;
+      animation: showUser 1s linear forwards;
+      transition: 0.5s;
+      position: relative;
+      z-index: 1;
+      &:hover{
+        box-shadow: var(--second) 0px 0px 30px 10px;
+        transform: perspective(300px) rotateY(-10deg) scale(0.9);
+        .removeIcon,
+        .addIcon{
+          stroke: var(--white);
+        }
+        .arrowIcon{
+          fill: var(--white)
+        }
+      }
+      .removeIcon{
+        opacity: 0.3;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        transition: 0.3s;
+      }
+      .addIcon{
+        transition: 0.3s;
+        transform: rotate(45deg);
+        opacity: 0.3;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .arrowIcon{
+        fill: var(--second);
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        right: 20px;
+        bottom: 20px;
+        transition: 1s;
+      }
+      .userAvatar{
+        background: var(--second);
+        border-radius: 100px;
+        overflow: hidden;
+        img{
+          height: 120px;
+        }
+      }
+      .userInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        .name{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          text-align: center;
+          color: var(--white);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        .subscribersCount,
+        .login{
+          font-style: normal;
+          font-weight: 300;
+          font-size: 15px;
+          text-align: center;
+          color: var(--white);
+          opacity: 0.3;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
+
+@keyframes showUser {
+  from{
+    display: none;
+    opacity: 0;
+  }
+  to{
+    display: flex;
+    opacity: 1;
+  }
+}
+
+@keyframes showHeader {
+  from{
+    transform: translateX(-200px);
+  }
+  to{
+    transform: translateX(0);
+  }
+}

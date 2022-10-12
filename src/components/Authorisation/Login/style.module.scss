@@ -35,18 +35,28 @@
     padding: 0 100px 50px 100px;
     border-radius: 10px;
     transform: scale(0);
+    position: relative;
     .authorisation{
       font-weight: 700;
       font-size: 30px;
       color: #325364;
       margin-top: 20px;
-      position: relative;
       .backArrow{
         fill: var(--second);
         position: absolute;
-        bottom: 13px;
-        left: -30px;
+        left: 20px;
+        top: 20px;
         cursor: pointer;
+        transform: rotate(180deg);
+      }
+      .closeModalIcon{
+        position: absolute;
+        cursor: pointer;
+        right: 20px;
+        top: 20px;
+        path{
+          stroke: var(--second);
+        }
       }
     }
     .inputsBlock{
@@ -134,15 +144,7 @@
     height: 14px;
   }
 }
-.closeModalIcon{
-  position: absolute;
-  top: calc(50% - 10px);
-  right: 0;
-  cursor: pointer;
-  path{
-    stroke: var(--second);
-  }
-}
+
 @keyframes show {
   from{
     transform: scale(0)

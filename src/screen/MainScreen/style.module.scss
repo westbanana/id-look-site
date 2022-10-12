@@ -1,6 +1,7 @@
 @import '../../assests/styles/style';
 $first: var(--first);
 $secondBg: var(--secondBg);
+
 .main{
   height: 100%;
   width: 100%;
@@ -27,146 +28,39 @@ $secondBg: var(--secondBg);
     align-items: center;
     position: relative;
     .searchContainer{
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
       position: relative;
-      width: 50%;
-      top: 0px;
-      .avatarContainer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        right: -30%;
-        border-radius: 50px;
-        overflow: hidden;
-        background: var(--second);
-        .userAvatar{
-          height: 50px;
-          width: 50px;
-        }
-      }
-      .logInContainer{
-        right: -30%;
-        min-width: 100px;
-        display: flex;
-        justify-content: flex-end;
-        position: absolute;
-        span{
-          font-weight: 600;
-          font-size: 16px;
-          color: var(--third);
-          text-decoration: underline;
-          cursor: pointer;
-        }
-      }
-      &:hover{
-        input{
-            box-shadow: 0 4px 45px var(--input);
-        }
-      }
-      input{
-        border: none;
-        outline: none;
-        color: var(--third);
-        padding: 5px 0 5px 20px;
-        min-width: 50%;
-        background: var(--first);
-        position: relative;
-        transition:  0.3s ease;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        &::placeholder{
-          color: var(--third);
-        }
-      }
-      .closeSearchContainerButton{
-        path{
-          stroke: var(--third);
-        }
-        font-weight: 600;
-        cursor: pointer;
-        position: absolute;
-        right: 20px;
-        top: 7.5px;
-        transition: 0.3s;
-        &:hover{
-          path{
-            stroke: var(--white);
-          }
-        }
-      }
-      .searchListModal{
-        margin-top: 36.3px;
-        transition: 0.3s;
-        animation: showModal 0.1s linear forwards;
-        position: absolute;
-        background: var(--first);
-        width: 100%;
+    }
+    .avatarContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 30px;
+      bottom: -10px;
+      border-radius: 50px;
+      overflow: hidden;
+      background: var(--second);
+      .userAvatar{
+        height: 50px;
+        width: 50px;
         z-index: 9;
-        overflow: auto;
-        display: grid;
-        justify-items: start;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        transition: 0.3s;
-        grid-gap: 100px 20px;
-        padding-top: 50px;
-        &::-webkit-scrollbar{
-          width: 10px;
-        }
-        &::-webkit-scrollbar-track{
-          background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-          background-color: var(--third);
-          border-radius: 10px;
-          margin: 0 2px;
-        }
-        .modalMovieContainer{
-          cursor: pointer;
-          transition: 0.3s;
-          background: var(--first);
-          height: 305px;
-          width: 210px;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          justify-content: space-between;
-          text-align: center;
-          &:hover{
-            .modalMovieInfoContainer{
-              background: var(--white);
-              color: var(--first);
-            }
-          }
-          img{
-            transition: 0.3s;
-            min-height: 100%;
-            width: 100%;
-            z-index: 2;
-          }
-          .modalMovieInfoContainer{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            border-bottom: 0.5px solid rgba(0, 0, 0, 0.42);
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-            padding: 10px 0;
-            transition: 0.3s;
-            background-color: var(--first);
-            span{
-              font-style: normal;
-              font-weight: 500;
-              font-size: 12px;
-              text-align: center;
-              color: var(--second);
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              overflow: hidden;
-              padding: 0 10px;
-            }
-          }
-        }
+      }
+    }
+    .logInContainer{
+      right: 30px;
+      bottom: -10px;
+      min-width: 100px;
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      z-index: 9;
+      span{
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--third);
+        text-decoration: underline;
+        cursor: pointer;
       }
     }
     .navContainer{
@@ -201,7 +95,7 @@ $secondBg: var(--secondBg);
   .moviesContainer{
     display: grid;
     justify-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     transition: 0.3s;
     grid-gap: 100px 20px;
     padding: 50px 0;
@@ -526,6 +420,9 @@ a{
         span{
         }
       }
+      .avatarContainer{
+        display: none;
+      }
       .searchContainer{
         &:hover{
           input{
@@ -651,36 +548,6 @@ a{
       .logInContainer{
         display: none;
         span{
-        }
-      }
-      .searchContainer{
-        &:hover{
-          input{
-          }
-        }
-        input{
-          &::placeholder{
-          }
-        }
-        .searchListModal{
-          .modalMovieContainer{
-            &:hover{
-            }
-            .modalMovieImageContainer{
-              .modalMovieImage{
-              }
-            }
-            .modalMovieInfoContainer{
-              .originalTitle{
-              }
-              span{
-              }
-              .modalMovieRate{
-                img{
-                }
-              }
-            }
-          }
         }
       }
       .navContainer{

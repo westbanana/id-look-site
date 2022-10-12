@@ -32,6 +32,7 @@ const RandomMovieTest = () => {
   };
 
   const spin = () => {
+    setMovieId();
     refRandomIcon.current.classList.add(`${s.hideButton}`);
     refRandomIcon.current.classList.remove(`${s.targetButton}`);
     setOpacity('1');
@@ -41,14 +42,14 @@ const RandomMovieTest = () => {
     setTimeout(() => {
       refRandomIcon.current.classList.remove(`${s.hideButton}`);
     }, 500);
-    const interval = setInterval(spinSpeed, 500);
+    const interval = setInterval(spinSpeed, 250);
     setTimeout(() => {
       swiper.autoplay.stop();
       clearInterval(interval);
       setSpeedSpin(1);
       setMovieId(swiper.realIndex);
       setOpacity('0');
-    }, 2000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -57,23 +58,6 @@ const RandomMovieTest = () => {
       refRandomIcon.current.classList.add(`${s.targetButton}`);
     }, 1500);
   }, []);
-  // const spin = () => {
-  //   refRandomIcon.current.classList.add(s.hideButton);
-  //   setOpacity('1');
-  //   swiper?.autoplay?.start();
-  //   const interval = setInterval(spinSpeed, 250);
-  //   setTimeout(() => {
-  //     swiper?.autoplay?.stop();
-  //     clearInterval(interval);
-  //     setSpeedSpin(1);
-  //     setMovieId(swiper.realIndex);
-  //     setOpacity('0');
-  //   }, 5000);
-  // };
-  // useEffect(() => {
-  //   getRandomMovieList();
-  //   spin();
-  // }, []);
 
   return (
     <div

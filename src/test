@@ -1,8 +1,10 @@
-<Route
-          path="/profile"
-          element={localStorage.getItem('token') ? (
-            <Profile userData={userData} userToken={userToken} setUserData={setUserData} getUserToken={setUserToken} />
-          ) : (
-            <ErrorScreen />
-          )}
-        />
+// role="presentation"
+// onClick={() => {
+//   if (refList.current.classList.contains(`${s.showList}`)) {
+//     refList.current.classList.remove(`${s.showList}`);
+//     refList.current.classList.add(`${s.hideList}`);
+//   } else {
+//     refList.current.classList.add(`${s.showList}`);
+//     refList.current.classList.remove(`${s.hideList}`);
+//   }
+// }}

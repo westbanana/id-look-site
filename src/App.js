@@ -1,4 +1,14 @@
-// TODO: убрать кнопку с избранных, если не авторизован и хочет поставить лайка, отображать модалку авторизации
+// TODO:  фикс аватара (смена);
+//  фикс удаление избранных фильмов;
+//  фикс крестика в логин модалке;
+
+// TODO:
+//  добавление поиска пользователей на экране комьюнити;
+//  добавление получения подписок на экране комьюнити;
+//  добавление получения топовых юзеров на экране комьюнити;
+//  просмотр экрана другого юзера и списка его избранных фильмов;
+//  добавить в информацию о пользователе количество подписок;
+
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -12,7 +22,9 @@ import RandomMovieScreen from './screen/RandomMovieScreen';
 import RandomMovieTest from './screen/RandomMovieTest';
 import ActorScreen from './screen/ActorScreen';
 import LikedMovies from './screen/LikedMovies';
+import CommunityScreen from './screen/CommunityScreen';
 import useTheme from './components/Hooks/useTheme';
+import UserScreen from './screen/UserScreen';
 
 const App = () => {
   const { theme, setTheme } = useTheme();
@@ -22,6 +34,8 @@ const App = () => {
   useEffect(() => {
     if (userData.message === 'user does not exist') {
       localStorage.removeItem('token');
+      localStorage.removeItem('profileId');
+      localStorage.removeItem('userList');
     }
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -34,7 +48,9 @@ const App = () => {
 
     fetch('https://id-look-server.herokuapp.com/api/v1/users', requestOptions)
       .then(response => response.json())
-      .then(result => setUserData(result.data))
+      .then((result) => {
+        setUserData(result.data);
+      })
       .catch(error => console.log('error', error));
   }, []);
 
@@ -109,6 +125,14 @@ const App = () => {
               setUserData={setUserData}
             />
           )}
+        />
+        <Route
+          path="/community"
+          element={(<CommunityScreen />)}
+        />
+        <Route
+          path="/user/:userId"
+          element={(<UserScreen />)}
         />
       </Routes>
     </div>

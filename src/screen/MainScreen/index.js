@@ -1,29 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { throttle } from 'lodash';
+// import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
+// import { useClickAway } from 'react-use';
 
 import s from './style.module.scss';
 
 import { ReactComponent as SortArrow } from '../../assests/arrow.svg';
-import { ReactComponent as RemoveIcon } from '../../assests/remove.svg';
 import unknownImage from '../../assests/unknownImage.svg';
 import Login from '../../components/Authorisation/Login';
 import Error from '../../components/Error';
-import { useClickAway } from 'react-use';
+import SearchInput from '../../components/SearchInput';
 
 const MainScreen = ({
   getMovie, setUserData, getUserToken, userAvatar,
 }) => {
   const [movieList, setMovieList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchedMovie, setSearchedMovie] = useState([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [islogInModalOpen, setIslogInModalOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [nameList, setNameList] = useState('Нові');
   const refSearchListModal = useRef(null);
-  const refSearchInput = useRef(null);
   const refSortList = useRef(null);
   const getMovieList = () => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&page=${currentPage}`)
@@ -77,33 +75,20 @@ const MainScreen = ({
     }
   }, [currentPage]);
 
-  const onSearchChange = throttle((e) => {
-    if (e.target.value) {
-      fetch(`https://api.themoviedb.org/3/search/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&query=${e.target.value}&page=1&include_adult=false`)
-        .then(response => response.json())
-        .then((response) => {
-          setSearchedMovie(response.results);
-        });
-      setIsDropDownOpen(true);
-    } else {
-      setIsDropDownOpen(false);
-      setSearchedMovie([]);
-    }
-  }, 1000, { leading: false });
   const logIn = () => {
     setIslogInModalOpen(true);
   };
-  useClickAway(refSearchListModal, () => {
-    setIsDropDownOpen(false);
-  });
+
   return (
     <div
+      style={{
+        overflow: `${isDropDownOpen ? 'hidden' : 'auto'}`,
+      }}
       className={s.main}
-      style={{ overflow: `${isDropDownOpen ? 'hidden' : 'auto'}` }}
     >
-      {error && (<Error error={error} />)}
+      {errorMessage && (<Error message={errorMessage} />)}
       {islogInModalOpen && (
-        <Login getError={setError} setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
+        <Login getError={setErrorMessage} setIsLogIn={setIslogInModalOpen} setUserProfileData={setUserData} getUserToken={getUserToken} />
       )}
       <div className={s.headerContainer}>
         <div
@@ -111,7 +96,7 @@ const MainScreen = ({
           ref={refSearchListModal}
           style={{ margin: `${isDropDownOpen ? '0' : ''}`, width: `${isDropDownOpen ? '100%' : ''}` }}
         >
-          {localStorage.getItem('token') ? (
+          {localStorage.getItem('token') && !isDropDownOpen ? (
             <Link
               to="/profile"
               className={s.avatarContainer}
@@ -127,47 +112,17 @@ const MainScreen = ({
               <span>Увійти</span>
             </div>
           )}
-          <input
-            ref={refSearchInput}
-            placeholder="пошук"
-            className={isDropDownOpen && (s.inputOpen)}
-            onChange={onSearchChange}
-            style={{ paddingRight: `${isDropDownOpen ? '50px' : '0'}` }}
+          <SearchInput
+            itemsType="movies"
+            changeIsDropDown={setIsDropDownOpen}
+            query={(setFoundItems, inputValue) => {
+              fetch(`https://api.themoviedb.org/3/search/movie?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk&query=${inputValue}&page=1&include_adult=false`)
+                .then(response => response.json())
+                .then((response) => {
+                  setFoundItems(response.results);
+                });
+            }}
           />
-          {isDropDownOpen && (
-            <RemoveIcon
-              className={s.closeSearchContainerButton}
-              onClick={() => {
-                setIsDropDownOpen(false);
-                refSearchInput.current.value = '';
-              }}
-            />
-          )}
-          {isDropDownOpen && !!searchedMovie.length && (
-            <div
-              style={{ justifyItems: `${searchedMovie.length === 1 ? 'start' : 'center'}` }}
-              className={s.searchListModal}
-            >
-              {searchedMovie.map(movie => (
-                <Link key={movie.id} to={`/movie/${movie.id}`}>
-                  <div role="presentation" className={s.modalMovieContainer}>
-                    <img
-                      className={s.modalMovieImage}
-                      alt="moviePoster"
-                      src={
-                        movie.poster_path
-                          ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                          : unknownImage
-                      }
-                    />
-                    <div className={s.modalMovieInfoContainer}>
-                      <span>{movie.title}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
         </div>
         <div className={s.navContainer}>
           <div className={s.navMenu} ref={refSortList}>

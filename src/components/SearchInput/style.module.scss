@@ -1,0 +1,151 @@
+$first: var(--first);
+$secondBg: var(--secondBg);
+.mainSearch{
+  width: 100%;
+  .inputContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    input{
+      border: none;
+      outline: none;
+      color: var(--third);
+      padding: 5px 50px 5px 20px;
+      background: var(--first);
+      transition:  0.3s ease;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      &::placeholder{
+        color: var(--third);
+      }
+      &:hover{
+        box-shadow: 0 4px 45px var(--input);
+      }
+    }
+    .closeSearchContainerButton{
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+  .searchListModal{
+    background: var(--first);
+    background: -webkit-radial-gradient(center, $first, $secondBg);
+    background: -moz-radial-gradient(center, $first, $secondBg);
+    background: radial-gradient(ellipse at center, $first, $secondBg);
+    height: 100%;
+    display: grid;
+    justify-items: start;
+    //grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 100px 20px;
+    padding: 50px 30px 100px 30px;
+    overflow: auto;
+    &::-webkit-scrollbar{
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--third);
+      border-radius: 10px;
+      margin: 0 2px;
+    }
+
+    .userContainer{
+      cursor: pointer;
+      height: 150px;
+      width: 400px;
+      border-radius: 20px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      background: var(--first);
+      .userAvatar{
+        background: var(--second);
+        border-radius: 100px;
+        overflow: hidden;
+        img{
+          height: 120px;
+        }
+      }
+      .userInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        .name{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          text-align: center;
+          color: var(--white);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        .login{
+          font-style: normal;
+          font-weight: 400;
+          font-size: 15px;
+          text-align: center;
+          color: var(--white);
+          opacity: 0.3;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .modalMovieContainer{
+      cursor: pointer;
+      transition: 0.3s;
+      background: var(--first);
+      height: 305px;
+      width: 210px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      &:hover{
+        .modalMovieInfoContainer{
+          background: var(--white);
+          color: var(--first);
+        }
+      }
+      img{
+        transition: 0.3s;
+        min-height: 100%;
+        width: 100%;
+        z-index: 2;
+      }
+      .modalMovieInfoContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.42);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 10px 0;
+        transition: 0.3s;
+        background-color: var(--first);
+        span{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          text-align: center;
+          color: var(--second);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+}
