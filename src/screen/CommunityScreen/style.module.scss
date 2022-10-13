@@ -46,7 +46,6 @@ $secondBg: var(--secondBg);
     grid-gap: 100px 20px;
     padding: 20px 0 20px 50px ;
     .userContainer{
-      cursor: pointer;
       height: 150px;
       width: 400px;
       border-radius: 20px;
@@ -64,9 +63,10 @@ $secondBg: var(--secondBg);
       z-index: 1;
       &:hover{
         box-shadow: var(--second) 0px 0px 30px 10px;
-        transform: perspective(300px) rotateY(-10deg) scale(0.9);
+        transform: perspective(300px) rotateX(3deg) scale(1.1);
         .removeIcon,
         .addIcon{
+          cursor: pointer;
           stroke: var(--white);
         }
         .arrowIcon{

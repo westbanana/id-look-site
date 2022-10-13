@@ -50,47 +50,14 @@ $secondBg: var(--secondBg);
       margin-bottom: 20px;
     }
   }
-  .userSubscribers,
-  .userSubscriptions{
-    width: 100%;
-    padding: 30px 10px;
-    border: 1px solid var(--second);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    gap: 20px;
-  }
-  .headerContainer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .headerName{
-      font-weight: 600;
-      font-size: 30px;
-    }
-    .arrowIcon{
-      height: 30px;
-      width: 30px;
-      fill: var(--third);
-      cursor: pointer;
-      transition: 0.5s;
-    }
-    .arrowRotate{
-      transform: rotate(90deg);
-    }
-  }
   .moviesContainer{
-    display: none;
-    transition: 1s;
-  }
-  .moviesContainerOpen{
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    transition: 0.3s;
     grid-gap: 100px 20px;
-    padding: 50px;
-    animation: showList 0.5s linear forwards;
+    width: 100%;
+    margin-top: 25px;
     .movieContainer{
       cursor: pointer;
       transition: 0.3s;
@@ -150,22 +117,5 @@ $secondBg: var(--secondBg);
         }
       }
     }
-  }
-}
-
-@keyframes showList {
-  from{
-    opacity: 0;
-  }
-  to{
-    opacity: 1;
-  }
-}
-@keyframes hideList {
-  from{
-    height: 100%;
-  }
-  to{
-    height: 0;
   }
 }

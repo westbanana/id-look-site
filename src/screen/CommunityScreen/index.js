@@ -5,7 +5,6 @@ import s from './style.module.scss';
 
 import SearchInput from '../../components/SearchInput';
 import { ReactComponent as RemoveIcon } from '../../assests/remove.svg';
-import { ReactComponent as ArrowIcon } from '../../assests/arrow.svg';
 
 const CommunityScreen = () => {
   const [topUsersList, setTopUsersList] = useState([]);
@@ -13,9 +12,11 @@ const CommunityScreen = () => {
   const topUsersLink = 'https://id-look-server.herokuapp.com/api/v1/users/top?offset=0&limit=10';
   const searchLink = value => `https://id-look-server.herokuapp.com/api/v1/users/search?template=${value}`;
   const userSubscriptionLink = 'https://id-look-server.herokuapp.com/api/v1/users/subscriptions';
+  const profileId = localStorage.getItem('profileId');
+  const token = localStorage.getItem('token');
   const getUserList = (link, cb) => {
     const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    myHeaders.append('Authorization', `Bearer ${token}`);
 
     const requestOptions = {
       method: 'GET',
@@ -31,7 +32,7 @@ const CommunityScreen = () => {
 
   const unsubscribe = (userId) => {
     const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    myHeaders.append('Authorization', `Bearer ${token}`);
 
     const requestOptions = {
       method: 'DELETE',
@@ -51,7 +52,7 @@ const CommunityScreen = () => {
   const subscribe = (userId, userData) => {
     setUserSubscriptions(list => [...list, userData]);
     const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    myHeaders.append('Authorization', `Bearer ${token}`);
 
     const requestOptions = {
       method: 'POST',
@@ -100,9 +101,13 @@ const CommunityScreen = () => {
                   />
                 </div>
                 <div className={s.userInfo}>
-                  <span className={s.name}>
-                    {`${user.name} ${user.surname}`}
-                  </span>
+                  <Link
+                    to={`/user/${user.id}`}
+                  >
+                    <span className={s.name}>
+                      {`${user.name} ${user.surname}`}
+                    </span>
+                  </Link>
                   <span
                     className={s.login}
                   >
@@ -113,13 +118,6 @@ const CommunityScreen = () => {
                   onClick={() => unsubscribe(user.id)}
                   className={s.removeIcon}
                 />
-                <Link
-                  to={`${localStorage.getItem('id') === user.id ? '/' : `/user/${user.id}`}`}
-                >
-                  <ArrowIcon
-                    className={s.arrowIcon}
-                  />
-                </Link>
               </div>
             ))}
           </div>
@@ -128,7 +126,7 @@ const CommunityScreen = () => {
         )}
       </div>
       <div className={s.usersContainer}>
-        <h1>Топ 10</h1>
+        <h1>{`Топ ${topUsersList.length}`}</h1>
         <div
           className={s.usersList}
         >
@@ -149,9 +147,13 @@ const CommunityScreen = () => {
                 />
               </div>
               <div className={s.userInfo}>
-                <span className={s.name}>
-                  {`${user.name} ${user.surname}`}
-                </span>
+                <Link
+                  to={`/user/${user.id}`}
+                >
+                  <span className={s.name}>
+                    {`${user.name} ${user.surname}`}
+                  </span>
+                </Link>
                 <span
                   className={s.subscribersCount}
                 >
@@ -160,13 +162,16 @@ const CommunityScreen = () => {
                 <span
                   className={s.login}
                 >
-                  {`@${user.login} ${user.id}`}
+                  {`@${user.login}`}
                 </span>
               </div>
               {userSubscriptions.find(element => element.id === user.id) ? (
                 <RemoveIcon
                   onClick={() => unsubscribe(user.id)}
                   className={s.removeIcon}
+                  style={{
+                    display: `${user.id}` !== profileId ? 'flex' : 'none',
+                  }}
                 />
               ) : (
                 <RemoveIcon
@@ -174,15 +179,11 @@ const CommunityScreen = () => {
                     subscribe(user.id, user);
                   }}
                   className={s.addIcon}
+                  style={{
+                    display: `${user.id}` !== profileId ? 'flex' : 'none',
+                  }}
                 />
               )}
-              <Link
-                to={`${localStorage.getItem('id') === user.id ? '/' : `/user/${user.id}`}`}
-              >
-                <ArrowIcon
-                  className={s.arrowIcon}
-                />
-              </Link>
             </div>
           ))}
         </div>
