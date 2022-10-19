@@ -5,17 +5,15 @@ import s from './style.module.scss';
 
 import { ReactComponent as Heart } from '../../assests/heart.svg';
 import { ReactComponent as FullHeart } from '../../assests/fullHeart.svg';
-import { ReactComponent as Star } from '../../assests/star.svg';
 import Login from '../../components/Authorisation/Login';
+import Comments from '../../components/Comments';
 
-const MovieScreen = ({ getUserToken, setUserData }) => {
+const MovieScreen = ({ getUserToken, setUserData, userData }) => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState();
   const [movieCast, setMovieCast] = useState();
   const [movieCrew, setMovieCrew] = useState();
   const [liked, setLiked] = useState(false);
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
   const [moviesIdList, setMoviesIdList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const refFrame = useRef(null);
@@ -39,7 +37,6 @@ const MovieScreen = ({ getUserToken, setUserData }) => {
       }
     }
   }, [moviesIdList]);
-  const rateArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const getMovieDetails = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
@@ -51,7 +48,7 @@ const MovieScreen = ({ getUserToken, setUserData }) => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=0575eac7d0a89edcf83d5418ad2aebed&language=uk`)
       .then(response => response.json())
       .then((response) => {
-        setMovieTrailer(response.results[0].key);
+        if (response.results[0].key) setMovieTrailer(response.results[0].key);
       });
   };
 
@@ -121,7 +118,7 @@ const MovieScreen = ({ getUserToken, setUserData }) => {
         />
       )}
       {movieDetails.map(movie => (
-        <div className={s.movieContainer}>
+        <div className={s.movieContainer} key={movie.id}>
           <div className={s.header}>
             <div className={s.titleContainer}>
               <span className={s.title}>{movie.title}</span>
@@ -207,29 +204,10 @@ const MovieScreen = ({ getUserToken, setUserData }) => {
                 />
               </div>
             )}
-            <div className={s.rateContainer}>
-              <div>
-                {rateArr.map((labelKey, index) => {
-                  const ratingValue = index + 1;
-                  return (
-                    <label key={labelKey}>
-                      <input
-                        type="radio"
-                        name="ratind"
-                        value={ratingValue}
-                        onClick={() => setRating(ratingValue)}
-                      />
-                      <Star
-                        className={s.star}
-                        style={{ fill: `${ratingValue <= (hover || rating) ? '#ffc107' : ''}` }}
-                        onMouseOver={() => setHover(ratingValue)}
-                        onMouseOut={() => setHover(null)}
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
+            <Comments
+              movieID={movieID}
+              userData={userData}
+            />
           </div>
         </div>
       ))}

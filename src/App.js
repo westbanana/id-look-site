@@ -120,6 +120,7 @@ const App = () => {
           path="/movie/:id"
           element={(
             <MovieScreen
+              userData={userData}
               selectedMovie={selectedMovie}
               getUserToken={setUserToken}
               setUserData={setUserData}

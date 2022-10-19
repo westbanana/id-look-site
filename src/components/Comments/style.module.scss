@@ -1,0 +1,108 @@
+.main{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .inputContainer{
+    width: 100%;
+    .input{
+      width: 100%;
+      background: transparent;
+      outline: none;
+      border: none;
+      font-size: 15px;
+      border-bottom: 1px solid var(--second);
+      resize: none;
+      position: relative;
+      &::placeholder{
+        color: var(--third);
+      }
+      color: white;
+    }
+    .buttonsContainer{
+      display: flex;
+      gap: 15px;
+      span{
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+        &:hover{
+          color: var(--white);
+        }
+      }
+    }
+  }
+  .commentsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    .userContainer{
+      border: 1px solid var(--third);
+      padding: 30px;
+      border-radius: 15px;
+      display: flex;
+      gap: 20px;
+      position: relative;
+      &:first-of-type{
+        margin-top: 50px;
+      }
+      .userAvatar{
+        height: 100px;
+        min-width: 100px;
+        width: 100px;
+        border-radius: 100%;
+        overflow: hidden;
+        background: var(--third);
+        img{
+          height: 100px;
+        }
+      }
+      .userInfo{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .userHeader{
+          display: flex;
+          justify-content: space-between;
+          font-size: 20px;
+          font-weight: 600;
+          color: var(--third);
+        }
+        .userComment{
+          font-weight: 300;
+          color: var(--white);
+          text-align: left;
+        }
+        .footerComment{
+          display: flex;
+          align-items: center;
+          .answer{
+          }
+          .liked,
+          .unliked{
+            margin-left: 20px;
+            cursor: pointer;
+          }
+          .liked{
+            fill: var(--white)
+          }
+          .unliked{
+            fill: var(--second);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes showUser {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
