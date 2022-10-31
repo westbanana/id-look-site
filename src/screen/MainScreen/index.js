@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-// import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
-// import { useClickAway } from 'react-use';
 
 import s from './style.module.scss';
 
@@ -79,6 +77,8 @@ const MainScreen = ({
     setIslogInModalOpen(true);
   };
 
+  console.log(isDropDownOpen);
+
   return (
     <div
       style={{
@@ -108,7 +108,14 @@ const MainScreen = ({
               />
             </Link>
           ) : (
-            <div role="presentation" className={s.logInContainer} onClick={logIn}>
+            <div
+              role="presentation"
+              className={s.logInContainer}
+              onClick={logIn}
+              style={{
+                display: `${isDropDownOpen ? 'none' : ''}`,
+              }}
+            >
               <span>Увійти</span>
             </div>
           )}
@@ -200,7 +207,7 @@ const MainScreen = ({
           disabledClassName={s.disabled}
           renderOnZeroPageCount={null}
           nextLabel={<SortArrow className={s.nextLabel} />}
-          previousLabel={<SortArrow />}
+          previousLabel={<SortArrow className={s.previousLabel} />}
         />
       </div>
     </div>

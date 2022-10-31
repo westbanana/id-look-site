@@ -26,6 +26,7 @@ $secondBg: var(--secondBg);
       position: absolute;
       right: 10px;
       cursor: pointer;
+      stroke: var(--third);
     }
   }
   .searchListModal{
@@ -36,7 +37,6 @@ $secondBg: var(--secondBg);
     height: 100%;
     display: grid;
     justify-items: start;
-    //grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-gap: 100px 20px;
     padding: 50px 30px 100px 30px;
@@ -52,7 +52,6 @@ $secondBg: var(--secondBg);
       border-radius: 10px;
       margin: 0 2px;
     }
-
     .userContainer{
       cursor: pointer;
       height: 150px;
@@ -115,8 +114,7 @@ $secondBg: var(--secondBg);
       text-align: center;
       &:hover{
         .modalMovieInfoContainer{
-          background: var(--white);
-          color: var(--first);
+          background: var(--second);
         }
       }
       img{
@@ -139,11 +137,11 @@ $secondBg: var(--secondBg);
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: var(--second);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
           padding: 0 10px;
+          color: white;
         }
       }
     }

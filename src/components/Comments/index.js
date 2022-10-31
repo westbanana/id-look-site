@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -9,35 +9,30 @@ import { ReactComponent as Like } from '../../assests/like.svg';
 const Comments = ({ movieID, userData }) => {
   const [commentsList, setCommentsList] = useState([]);
   const [commentValue, setCommentValue] = useState('');
-  const refCommentInput = useRef(null);
+
   const token = localStorage.getItem('token');
-  console.log(userData);
+
   const getMovieComments = () => {
-    const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${token}`);
 
     const requestOptions = {
       method: 'GET',
-      headers: myHeaders,
+      headers,
       redirect: 'follow',
     };
 
-    fetch(`https://id-look-server.herokuapp.com/api/v1/comments?movie_id=${movieID}&limit=20&offset=0`, requestOptions)
+    fetch(`https://id-look-server.herokuapp.com/api/v1/comments?movie_id=${movieID}&limit=10&offset=0`, requestOptions)
       .then(response => response.json())
       .then(result => setCommentsList(result.data))
       .catch(error => console.log('error', error));
   };
-  console.log(commentsList[0]);
+
   const clearComment = () => {
     setCommentValue('');
-    refCommentInput.current.value = '';
   };
+
   const sendComment = () => {
-    // const newComment = {
-    //   movieID: movieID,
-    //   parentId: null,
-    //   content: commentValue,
-    // };
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
     myHeaders.append('Content-Type', 'application/json');
@@ -54,8 +49,24 @@ const Comments = ({ movieID, userData }) => {
     };
 
     fetch('https://id-look-server.herokuapp.com/api/v1/comments', requestOptions)
+      .then(response => response.json())
+      .then((result) => {
+        setCommentsList([{
+          id: result.data.id,
+          userName: userData.name,
+          userSurname: userData.surname,
+          userAvatar: userData.avatar,
+          movieId: movieID,
+          parentId: null,
+          content: commentValue,
+          likes: 0,
+        },
+        ...commentsList,
+        ]);
+      })
       .catch(error => console.log('error', error));
-    refCommentInput.current.value = '';
+
+    setCommentValue('');
   };
 
   useEffect(() => {
@@ -113,12 +124,12 @@ const Comments = ({ movieID, userData }) => {
         className={s.inputContainer}
       >
         <TextareaAutosize
+          value={commentValue}
           className={s.input}
-          ref={refCommentInput}
           onChange={e => setCommentValue(e.target.value)}
           placeholder="Додати коментар..."
         />
-        {refCommentInput?.current?.value && (
+        {commentValue && (
           <div className={s.buttonsContainer}>
             <span
               role="presentation"

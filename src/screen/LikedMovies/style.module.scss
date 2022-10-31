@@ -56,8 +56,7 @@ $secondBg: var(--secondBg);
       top: 0;
       cursor: pointer;
       padding: 5px 15px;
-      background: var(--third);
-      color: var(--second);
+      background: var(--first);
       transition: 0.3s;
       z-index: 20;
       opacity: 0;
@@ -81,7 +80,7 @@ $secondBg: var(--secondBg);
         z-index: 2;
       }
       &:hover .movieInfoContainer{
-        background-color: var(--white);
+        background-color: var(--second);
       }
       .movieInfoContainer{
         width: 100%;
@@ -97,7 +96,7 @@ $secondBg: var(--secondBg);
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: var(--second);
+          color: white;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;

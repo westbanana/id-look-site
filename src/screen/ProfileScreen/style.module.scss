@@ -70,7 +70,7 @@ $secondBg: var(--secondBg);
       margin-top: 54px;
       position: relative;
       &:hover input{
-        color: var(--white);
+        color: white;
       }
       &:hover span{
         padding-left: 5%;
@@ -120,8 +120,8 @@ $secondBg: var(--secondBg);
     text-transform: uppercase;
     border-radius: 5px;
     &:hover{
-      background: var(--white);
-      color: var(--black);
+      background: white;
+      color: black;
       box-shadow: rgba(0, 0, 0, 0.32) 0 15px 5px -5px;
     }
   }
@@ -243,6 +243,9 @@ $secondBg: var(--secondBg);
   fontSize: 23px;
   color: var(--third);
   cursor: pointer;
+  &:hover{
+    color: black;
+  }
 }
 
 @keyframes showIcon {

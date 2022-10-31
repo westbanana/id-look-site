@@ -47,31 +47,36 @@
       cursor: pointer;
       transition: all 0.3s;
       .subscriptions{
+        transition: 0.3s;
         fill: var(--third);
       }
       .profile{
         fill: var(--third);
+        transition: 0.3s;
       }
       .randomMovie{
+        transition: 0.3s;
         stroke: var(--third);
       }
       .marks{
+        transition: 0.3s;
         stroke: var(--third);
       }
       &:hover{
         .marks,
         .randomMovie{
-          stroke: var(--second);
+          stroke: var(--white);
         }
       }
       &:hover{
-        .profile{
-          fill: var(--second);
+        .profile,
+        .subscriptions{
+          fill: var(--white);
         }
       }
       &:hover{
         .description{
-          color: var(--second);
+          color: var(--white);
         }
       }
       .description{
@@ -81,6 +86,7 @@
         font-weight: 500;
         text-align: start;
         font-size: 15px;
+        transition: 0.3s;
       }
     }
   }

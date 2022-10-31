@@ -75,8 +75,8 @@ const RandomMovieTest = () => {
             <span className={s.original_title}>
               {`(${movieList[movieId]?.original_title})`}
             </span>
-            <div>
-              <span>IMDB: </span>
+            <div className={s.imdbContainer}>
+              <span className={s.imdbSpan}>IMDB: </span>
               <span
                 className={s.rate}
                 style={{ color: `${movieList[movieId].vote_average <= 5 ? '#ff2f2f' : movieList[movieId].vote_average > 5 && movieList[movieId].vote_average <= 7 ? '#eeee41' : '#29f729'}` }}

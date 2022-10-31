@@ -48,13 +48,23 @@
         top: 20px;
         cursor: pointer;
         transform: rotate(180deg);
+        transition: 0.3s;
+        &:hover{
+          fill: white;
+        }
       }
       .closeModalIcon{
         position: absolute;
         cursor: pointer;
         right: 20px;
         top: 20px;
+        &:hover{
+          path{
+            stroke: white;
+          }
+        }
         path{
+          transition: 0.3s;
           stroke: var(--second);
         }
       }
@@ -101,7 +111,7 @@
         transition: 0.3s;
         padding: 5px;
         &:hover{
-          color: var(--white);
+          color: white;
         }
       }
     }
@@ -124,7 +134,7 @@
     transition: 0.3s;
     padding: 5px;
     &:hover{
-      color: var(--white);
+      color: white;
     }
   }
 }

@@ -1,12 +1,14 @@
 @import '../../assests/styles/style';
+$first: var(--first);
+$secondBg: var(--secondBg);
 
 .main{
   height: 100%;
   width: 100%;
   background: var(--first);
-  background: -webkit-radial-gradient(center, var(--first), var(--second)Bg);
-  background: -moz-radial-gradient(center, var(--first), var(--second)Bg);
-  background: radial-gradient(ellipse at center, var(--first), var(--second)Bg);
+  background: -webkit-radial-gradient(center, $first, $secondBg);
+  background: -moz-radial-gradient(center, $first, $secondBg);
+  background: radial-gradient(ellipse at center, $first, $secondBg);
   background-size: cover;
   overflow: auto;
   .actorContainer{
@@ -98,6 +100,11 @@
   justify-content: space-between;
   text-align: center;
   animation: movieContainer 0.3s linear forwards;
+  &:hover{
+    .movieTitle{
+      background: var(--second);
+    }
+  }
   img{
     transition: 0.3s;
     min-height: 100%;
@@ -118,7 +125,7 @@
       font-weight: 500;
       font-size: 12px;
       text-align: center;
-      color: var(--third);
+      color: white;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;

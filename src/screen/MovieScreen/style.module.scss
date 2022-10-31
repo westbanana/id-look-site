@@ -40,14 +40,14 @@
           font-size: 30px;
           text-align: center;
           text-decoration-line: underline;
-          color: var(--white);
+          color: var(--third);
         }
         .originalTitle{
           font-weight: 500;
           font-size: 15px;
           line-height: 15px;
           text-align: start;
-          color: var(--white);
+          color: white;
           opacity: 0.5;
         }
       }
@@ -99,7 +99,8 @@
               overflow: hidden;
               color: var(--white);
               a{
-                color: var(--white);
+                color: white;
+                opacity: 0.6;
               }
             }
             .genres{
@@ -147,14 +148,12 @@
           font-weight: 700;
           font-size: 25px;
           line-height: 203%;
-          color: var(--white);
           }
         .overview{
           font-style: normal;
           font-weight: 500;
           font-size: 15px;
           line-height: 203%;
-          color: var(--white);
         }
       }
       .trailerContainer{
