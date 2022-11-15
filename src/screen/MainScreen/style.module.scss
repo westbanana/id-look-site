@@ -86,7 +86,7 @@ $secondBg: var(--secondBg);
           animation: navMenuItem 0.3s linear forwards;
           &:hover{
             background-color: var(--third);
-            color: var(--white);
+            color: var(--black);
           }
         }
       }
@@ -123,9 +123,6 @@ $secondBg: var(--secondBg);
       &:hover .movieInfoContainer{
         background-color: var(--second);
       }
-      &:hover .movieTitle{
-        color: red;
-      }
       .movieInfoContainer{
         width: 100%;
         display: flex;
@@ -140,7 +137,7 @@ $secondBg: var(--secondBg);
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: white;
+          color: var(--white);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;

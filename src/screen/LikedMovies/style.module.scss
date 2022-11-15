@@ -96,7 +96,7 @@ $secondBg: var(--secondBg);
           font-weight: 500;
           font-size: 12px;
           text-align: center;
-          color: white;
+          color: var(--white);
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;

@@ -31,7 +31,7 @@
       }
     }
     .logo{
-      transition: 0.3s;
+      transition: all 0.3s;
     }
   }
   .menuContainer{
@@ -65,18 +65,18 @@
       &:hover{
         .marks,
         .randomMovie{
-          stroke: var(--white);
+          stroke: white;
         }
       }
       &:hover{
         .profile,
         .subscriptions{
-          fill: var(--white);
+          fill: white;
         }
       }
       &:hover{
         .description{
-          color: var(--white);
+          color: white;
         }
       }
       .description{
